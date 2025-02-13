@@ -1,8 +1,8 @@
 # React JS Cheatsheet
 
-## **Index** 📚
+## **Index**
 
-0. ### [Level 0](#level-0)
+0. ### [Level 0](#level-0-1)
 
    1. **[What is Emmet?](#1-what-is-emmet)**
    2. **[Difference between a Library and a Framework?](#2-difference-between-a-library-and-a-framework)**
@@ -44,7 +44,7 @@ Expands to →
 </ul>
 ```
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **2. Difference between a Library and a Framework?**
 
@@ -75,7 +75,7 @@ Here’s an **enhanced version** of your table with **better readability, proper
 - You **follow its structure**—you can only take what's available.
 - The system controls the flow, and you work within its rules.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ---
 
@@ -99,7 +99,7 @@ When a user requests content from a website without a CDN, the request is sent d
 - If the origin server is located far away from the user, it may result in longer loading times due to increased latency.
 - High traffic volumes or server overload can lead to slower response times and even server downtime, which will negatively impact the user experience.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **4. Why is React known as React?**
 
@@ -107,7 +107,7 @@ React is called **React** because it **reacts** to changes in data efficiently.
 
 🔹 It uses a **virtual DOM** to detect changes and update only those component which are needed to update, making apps fast and responsive.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **5. What is `crossorigin` in the `<script>` tag?**
 
@@ -126,7 +126,7 @@ When loading a script from a different origin (another website or CDN), the brow
 <script src="https://example.com/script.js" crossorigin="anonymous"></script>
 ```
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **6. What is the difference between React and ReactDOM?**
 
@@ -142,7 +142,7 @@ When loading a script from a different origin (another website or CDN), the brow
 - `React` = Makes components.
 - `ReactDOM` = Puts components into the webpage.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ---
 
@@ -155,7 +155,7 @@ When loading a script from a different origin (another website or CDN), the brow
 - **Example**:  
    When you want to use a library like React, you use NPM to install it.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **2. What is a Bundler? Types**
 
@@ -166,7 +166,7 @@ A **Bundler** is a tool that takes multiple files (JavaScript, CSS, HTML) and co
   - **Parcel**: An easy-to-use bundler with automatic configuration.
   - **Rollup**: Good for libraries and optimizing code for production.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **3. What is Vite, and why do we need it?**
 
@@ -178,7 +178,7 @@ A **Bundler** is a tool that takes multiple files (JavaScript, CSS, HTML) and co
 - **Hot Module Replacement (HMR)**: Instant updates to the page without refreshing, improving the developer experience.
 - **Optimized for Modern Frameworks**: Built with React, Vue, and other modern JavaScript frameworks in mind.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **4. What is `.vite` (Vite's cache folder)?**
 
@@ -190,7 +190,7 @@ The `.vite` folder is where Vite stores temporary files to make the development 
 - Helps reduce build time by reusing files instead of re-compiling everything.
 - You can delete the .vite folder if it becomes too large or causes issues, as it will be recreated on the next build.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **5. What is `npx`?**
 
@@ -256,7 +256,7 @@ This command will **download and run** the package temporarily, showing the outp
 
 After executing the command, **it is not saved anywhere** on your system—there’s no need to manage dependencies or install packages.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **6. Difference Between `dependencies` and `devDependencies`**
 
@@ -274,7 +274,7 @@ Imagine you're **building a car** 🚗:
 - **`dependencies`** = **Car Engine, Wheels, Seats** → Needed for the car to run.
 - **`devDependencies`** = **Tools like a Wrench, Jack, and Screwdriver** → Needed to build the car but not required when driving.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **7. What is Tree Shaking in Vite?**
 
@@ -314,7 +314,7 @@ console.log(add(2, 3));
 - **Optimizes performance** → Less unused code in production
 - **Improves efficiency** → Only keeps what is necessary
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **8. What is Hot Module Replacement (HMR) in Vite?**
 
@@ -338,7 +338,7 @@ console.log(add(2, 3));
 - You edit `App.jsx` → Only that component **updates instantly**.
 - No full reload → **UI state is preserved**.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **9. List 5 main features of `Vite`**:
 
@@ -348,7 +348,7 @@ console.log(add(2, 3));
 4. **Framework Agnostic**: Vite supports popular frameworks like **React**, **Vue**, **Svelte**, and more, with zero-config setup.
 5. **Pre-Bundling**: Vite uses **esbuild** to pre-bundle dependencies in advance, making it faster than traditional bundlers.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **10. What is .gitignore? What should we add and not add into it?**
 
@@ -368,7 +368,7 @@ console.log(add(2, 3));
 - **Configuration files**: `.gitignore`, `.eslintrc`, etc.
 - **Documentation**: `.md`, `.txt`
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **11. Difference Between `package.json` and `package-lock.json`**
 
@@ -412,7 +412,7 @@ console.log(add(2, 3));
 
    - Guarantees consistent builds across different environments, avoiding “it works on my machine” issues.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ### **12. What is `node_module` and `dist` folder**
 
@@ -425,6 +425,6 @@ console.log(add(2, 3));
 - **`node_modules`**: Contains all the libraries and packages that your project depends on.
 - **`dist`**: Contains the optimized and bundled output of your project, ready to be deployed.
 
-[Go to top ↑](#)
+[Go to top ↑](#index)
 
 ---
