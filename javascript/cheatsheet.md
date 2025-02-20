@@ -13,6 +13,7 @@
 - 1.5 [What are Not Defined and Undefined Variables?](#15-what-are-not-defined-and-undefined-variables)
 - 1.6 [What is Alert & Prompt Functions](#16-what-is-alert--prompt-functions)
 - 1.7 [What are Web APIs?](#17-what-are-web-apis)
+- 1.8 [What is `localStorage` and `sessionStorage`?](#18-what-is-localstorage-and-sessionstorage)
 
 ## **2. Functions and Classes**
 
@@ -58,20 +59,22 @@
 
 ## **6. Miscellaneous**
 
-- 6.1 [Who Developed JavaScript?](#51-who-developed-javascript)
-- 6.2 [What is the Use of `isNaN` Function](#52-what-is-the-use-of-isnan-function)
-- 6.3 [What would be the result of `3 + 2 + "7"`?](#53-what-would-be-the-result-of-3--2--7)
-- 6.4 [Does JavaScript Support Automatic Type Conversion?](#54-does-javascript-support-automatic-type-conversion)
-- 6.5 [Why is JavaScript a dynamically typed language?](#55-why-is-javascript-a-dynamically-typed-language)
-- 6.6 [Compiler vs Interpreter vs JIT Compiler](#56-compiler-vs-interpreter-vs-jit-compiler)
-- 6.7 [What is the difference between "compilation" in C++ and "compilation" in JavaScript?](#57-what-is-the-difference-between-compilation-in-c-and-compilation-in-javascript)
-- 6.8 [What are memory leaks in JavaScript, and how can they occur?](#58-what-are-memory-leaks-in-javascript-and-how-can-they-occur)
-- 6.9 [What are the different types of garbage collection strategies?](#59-what-are-the-different-types-of-garbage-collection-strategies)
-- 6.10 [Why is JavaScript often called non-blocking?](#510-why-is-javascript-often-called-non-blocking)
-- 6.11 [What are the advantages and disadvantages of using a single-threaded model in JavaScript?](#511-what-are-the-advantages-and-disadvantages-of-using-a-single-threaded-model-in-javascript)
-- 6.12 [What happens if a long-running synchronous task blocks the call stack? How does it affect the event loop?](#512-what-happens-if-a-long-running-synchronous-task-blocks-the-call-stack-how-does-it-affect-the-event-loop)
-- 6.13 [Chrome's V8 Engine Architecture Diagram](#513-chromes-v8-engine-architecture-diagram)
-
+- 6.1 [Who Developed JavaScript?](#61-who-developed-javascript)
+- 6.2 [What is the Use of `isNaN` Function](#62-what-is-the-use-of-isnan-function)
+- 6.3 [What would be the result of `3 + 2 + "7"`?](#63-what-would-be-the-result-of-3--2--7)
+- 6.4 [Does JavaScript Support Automatic Type Conversion?](#64-does-javascript-support-automatic-type-conversion)
+- 6.5 [Why is JavaScript a dynamically typed language?](#65-why-is-javascript-a-dynamically-typed-language)
+- 6.6 [Compiler vs Interpreter vs JIT Compiler](#66-compiler-vs-interpreter-vs-jit-compiler)
+- 6.7 [What is the difference between "compilation" in C++ and "compilation" in JavaScript?](#67-what-is-the-difference-between-compilation-in-c-and-compilation-in-javascript)
+- 6.8 [What are memory leaks in JavaScript, and how can they occur?](#68-what-are-memory-leaks-in-javascript-and-how-can-they-occur)
+- 6.9 [What are the different types of garbage collection strategies?](#69-what-are-the-different-types-of-garbage-collection-strategies)
+- 6.10 [Why is JavaScript often called non-blocking?](#610-why-is-javascript-often-called-non-blocking)
+- 6.11 [What are the advantages and disadvantages of using a single-threaded model in JavaScript?](#611-what-are-the-advantages-and-disadvantages-of-using-a-single-threaded-model-in-javascript)
+- 6.12 [What happens if a long-running synchronous task blocks the call stack? How does it affect the event loop?](#612-what-happens-if-a-long-running-synchronous-task-blocks-the-call-stack-how-does-it-affect-the-event-loop)
+- 6.13 [Chrome's V8 Engine Architecture Diagram](#613-chromes-v8-engine-architecture-diagram)
+- 6.14 [Why You Can't Fully Trust `setTimeout`](#614-why-you-cant-fully-trust-settimeout)
+- 6.15 [What is Destructuring in JavaScript?](#615-what-is-destructuring-in-javascript)
+- 6.16 [Implicit vs Explicit Typing in JavaScript](#616-implicit-vs-explicit-typing-in-javascript)
 ---
 
 # **0. How JavaScript Works**
@@ -429,6 +432,51 @@ These APIs extend JavaScript's capabilities, allowing you to:
 - Perform time-based tasks (`setTimeout`, `setInterval`).
 - Interact with users (`EventListener`, `Drag-and-Drop`).
 - Handle advanced functionality (`Web Workers`, `Crypto`, `Speech`).
+
+[Go to top ↑](#index)
+
+## 1.8) **What is `localStorage` and `sessionStorage`?**
+
+Both are **Web Storage APIs** used to store data in a user's browser. They help in saving data **without using a database**.
+
+| Feature           | `localStorage` 🏪                                  | `sessionStorage` 🚪                                           |
+| ----------------- | -------------------------------------------------- | ------------------------------------------------------------- |
+| **Data Lifespan** | **Forever** (until manually deleted)               | **Only while the tab is open**                                |
+| **Scope**         | Shared across all tabs/windows                     | Only available in the same tab                                |
+| **Size Limit**    | ~5MB per domain                                    | ~5MB per domain                                               |
+| **When to Use?**  | For **long-term storage** (e.g., user preferences) | For **temporary storage** (e.g., form data before submission) |
+
+**How They Work in JavaScript?**
+
+**1️⃣ Storing Data**
+
+```js
+localStorage.setItem("username", "Arshit");
+sessionStorage.setItem("theme", "dark");
+```
+
+**2️⃣ Retrieving Data**
+
+```js
+console.log(localStorage.getItem("username")); // "Arshit"
+console.log(sessionStorage.getItem("theme")); // "dark"
+```
+
+**3️⃣ Removing Data**
+
+```js
+localStorage.removeItem("username"); // Deletes "username"
+sessionStorage.clear(); // Clears all session storage data
+
+// note: you can use removeItem and clear() in both local and session storage
+```
+
+**In Simple Terms:**
+
+✔ **`localStorage`** = Saves data **permanently** until deleted.  
+✔ **`sessionStorage`** = Saves data **only while the tab is open**.
+
+[Go to top ↑](#index)
 
 ---
 
@@ -2158,11 +2206,11 @@ weather
   - Once the promise either resolves (successful) or rejects (error), it is considered **settled**.
   - A settled promise means the request is finished and the code has either logged the data or an error.
 
+[Go to top ↑](#index)
+
 ## 5.2) **Types of Promise Concurrency Methods**
 
 Promise concurrency methods allow handling multiple promises together. Using your `walking` example, let's explore these methods:
-
----
 
 ### **1. `Promise.all()`**
 
@@ -2209,8 +2257,6 @@ Promise.allSettled([walking, running, jumping]).then((results) => {
 
 🔹 **Key Point:** Unlike `Promise.all()`, it doesn’t stop on failure; it waits for all promises to complete.
 
----
-
 ### **3. `Promise.race()`**
 
 - Resolves or rejects as soon as the first promise settles.
@@ -2227,8 +2273,6 @@ Promise.race([walking, running, jumping])
 ```
 
 🔹 **Key Point:** The fastest promise (whether resolved or rejected) determines the outcome.
-
----
 
 ### **4. `Promise.any()`**
 
@@ -2248,8 +2292,6 @@ Promise.any([walking, running, jumping])
 
 🔹 **Key Point:** Similar to `race()`, but it only resolves when at least one promise succeeds.
 
----
-
 ### **Summary of Promise Concurrency Methods**
 
 | Method                     | What Happens?                                                  | When It Fails?                                    |
@@ -2258,6 +2300,10 @@ Promise.any([walking, running, jumping])
 | **`Promise.allSettled()`** | Waits for **all**, gives success & failure results separately. | Never fails, always returns results for all.      |
 | **`Promise.race()`**       | Returns the **first** promise to finish (success or failure).  | If the first promise fails, it rejects.           |
 | **`Promise.any()`**        | Returns the **first** successful promise.                      | Fails only if **all** promises fail.              |
+
+[Go to top ↑](#index)
+
+---
 
 # **6. Miscellaneous**
 

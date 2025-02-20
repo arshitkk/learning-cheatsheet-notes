@@ -2,31 +2,31 @@
 
 ## **Index**
 
-0. ### [Level 0 (Starting fundamentals)](#level-0-starting-fundamentals-1)
+0. ### **[Part 0 (Starting fundamentals)](#part-0-starting-fundamentals-1)**
 
    1. **[What is Emmet?](#1-what-is-emmet)**
-   2. **[Difference between a Library and a Framework?](#2-difference-between-a-library-and-a-framework)**
-   3. **[What is a CDN? Why do we use it?](#3-what-is-a-cdn-why-do-we-use-it)**
-   4. **[Why is React known as React?](#4-why-is-react-known-as-react)**
-   5. **[What is `crossorigin` in the `<script>` tag?](#5-what-is-crossorigin-in-the-script-tag)**
+   2. **[What is a CDN? Why do we use it?](#2-what-is-a-cdn-why-do-we-use-it)**
+   3. **[What is `crossorigin` in the `<script>` tag?](#3-what-is-crossorigin-in-the-script-tag)**
+   4. **[Difference between a Library and a Framework?](#4-difference-between-a-library-and-a-framework)**
+   5. **[Why is React known as React?](#5-why-is-react-known-as-react)**
    6. **[What is the difference between React and ReactDOM?](#6-what-is-the-difference-between-react-and-reactdom)**
 
-1. ### [Level 1 (NPM & Vite)](#level-1-npm--vite-1)
+1. ### **[Part 1 (NPM, Vite & Build Tools)](#part-1-npm-vite--build-tools-1)**
 
    1. **[What is NPM?](#1-what-is-npm)**
-   2. **[What is a Bundler? Types](#2-what-is-a-bundler-types)**
-   3. **[What is Vite, and why do we need](#3-what-is-vite-and-why-do-we-need-it)**
-   4. **[What is `.vite` (Vite's cache folde](#4-what-is-vite-vites-cache-folder)**
-   5. **[What is `npx`?](#5-what-is-npx)**
+   2. **[What is `npx`?](#2-what-is-npx)**
+   3. **[What is a Bundler? Types](#3-what-is-a-bundler-types)**
+   4. **[What is Vite, and why do we need](#4-what-is-vite-and-why-do-we-need-it)**
+   5. **[What is `.vite` (Vite's cache folde](#5-what-is-vite-vites-cache-folder)**
    6. **[Difference Between `dependencies` and `devDependencies](#6-difference-between-dependencies-and-devdependencies)**
    7. **[What is Tree Shaking in Vite](#7-what-is-tree-shaking-in-vite)**
    8. **[What is Hot Module Replacement (HMR) in Vite](#8-what-is-hot-module-replacement-hmr-in-vite)**
    9. **[List 5 main features of `Vite](#9-list-5-main-features-of-vite)**
-   10. **[What is `.gitignore`? What should we add and not add into it?](#10-what-is-gitignore-what-should-we-add-and-not-add-into-it)**
-   11. **[Difference Between package.json and package-lock.json](#11-difference-between-packagejson-and-package-lockjson)**
+   10. **[Difference Between package.json and package-lock.json](#10-difference-between-packagejson-and-package-lockjson)**
+   11. **[What is `.gitignore`? What should we add and not add into it?](#11-what-is-gitignore-what-should-we-add-and-not-add-into-it)**
    12. **[What is node_module and dist folder](#12-what-is-node_module-and-dist-folder)**
 
-2. ### **[Level 2 (React JS - Beginner)](#level-2-react-js---beginner-1)**
+2. ### **[Part 2 (React js - Core Concepts)](#part-2-react-js---core-concepts-1)**
 
    1. [What is JSX? How it works](#1-what-is-jsx-how-it-works)
    2. [What is `React.createElement()`?](#2-what-is-reactcreateelement)
@@ -34,16 +34,27 @@
    4. [What are React Components? Functional vs Class Components](#4-what-are-react-components-functional-vs-class-components)
    5. [What is the Virtual DOM?](#5-what-is-the-virtual-dom)
    6. [What is the Diffing Algorithm in React?](#6-what-is-the-diffing-algorithm-in-react)
-   7. [What are Keys in React?](#7-what-are-keys-in-react)
-   8. [What is Reconciliation in React?](#8-what-is-reconciliation-in-react)
+   7. [What is Reconciliation in React?](#7-what-is-reconciliation-in-react)
+   8. [What are Keys in React?](#8-what-are-keys-in-react)
    9. [What is React Fiber?](#9-what-is-react-fiber)
    10. [What are Props in React?](#10-what-are-props-in-react)
    11. [What is State in React? Difference between state & props](#11-what-is-state-in-react-difference-between-state--props)
    12. [What is a Composite Component in React?](#12-what-is-a-composite-component-in-react)
    13. [Named Export vs Default Export vs \* as Export](#13-named-export-vs-default-export-vs--as-export)
-   14. [React Hooks & Their Types (with Examples)](#14-react-hooks--their-types-with-examples)
 
-## **Level 0 (Starting fundamentals)**
+3. ### **[Part 3 (React js - Advanced React Concepts)](#part-3-react-js---advanced-react-concepts-1)**
+   1. [What is Lifting State Up in React](#1-what-is-lifting-state-up-in-react)
+   2. [Controlled vs Uncontrolled Components in Reac](#2-controlled-vs-uncontrolled-components-in-react)
+   3. [What is React.StrictMode & Why Use It?](#3-what-is-reactstrictmode--why-use-it)
+   4. [What is Lazy Loading in React & `React.Suspense`](#4-what-is-lazy-loading-in-react--reactsuspense)
+   5. [What is React.Fragment?](#5-what-is-reactfragment)
+   6. [React Hooks & Their Types (with Examples)](#6-react-hooks--their-types-with-examples)
+   7. [What is a Custom Hook in React?](#7-what-is-a-custom-hook-in-react)
+   8. [ What is Microservices and Monolithic Architecture?](#8-what-is-microservices-and-monolithic-architecture)
+
+---
+
+## **Part 0 (Starting fundamentals)**
 
 ### **1. What is Emmet?**
 
@@ -63,7 +74,48 @@ Expands to →
 
 [Go to top ↑](#index)
 
-### **2. Difference between a Library and a Framework?**
+### **2. What is a CDN? Why do we use it?**
+
+- **CDN (Content Delivery Network)** is a distributed network of servers that work together to deliver content (like images, videos, CSS and static files) to users faster and more efficiently
+
+- CDNs are used to improve website speed, reliability, and security by reducing the distance between the user and the server.
+
+#### **Example:**
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+<!-- This loads React **directly from a CDN** instead of downloading it manually. -->
+```
+
+#### **Without CDN**
+
+When a user requests content from a website without a CDN, the request is sent directly to the origin server where the website is hosted. The origin server processes the request and sends back the requested content to the user's device.
+
+- If the origin server is located far away from the user, it may result in longer loading times due to increased latency.
+- High traffic volumes or server overload can lead to slower response times and even server downtime, which will negatively impact the user experience.
+
+[Go to top ↑](#index)
+
+### **3. What is `crossorigin` in the `<script>` tag?**
+
+The `crossorigin` attribute in `<script>` allows loading scripts from **other domains** while handling **CORS (Cross-Origin Resource Sharing)**.
+
+When loading a script from a different origin (another website or CDN), the browser may block access to certain data due to** CORS (Cross-Origin Resource Sharing)** policies.
+
+#### **Values:**
+
+- `anonymous` → Default, no credentials sent (cookies, authentication). When loading public scripts from a CDN (React, Bootstrap, etc.) without sending user credentials (cookies, tokens).
+- `use-credentials` → Sends credentials (cookies, authentication) with the request. When loading private scripts that need authentication (e.g., APIs that require login, restricted resources).
+
+#### **Example:**
+
+```html
+<script src="https://example.com/script.js" crossorigin="anonymous"></script>
+```
+
+[Go to top ↑](#index)
+
+### **4. Difference between a Library and a Framework?**
 
 Here’s an **enhanced version** of your table with **better readability, proper explanations, and reasons** for each statement:
 
@@ -96,52 +148,11 @@ Here’s an **enhanced version** of your table with **better readability, proper
 
 ---
 
-### **3. What is a CDN? Why do we use it?**
-
-- **CDN (Content Delivery Network)** is a distributed network of servers that work together to deliver content (like images, videos, CSS and static files) to users faster and more efficiently
-
-- CDNs are used to improve website speed, reliability, and security by reducing the distance between the user and the server.
-
-#### **Example:**
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
-<!-- This loads React **directly from a CDN** instead of downloading it manually. -->
-```
-
-#### **Without CDN**
-
-When a user requests content from a website without a CDN, the request is sent directly to the origin server where the website is hosted. The origin server processes the request and sends back the requested content to the user's device.
-
-- If the origin server is located far away from the user, it may result in longer loading times due to increased latency.
-- High traffic volumes or server overload can lead to slower response times and even server downtime, which will negatively impact the user experience.
-
-[Go to top ↑](#index)
-
-### **4. Why is React known as React?**
+### **5. Why is React known as React?**
 
 React is called **React** because it **reacts** to changes in data efficiently.
 
 🔹 It uses a **virtual DOM** to detect changes and update only those component which are needed to update, making apps fast and responsive.
-
-[Go to top ↑](#index)
-
-### **5. What is `crossorigin` in the `<script>` tag?**
-
-The `crossorigin` attribute in `<script>` allows loading scripts from **other domains** while handling **CORS (Cross-Origin Resource Sharing)**.
-
-When loading a script from a different origin (another website or CDN), the browser may block access to certain data due to** CORS (Cross-Origin Resource Sharing)** policies.
-
-#### **Values:**
-
-- `anonymous` → Default, no credentials sent (cookies, authentication). When loading public scripts from a CDN (React, Bootstrap, etc.) without sending user credentials (cookies, tokens).
-- `use-credentials` → Sends credentials (cookies, authentication) with the request. When loading private scripts that need authentication (e.g., APIs that require login, restricted resources).
-
-#### **Example:**
-
-```html
-<script src="https://example.com/script.js" crossorigin="anonymous"></script>
-```
 
 [Go to top ↑](#index)
 
@@ -165,7 +176,236 @@ When loading a script from a different origin (another website or CDN), the brow
 
 ---
 
-## **Level 1 (NPM & Vite)**
+### **7. What is CORS? Why does it matter?**
+
+#### **🔹 What is CORS?**
+
+CORS (**Cross-Origin Resource Sharing**) is a **security rule** that stops web pages from making requests to a **different domain** unless the server allows it.
+
+For example, if your React app (`http://localhost:3000`) tries to fetch data from `https://api.example.com`, the browser **blocks** the request if CORS is not set up properly.
+
+#### **When Does a Request Fail Due to CORS?**
+
+A request fails due to CORS if:
+
+- **Different Origins (Cross-Origin Requests)**
+
+  - Your site: `https://myapp.com`
+  - API: `https://api.example.com` (Different domain → CORS issue)
+
+- **Different Ports**
+
+  - Frontend running on `http://localhost:3000`
+  - Backend running on `http://localhost:5000` (Same domain, but **different port** → CORS issue)
+
+- **Different Protocols**
+
+- Example:
+
+  - Your site: `https://myapp.com` (HTTPS)
+  - API: `http://api.example.com` (HTTP) (**Different protocol** → CORS issue )
+
+- **Subdomains Treated as Different Origins**
+
+- Example:
+  - `https://app.example.com` vs `https://api.example.com` (Different subdomains → CORS issue 🚨)
+
+#### **🔹 Why does CORS matter?**
+
+- **Security:** Prevents malicious websites from accessing sensitive data from another site.
+- **Prevents Unauthorized Requests:** Stops unauthorized domains from using APIs without permission.
+- **Ensures Data Privacy:** Protects users' data from being stolen by other sites.
+
+#### **How to Fix CORS Errors?**
+
+**1. Enable CORS on the Server** (Recommended)
+
+- The server owner should allow requests from specific domains using **CORS headers**.
+- Example header for allowing all origins:
+  ```bash
+  Access-Control-Allow-Origin: *
+  ```
+
+**2. Use a Proxy Server**
+
+- If you don’t control the API, use a **proxy** to send requests through your own backend.
+- Example in a `package.json` (for local dev):
+
+  ```json
+  "proxy": "https://api.example.com"
+  ```
+
+**3. Use Browser Extensions** (Temporary Fix)
+
+- Chrome extensions like **CORS Unblock** can bypass restrictions for testing purposes.
+
+### **8. What is Optional Chaining (`?.`) in JavaScript?**
+
+- **Optional Chaining (`?.`)** is a feature in JavaScript that helps **safely access deeply nested properties** without causing an error if a property is `undefined` or `null`.
+
+- **Why Use Optional Chaining?**
+
+  - 🔴 **Without Optional Chaining:**  
+    If a nested property **does not exist**, accessing it **throws an error**.
+
+  ```javascript
+  const user = {};
+  console.log(user.address.city); // ❌ ERROR: Cannot read properties of undefined
+  ```
+
+  - 🟢 **With Optional Chaining (`?.`):**
+
+    It **stops** execution **if a property is missing** and returns `undefined` instead of throwing an error.
+
+  ```javascript
+  const user = {};
+  console.log(user.address?.city); // ✅ undefined (No Error)
+  ```
+
+- **Where Can You Use Optional Chaining?**
+
+  - **1. Accessing Nested Objects:**
+
+    ```javascript
+    const user = { name: "Arshit", address: { city: "Delhi" } };
+    console.log(user.address?.city); // ✅ Delhi
+    console.log(user.address?.pincode); // ✅ undefined (No Error)
+    ```
+
+  - **2. Accessing Nested Arrays:**
+
+  ```javascript
+  const users = [{ name: "Arshit" }, null];
+  console.log(users[1]?.name); // ✅ undefined (No Error)
+  ```
+
+  - **3. Calling Functions Safely:**
+
+  ```javascript
+  const obj = { greet: () => "Hello" };
+  console.log(obj.greet?.()); // ✅ Hello
+  console.log(obj.sayHi?.()); // ✅ undefined (No Error)
+  ```
+
+### **9. JavaScript Expression vs Statement**
+
+**1. Expression?**  
+An **expression** is any valid JavaScript code that **produces a value**. Expressions can be assigned to variables, passed as arguments, or used inside other expressions.
+
+#### **Examples of Expressions:**
+
+```js
+5 + 3; // ✅ Expression (Evaluates to 8)
+10 > 5; // ✅ Expression (Evaluates to true)
+"Hello" + " World"; // ✅ Expression (Evaluates to "Hello World")
+Math.max(5, 10); // ✅ Expression (Evaluates to 10)
+```
+
+**Key Rule:** Expressions always **return a value**.
+
+**2. What is a Statement?**  
+A **statement** is a complete instruction that **performs an action** but does not necessarily return a value. Statements often contain expressions inside them.
+
+#### **Examples of Statements:**
+
+```js
+let sum = 5 + 3; // ✅ Statement (Declares a variable and assigns a value)
+if (10 > 5) {
+  // ✅ Statement (Conditional statement)
+  console.log("True"); // ✅ Statement (Performs an action)
+}
+for (let i = 0; i < 3; i++) {
+  // ✅ Statement (Loop)
+  console.log(i); // ✅ Statement inside a loop
+}
+```
+
+**Key Rule:** Statements **do something**, but they **don’t always return a value**.
+
+#### **IMPORTANT⚠️: Expressions Inside Statements**
+
+Sometimes, expressions are part of a statement.
+
+```js
+console.log("Hello" + " World");
+```
+
+- `"Hello" + " World"` **(expression, returns `"Hello World"`)**
+- `console.log(...)` **(statement, performs an action but returns `undefined`)**
+
+🔹 **Expression = Produces a Value**  
+🔹 **Statement = Performs an Action**
+
+### **10. Define SPA?**
+
+In web development, **SPA (Single Page Application)** is a type of web app that loads a single HTML page and dynamically updates content without refreshing the page. It provides a smooth, fast user experience similar to a mobile app.
+
+**Key Features of SPA:**
+
+- **No full-page reloads** – Only required content updates dynamically.
+- **Fast performance** – Loads once, then fetches data as needed.
+- **Uses JavaScript frameworks** – Commonly built with React, Angular, or Vue.js.
+- **Improved user experience** – Feels more like a native app.
+
+Examples of SPAs: Gmail, Facebook, Twitter, and Google Maps.
+
+### **11. What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?**
+
+Routing is the process of navigating between different pages or views in a website or application.
+
+**1. Client-Side Routing (CSR)**
+
+- Client-side routing happens in the **browser** using JavaScript. Instead of loading a new page from the server, JavaScript changes the content dynamically.
+
+- **Example:**  
+  Think of **Netflix**. When you click on a movie, the page doesn’t refresh; the content just changes. That’s client-side routing!
+
+- **Pros:**
+
+  - Faster navigation (no full reload)
+  - Smooth, app-like experience
+  - Reduces server load
+
+- **Cons:**
+
+  - Slower initial load (needs JavaScript)
+  - Can cause SEO issues (search engines may not see all content)
+
+**2. Server-Side Routing (SSR)**
+
+- Server-side routing means the **server processes each request** and sends a new page. Every time you click a link, the browser requests a new HTML page from the server.
+
+- **Example:**  
+  Think of **a library**. Every time you need a new book, you go to the counter (server), ask for a book (request a page), and get a new one every time.
+
+- **Pros:**
+
+  - Better for SEO (search engines see full pages)
+  - No JavaScript dependency
+  - Works even if JavaScript is disabled
+
+- **Cons:**
+
+  - Slower navigation (page reloads each time)
+  - More server load
+
+- **Key Differences:**
+
+| Feature         | Client-Side Routing (CSR) | Server-Side Routing (SSR) |
+| --------------- | ------------------------- | ------------------------- |
+| Where it runs   | Browser (JavaScript)      | Server                    |
+| Page Load Speed | Faster after first load   | Slower (full reloads)     |
+| SEO             | Can be tricky             | Better SEO                |
+| User Experience | Smooth, app-like          | Slower transitions        |
+| Example         | Netflix, Gmail            | Traditional websites      |
+
+- **Which One Should You Use?**
+
+  - Use **Client-Side Routing** for interactive apps like **React, Angular, Vue apps**.
+  - Use **Server-Side Routing** for SEO-focused sites like **blogs, news websites**.
+  - Some apps use **both (Hybrid Approach)** for best performance (Next.js does this).
+
+## **Part 1 (NPM, Vite & Build Tools)**
 
 ### **1. What is NPM?**
 
@@ -176,42 +416,7 @@ When loading a script from a different origin (another website or CDN), the brow
 
 [Go to top ↑](#index)
 
-### **2. What is a Bundler? Types**
-
-A **Bundler** is a tool that takes multiple files (JavaScript, CSS, HTML) and combines them into a single file (or a few files), making it easier and faster for the browser to load. It helps optimize the project by minimizing file size.
-
-- **Types**:
-  - **Webpack**: A powerful bundler used in many large projects.
-  - **Parcel**: An easy-to-use bundler with automatic configuration.
-  - **Rollup**: Good for libraries and optimizing code for production.
-
-[Go to top ↑](#index)
-
-### **3. What is Vite, and why do we need it?**
-
-**Vite** is a modern build tool and bundler that focuses on spe**ed and **performance\*\*. It uses native ES modules to speed up the development environment and optimizes for production with fast build times. This means that Vite only transforms the files that change, rather than rebuilding everything every time you make a change. This reduces the wait time and makes the development process almost instant.
-
-**Why do we need it?**
-
-- **Faster Development**: Vite uses native ES modules to speed up the development environment.
-- **Hot Module Replacement (HMR)**: Instant updates to the page without refreshing, improving the developer experience.
-- **Optimized for Modern Frameworks**: Built with React, Vue, and other modern JavaScript frameworks in mind.
-
-[Go to top ↑](#index)
-
-### **4. What is `.vite` (Vite's cache folder)?**
-
-The `.vite` folder is where Vite stores temporary files to make the development process faster. When you're working on your project, Vite processes things like JavaScript, CSS, and images, and saves the results in this folder. This way, it doesn't have to process the same files every time you make a change, which helps speed up development.
-
-**Why do we need it?**
-
-- Stores compiled code, cache data, and other temporary files.
-- Helps reduce build time by reusing files instead of re-compiling everything.
-- You can delete the .vite folder if it becomes too large or causes issues, as it will be recreated on the next build.
-
-[Go to top ↑](#index)
-
-### **5. What is `npx`?**
+### **2. What is `npx`?**
 
 `npx` is a command-line tool that comes with **npm** (since version 5.2.0). It allows you to **run Node.js packages without installing them globally or locally**. This is useful for running one-off commands or for trying out packages without needing to install them permanently.
 
@@ -274,6 +479,41 @@ This command will **download and run** the package temporarily, showing the outp
 ```
 
 After executing the command, **it is not saved anywhere** on your system—there’s no need to manage dependencies or install packages.
+
+[Go to top ↑](#index)
+
+### **3. What is a Bundler? Types**
+
+A **Bundler** is a tool that takes multiple files (JavaScript, CSS, HTML) and combines them into a single file (or a few files), making it easier and faster for the browser to load. It helps optimize the project by minimizing file size.
+
+- **Types**:
+  - **Webpack**: A powerful bundler used in many large projects.
+  - **Parcel**: An easy-to-use bundler with automatic configuration.
+  - **Rollup**: Good for libraries and optimizing code for production.
+
+[Go to top ↑](#index)
+
+### **4. What is Vite, and why do we need it?**
+
+**Vite** is a modern build tool and bundler that focuses on spe**ed and **performance\*\*. It uses native ES modules to speed up the development environment and optimizes for production with fast build times. This means that Vite only transforms the files that change, rather than rebuilding everything every time you make a change. This reduces the wait time and makes the development process almost instant.
+
+**Why do we need it?**
+
+- **Faster Development**: Vite uses native ES modules to speed up the development environment.
+- **Hot Module Replacement (HMR)**: Instant updates to the page without refreshing, improving the developer experience.
+- **Optimized for Modern Frameworks**: Built with React, Vue, and other modern JavaScript frameworks in mind.
+
+[Go to top ↑](#index)
+
+### **5. What is `.vite` (Vite's cache folder)?**
+
+The `.vite` folder is where Vite stores temporary files to make the development process faster. When you're working on your project, Vite processes things like JavaScript, CSS, and images, and saves the results in this folder. This way, it doesn't have to process the same files every time you make a change, which helps speed up development.
+
+**Why do we need it?**
+
+- Stores compiled code, cache data, and other temporary files.
+- Helps reduce build time by reusing files instead of re-compiling everything.
+- You can delete the .vite folder if it becomes too large or causes issues, as it will be recreated on the next build.
 
 [Go to top ↑](#index)
 
@@ -369,27 +609,7 @@ console.log(add(2, 3));
 
 [Go to top ↑](#index)
 
-### **10. What is .gitignore? What should we add and not add into it?**
-
-**`.gitignore`** is a file used in Git to specify which files and directories should **not** be tracked or committed to the repository.
-
-#### What to add:
-
-- **Node_modules**: `node_modules/`
-- **Build output**: `dist/`, `build/`
-- **Environment files**: `.env`
-- **Log files**: `*.log`
-- **IDE/Editor files**: `.vscode/`, `.idea/`
-
-#### What not to add:
-
-- **Source code files**: `.js`, `.ts`, `.html`, etc.
-- **Configuration files**: `.gitignore`, `.eslintrc`, etc.
-- **Documentation**: `.md`, `.txt`
-
-[Go to top ↑](#index)
-
-### **11. Difference Between `package.json` and `package-lock.json`**
+### **10. Difference Between `package.json` and `package-lock.json`**
 
 #### **`package.json`**
 
@@ -433,6 +653,26 @@ console.log(add(2, 3));
 
 [Go to top ↑](#index)
 
+### **11. What is `.gitignore`? What should we add and not add into it?**
+
+**`.gitignore`** is a file used in Git to specify which files and directories should **not** be tracked or committed to the repository.
+
+#### What to add:
+
+- **Node_modules**: `node_modules/`
+- **Build output**: `dist/`, `build/`
+- **Environment files**: `.env`
+- **Log files**: `*.log`
+- **IDE/Editor files**: `.vscode/`, `.idea/`
+
+#### What not to add:
+
+- **Source code files**: `.js`, `.ts`, `.html`, etc.
+- **Configuration files**: `.gitignore`, `.eslintrc`, etc.
+- **Documentation**: `.md`, `.txt`
+
+[Go to top ↑](#index)
+
 ### **12. What is `node_module` and `dist` folder**
 
 1. The `node_modules` folder is where all the dependencies (libraries and packages) that your project needs are installed when you run `npm install`. These dependencies are listed in your `package.json` file under `dependencies` or `devDependencies`. This folder contains the code of the packages your project relies on.
@@ -446,9 +686,100 @@ console.log(add(2, 3));
 
 [Go to top ↑](#index)
 
+### **13. What are `tailwind.config.js` Keys**
+
+In **Tailwind CSS**, the `tailwind.config.js` file is used to customize styles, colors, breakpoints, and more. Here’s what each key means:
+
+**1️. `content`**
+
+- This tells Tailwind **where** to look for class names in your project. If a file isn't listed here, Tailwind **won't generate styles** for its classes.
+
+- **Example:**
+
+```js
+module.exports = {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+};
+```
+
+- Tailwind scans all `.html`, `.js`, `.jsx`, `.ts`, `.tsx` files in the `src/` folder.
+- It **removes unused classes** (purging CSS) to keep the final CSS file small.
+
+**2️. `theme`**
+
+- Defines the default design system for your project. You can modify or extend colors, fonts, spacing, etc.
+
+- **Example:**
+
+```js
+module.exports = {
+  theme: {
+    colors: {
+      primary: "#1E40AF",
+      secondary: "#9333EA",
+    },
+    fontFamily: {
+      sans: ["Inter", "sans-serif"],
+    },
+  },
+};
+```
+
+- Customizes Tailwind's **default styles** (e.g., custom colors, fonts).
+
+**3️. `extend`**
+
+Instead of **overriding** Tailwind’s default styles, `extend` **adds new values** without removing defaults.
+
+- **Example:**
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      spacing: {
+        128: "32rem",
+        144: "36rem",
+      },
+      colors: {
+        neonGreen: "#39ff14",
+      },
+    },
+  },
+};
+```
+
+- Adds **new values** while keeping Tailwind's built-in styles.
+- `spacing.128` (`w-128`) → Now available as `width: 32rem`.
+- Adds a **new custom color** (`text-neonGreen`).
+
+**4️. `plugins`**
+
+- Used to **add extra functionality** to Tailwind, like forms, typography, or custom utilities.
+
+- **Example:**
+
+```js
+module.exports = {
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+};
+```
+
+- Adds Tailwind’s **official plugins** for styling forms & typography.
+
+🚀 **Summary of Each Key**  
+| Key | Purpose |
+|----------|---------|
+| `content` | Defines which files Tailwind should scan for class names (purging unused styles). |
+| `theme` | Modifies Tailwind’s default design system (colors, fonts, spacing, etc.). |
+| `extend` | Adds new styles **without removing defaults**. |
+| `plugins` | Adds extra Tailwind features using official or custom plugins. |
+
+[Go to top ↑](#index)
+
 ---
 
-## **Level 2 (React js - Beginner)**
+## **Part 2 (React js - Core Concepts)**
 
 ### **1. What is JSX? How it works**
 
@@ -790,7 +1121,24 @@ When rendering a list of elements, React uses **keys** to track changes efficien
 
 [Go to top ↑](#index)
 
-### **7. What are Keys in React?**
+### **7. What is Reconciliation in React?**
+
+**Reconciliation** is the process **React uses to update the UI efficiently** when the state or props change. Instead of re-rendering the entire page, React **compares the Virtual DOM with the previous version** and updates only the changed parts.
+
+#### **How Reconciliation Works**
+
+1️⃣ **Render Phase** – React **creates a new Virtual DOM** based on the updated state/props.  
+2️⃣ **Diffing Algorithm** – React **compares** the new Virtual DOM with the old one to find differences.  
+3️⃣ **Updating the DOM** – React updates **only the changed elements** in the actual DOM.
+
+#### **Why is Reconciliation Important?**
+
+✅ **Optimized Performance** – React **avoids unnecessary updates** to the real DOM.  
+✅ **Faster UI Updates** – Only the **modified parts** of the page are re-rendered.
+
+[Go to top ↑](#index)
+
+### **8. What are Keys in React?**
 
 Keys are **unique identifiers** used by React to **track list items efficiently** it helps to identify which elements are added, updated, and removed from the react list.Then it React only updates the modified items, not the whole list.
 
@@ -815,23 +1163,6 @@ Keys are **unique identifiers** used by React to **track list items efficiently*
 - React tracks elements using keys, so if an index changes, React might **update the wrong item**, causing UI glitches.
 
 ✅ **Best Practice:** Always use a **unique `id`** instead of `index`. 🚀
-
-[Go to top ↑](#index)
-
-### **8. What is Reconciliation in React?**
-
-**Reconciliation** is the process **React uses to update the UI efficiently** when the state or props change. Instead of re-rendering the entire page, React **compares the Virtual DOM with the previous version** and updates only the changed parts.
-
-#### **How Reconciliation Works**
-
-1️⃣ **Render Phase** – React **creates a new Virtual DOM** based on the updated state/props.  
-2️⃣ **Diffing Algorithm** – React **compares** the new Virtual DOM with the old one to find differences.  
-3️⃣ **Updating the DOM** – React updates **only the changed elements** in the actual DOM.
-
-#### **Why is Reconciliation Important?**
-
-✅ **Optimized Performance** – React **avoids unnecessary updates** to the real DOM.  
-✅ **Faster UI Updates** – Only the **modified parts** of the page are re-rendered.
 
 [Go to top ↑](#index)
 
@@ -1034,7 +1365,340 @@ export default function App() {
 
 [Go to top ↑](#index)
 
-### **14. React Hooks & Their Types (with Examples)**
+---
+
+## **Part 3 (React js - Advanced React Concepts)**
+
+### **1. What is Lifting State Up in React**
+
+In React, **Lifting State Up** means **moving the state from a child component to its parent** so that multiple child components can share and use the same state.
+
+**Why is it needed? 🤔**
+
+- React is built around the idea of components and unidirectional data flow, meaning data flows down from parent to child through props.
+- However, sometimes two or more sibling components need to share the same state. If each component manages its own version of the state, inconsistencies can arise.
+
+- **Example**
+
+Let's say we have **two buttons**:
+
+    - One **increases** the counter.
+    - One **decreases** the counter.
+
+Both buttons should update the **same counter value**, but they are in different components.
+
+**❌ Without Lifting State Up**
+
+Each button has its **own state**, so they work **independently** and don't sync.
+
+```jsx
+function IncreaseButton() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+    </div>
+  );
+}
+
+function DecreaseButton() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count - 1)}>Decrease</button>
+    </div>
+  );
+}
+
+export default function CounterApp() {
+  return (
+    <div>
+      <IncreaseButton />
+      <DecreaseButton />
+    </div>
+  );
+}
+```
+
+👉 **Problem:**
+
+- Both buttons **maintain their own count separately**, instead of sharing a single value.
+
+**✅ With Lifting State Up**
+
+We **move the state to the parent** and pass it to both buttons as **props**.
+
+```jsx
+import React, { useState } from "react";
+
+function CounterApp() {
+  const [count, setCount] = useState(0); // State in Parent
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <IncreaseButton count={count} setCount={setCount} />
+      <DecreaseButton count={count} setCount={setCount} />
+    </div>
+  );
+}
+
+function IncreaseButton({ count, setCount }) {
+  return <button onClick={() => setCount(count + 1)}>Increase</button>;
+}
+
+function DecreaseButton({ count, setCount }) {
+  return <button onClick={() => setCount(count - 1)}>Decrease</button>;
+}
+
+export default CounterApp;
+```
+
+- **How It Works? 🛠️**
+
+  1. **State (`count`) is lifted up** to `CounterApp` (the parent component).
+  2. The **same state is passed as props** to both `IncreaseButton` and `DecreaseButton`.
+  3. Clicking **either button updates the shared state**, keeping them in sync.
+
+- **Why is Lifting State Up Important?**
+
+  - Helps **share state** between multiple components.
+  - Avoids **duplicate state**, making the app more efficient.
+  - Ensures **consistent updates** across components.
+
+[Go to top ↑](#index)
+
+### **2. Controlled vs Uncontrolled Components in React**
+
+In React, form inputs can be **Controlled** or **Uncontrolled** based on how they manage their values.
+
+#### **1️⃣ Controlled Components**
+
+- In **Controlled Components**, React controls the form input values using **state** (`useState`).
+
+- **Example**
+
+```jsx
+import React, { useState } from "react";
+
+function ControlledInput() {
+  const [text, setText] = useState(""); // React controls the input value
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={text} // Controlled by React state
+        onChange={(e) => setText(e.target.value)}
+      />
+      <p>Typed Text: {text}</p>
+    </div>
+  );
+}
+
+export default ControlledInput;
+```
+
+- The **input value is controlled by React state (`text`)**.
+- Every keystroke updates **state**, and the input re-renders with the new value.
+
+**Advantages**
+
+- **Better Control:** React has **full control** over the input value.
+- **Validation:** Easy to **validate** input as the user types.
+- **Predictability:** Input value is always in **sync** with React state, making the UI consistent.
+- **Dynamic Behavior:** Allows implementing features like **conditional rendering** and **input manipulation** easily.
+
+**Disadvantages**
+
+- **Performance Issues:** May cause **performance problems** if you manage **too many inputs** (because of frequent re-renders).
+- **More Code:** Requires **more boilerplate code** to manage state and event handlers.
+- **Complexity:** Becomes **complex** when handling **large** and **multiple forms**.
+
+**2️⃣ Uncontrolled Components**
+
+- In **Uncontrolled Components**, the form input manages its own state using **ref (`useRef`)**, instead of React state.
+
+- **Example**
+
+```jsx
+import React, { useRef } from "react";
+
+function UncontrolledInput() {
+  const inputRef = useRef(); // Reference to the input field
+
+  const handleSubmit = () => {
+    alert(`Typed Text: ${inputRef.current.value}`); // Directly access input value
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} /> {/* controlled by ref */}
+      <button onClick={handleSubmit}>Show Input</button>
+    </div>
+  );
+}
+
+export default UncontrolledInput;
+```
+
+- The input value is **not stored in React state**.
+- We use `useRef()` to **directly access the input value** when needed.
+
+**Advantages**
+
+- **Better Performance:** No **re-renders** on input change, making it faster for **large forms**.
+- **Simpler Code:** Less React code since the input **handles its own state**.
+- **External Control:** Ideal for working with **third-party** components and **form libraries**.
+
+**Disadvanatages**
+
+- **Harder Validation:** Complex to perform **real-time** input validation.
+- **Less Control:** React does **not track** input changes, making it harder to manage state centrally.
+- **Inconsistent State:** Input values may go **out of sync** with React’s view if not handled carefully.
+
+#### **When to Use What?**
+
+- **Use Controlled Components** when:
+
+  - You need **real-time updates** (e.g., live search).
+  - You want **validation & error handling** in forms.
+
+- **Use Uncontrolled Components** when:
+  - You only need input value **on form submission**.
+  - You are working with **third-party libraries** that manage their own state (e.g., file uploads).
+
+[Go to top ↑](#index)
+
+### **3. What is React.StrictMode & Why Use It?**
+
+`React.StrictMode` is a special wrapper in React that helps identify potential issues in your code during development. It does not affect production but helps catch common mistakes early.
+
+#### **Advantages**
+
+✅ **Accidental Side Effects:**
+
+- Helps catch cases where your code runs **extra times** by mistake (e.g., duplicate API calls).
+
+✅ **Old & Unsafe Code:**
+
+- Warns if you're using outdated React features that may break in future updates.
+
+✅ **Forgetting to Clean Up Effects:**
+
+- Detects cases where `useEffect` runs **unnecessarily** or causes memory leaks.
+
+✅ **Finding Unexpected Behaviors:**
+
+- Runs certain parts of your code **twice** in development to highlight hidden problems (but only in dev mode).
+
+[Go to top ↑](#index)
+
+### **4. What is Lazy Loading in React & `React.Suspense`**
+
+Lazy loading means **loading a component only when needed**, instead of loading everything at once. This helps **reduce the initial load time** and improves performance.
+
+#### **Example**
+
+Imagine you are building an **e-commerce website** like **Amazon**.  
+When a user **lands on the homepage**, they only need to see:
+
+- Featured products
+- Search bar
+- Categories
+
+But pages like **Order History, Cart, or Product Reviews** **aren’t needed immediately**.  
+Using **Lazy Loading**, these pages load **only when the user clicks on them** instead of loading everything at once.
+
+This makes the **homepage load super fast**, improving **user experience** and **performance**! 🚀
+
+#### **🔹 What is `React.lazy()`?**
+
+`React.lazy()` is a function that helps **dynamically import** components **only when required**. Instead of importing a component at the top of the file, it is **loaded when needed**.
+
+✅ **Without Lazy Loading (Component loads immediately)**
+
+```js
+import MyComponent from "./MyComponent"; // Loaded immediately
+```
+
+❌ Even if the user **never** visits the page, this component is loaded.
+
+✅ **With Lazy Loading (Component loads only when required)**
+
+```js
+import React, { lazy, Suspense } from "react";
+
+const MyComponent = lazy(() => import("./MyComponent")); // Loaded only when needed
+```
+
+---
+
+#### **🔹 What is `React.Suspense`?**
+
+When using `lazy()`, React doesn’t **immediately** know what to display **while loading** the component.  
+`React.Suspense` helps by showing a **fallback (like a loader or text or like a placeholder)** while waiting for the component to load.
+
+✅ **Example of Lazy Loading with Suspense**
+
+```js
+import React, { lazy, Suspense } from "react";
+
+const Profile = lazy(() => import("./Profile")); // Lazy loading
+
+function App() {
+  return (
+    <div>
+      <h1>My App</h1>
+      <Suspense fallback={<h2>Loading Profile...</h2>}>
+        <Profile /> {/* This loads only when needed */}
+      </Suspense>
+    </div>
+  );
+}
+
+export default App;
+```
+
+⏳ **While `Profile` is loading, "Loading Profile..." is displayed.**  
+🎯 **Once loaded, `Profile` is shown on the page.**
+
+- Benefits of Lazy Loading & Suspense\*\*
+
+  - **Faster Initial Load** – Loads only the necessary components.
+  - **Improves Performance** – Reduces unnecessary resource usage.
+  - **Better User Experience** – Only loads when required, avoiding long initial waits.
+
+[Go to top ↑](#index)
+
+### **5. What is React.Fragment?**
+
+- `React.Fragment` is a built-in wrapper that allows grouping multiple JSX elements without adding extra HTML elements (like `<div>`).
+- We can Use `<>...</>` as a shortcut for `<React.Fragment></React.Fragment>`
+
+**🚀 Why use it?**
+
+- **Avoids Extra `<div>`s**
+- **Better Performance** – No unnecessary DOM nodes
+- **Works in Tables** – Group `<tr>`s without breaking layout
+- **✅ Example:**
+
+```jsx
+return (
+  <>
+    <h2>Hello</h2>
+    <p>Welcome to React!</p>
+  </>
+);
+```
+
+[Go to top ↑](#index)
+
+### **6. React Hooks & Their Types (with Examples)**
 
 React **Hooks** are functions that enable **functional components** to use React **state**, **lifecycle** and other React features. They eliminate the need for class components, making code cleaner and easier to maintain.
 
@@ -1336,5 +2000,121 @@ const handleClick = useCallback(() => {
 | `useRef()`      | Directly accesses DOM elements     |
 | `useMemo()`     | Memoize Value                      |
 | `useCallback()` | Memoize functions                  |
+
+[Go to top ↑](#index)
+
+### **7. What is a Custom Hook in React?**
+
+- A **Custom Hook** is a **reusable function** (_just like reusable component_) in React that lets you **share logic** between components.
+- It’s a **JavaScript function** whose name **starts with `use`** (e.g., `useFetchData`, `useToggle`).
+- It helps **avoid duplicate code** and **keep components clean** by separating logic.
+
+#### **Why Use Custom Hooks?**
+
+- To **reuse stateful logic** (like fetching data, form handling).
+- To **organize complex components** by separating concerns.
+- To **keep your code DRY** (_Don’t Repeat Yourself_).
+
+#### **How to Create a Custom Hook?**
+
+- **Step 1:** Name it starting with `use` (e.g., `useCounter`).
+- **Step 2:** Write it as a **JavaScript function**.
+- **Step 3:** You can use **React hooks** inside it (like `useState`, `useEffect`).
+- **Step 4:** Your custom hook should return **state**, **functions**, or **values** that components need, such as fetched data, loading state, or error messages.
+
+**Important**: They **do not** return JSX; they only return **data or functions**.
+
+#### **Example: Custom Hook for Counter (`useCounter`)**
+
+Creating Custom Hook:
+
+```jsx
+// Step 1: Create the custom hook
+function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  // Step 2: Define logic
+  const increment = () => setCount(count + 1);
+  const decrement = () => setCount(count - 1);
+
+  // Step 3: Return the state and functions
+  return { count, increment, decrement };
+}
+```
+
+Using the Custom Hook in a Component
+
+```jsx
+import { useState } from "react";
+
+function CounterComponent() {
+  //Use custom hook just like built-in hooks
+  const { count, increment, decrement } = useCounter(5);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+}
+
+export default CounterComponent;
+```
+
+[Go to top ↑](#index)
+
+### **8. What is Microservices and Monolithic Architecture?**
+
+#### **1. Microservices**:
+
+- Microservices is a way of building software where an application is **split into small, independent services** that **work together**.
+
+Each service:
+
+- **Does one specific job** (like handling payments, user authentication, or notifications).
+- **Runs separately** from other services, so if one part fails, the rest of the app keeps working.
+- Can be **developed, deployed, and scaled** independently, making it easier to update or add new features.
+
+For example, in an **e-commerce** site:
+
+- One microservice handles **product listings**.
+- Another manages **user accounts**.
+- A different one processes **payments**.
+
+This makes the system **more flexible, easier to maintain**, and **scalable** compared to traditional monolithic applications, where everything is tightly connected.
+
+#### **2. Monolithic Architecture**
+
+- Monolithic Architecture is a way of building software where **all parts of an application are combined into one big unit**.
+
+In this structure:
+
+- The **frontend, backend, and database** are all tightly connected.
+- If one part fails or needs an update, **the entire application** might need to be rebuilt or redeployed.
+- It's **harder to scale** because you can't separately grow just one part of the app.
+
+For example, in an e-commerce site:
+
+- **Product listings, user accounts, and payments** are all in one codebase.
+- If you update the payment system, you must **re-deploy the whole application**.
+
+While it’s **easier to develop and test** in the beginning, it becomes **hard to maintain and scale** as the app grows.
+
+#### **Monolithic Architecture vs Microservices Architecture**
+
+| **Aspect**          | **Monolithic Architecture**                         | **Microservices Architecture**                                                   |
+| ------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Architecture**    | Single-tier architecture                            | Multi-tier architecture                                                          |
+| **Size**            | Large, all components tightly coupled               | Small, loosely coupled components                                                |
+| **Deployment**      | Deployed as a single unit                           | Individual services can be deployed independently                                |
+| **Scalability**     | Horizontal scaling can be challenging               | Easier to scale horizontally                                                     |
+| **Development**     | Simpler initially                                   | Complex due to managing multiple services                                        |
+| **Technology**      | Limited technology choices                          | Freedom to choose the best technology for each service                           |
+| **Fault Tolerance** | Entire application may fail if a part fails         | Individual services can fail without affecting others                            |
+| **Maintenance**     | Easier to maintain due to its simplicity            | Requires more effort to manage multiple services                                 |
+| **Flexibility**     | Less flexible as all components are tightly coupled | More flexible as components can be developed, deployed, and scaled independently |
+| **Communication**   | Communication between components is faster          | Communication may be slower due to network calls                                 |
 
 [Go to top ↑](#index)
