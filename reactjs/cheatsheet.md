@@ -10,6 +10,13 @@
    4. **[Difference between a Library and a Framework?](#4-difference-between-a-library-and-a-framework)**
    5. **[Why is React known as React?](#5-why-is-react-known-as-react)**
    6. **[What is the difference between React and ReactDOM?](#6-what-is-the-difference-between-react-and-reactdom)**
+   7. **[What is CORS? Why does it matter?](#7-what-is-cors-why-does-it-matter)**
+   8. **[What is Optional Chaining (`?.`) in JavaScript?](#8-what-is-optional-chaining--in-javascript)**
+   9. **[JavaScript Expression vs Statement](#9-javascript-expression-vs-statement)**
+   10. **[Define SPA?](#10-define-spa)**
+   11. **[What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?]()**
+   12. **[Debounce in React (with Example)](#12-debounce-in-react-with-example)**
+   13. **[What is Throttling in ReactJS?](#13-what-is-throttling-in-reactjs)**
 
 1. ### **[Part 1 (NPM, Vite & Build Tools)](#part-1-npm-vite--build-tools-1)**
 
@@ -51,6 +58,7 @@
    6. [React Hooks & Their Types (with Examples)](#6-react-hooks--their-types-with-examples)
    7. [What is a Custom Hook in React?](#7-what-is-a-custom-hook-in-react)
    8. [ What is Microservices and Monolithic Architecture?](#8-what-is-microservices-and-monolithic-architecture)
+   9. [What is React Router?](#9-what-is-react-router)
 
 ---
 
@@ -174,8 +182,6 @@ React is called **React** because it **reacts** to changes in data efficiently.
 
 [Go to top ↑](#index)
 
----
-
 ### **7. What is CORS? Why does it matter?**
 
 #### **🔹 What is CORS?**
@@ -239,6 +245,8 @@ A request fails due to CORS if:
 
 - Chrome extensions like **CORS Unblock** can bypass restrictions for testing purposes.
 
+[Go to top ↑](#index)
+
 ### **8. What is Optional Chaining (`?.`) in JavaScript?**
 
 - **Optional Chaining (`?.`)** is a feature in JavaScript that helps **safely access deeply nested properties** without causing an error if a property is `undefined` or `null`.
@@ -286,6 +294,8 @@ A request fails due to CORS if:
   console.log(obj.greet?.()); // ✅ Hello
   console.log(obj.sayHi?.()); // ✅ undefined (No Error)
   ```
+
+[Go to top ↑](#index)
 
 ### **9. JavaScript Expression vs Statement**
 
@@ -336,6 +346,8 @@ console.log("Hello" + " World");
 🔹 **Expression = Produces a Value**  
 🔹 **Statement = Performs an Action**
 
+[Go to top ↑](#index)
+
 ### **10. Define SPA?**
 
 In web development, **SPA (Single Page Application)** is a type of web app that loads a single HTML page and dynamically updates content without refreshing the page. It provides a smooth, fast user experience similar to a mobile app.
@@ -348,6 +360,8 @@ In web development, **SPA (Single Page Application)** is a type of web app that 
 - **Improved user experience** – Feels more like a native app.
 
 Examples of SPAs: Gmail, Facebook, Twitter, and Google Maps.
+
+[Go to top ↑](#index)
 
 ### **11. What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?**
 
@@ -404,6 +418,150 @@ Routing is the process of navigating between different pages or views in a websi
   - Use **Client-Side Routing** for interactive apps like **React, Angular, Vue apps**.
   - Use **Server-Side Routing** for SEO-focused sites like **blogs, news websites**.
   - Some apps use **both (Hybrid Approach)** for best performance (Next.js does this).
+
+[Go to top ↑](#index)
+
+### **12. Debounce in React (with Example)**
+
+- Debouncing is a way of delaying the execution of a function until a certain amount of time has passed since the last time it was called. This can be useful for scenarios where we want to avoid unnecessary or repeated function calls that might be expensive or time-consuming.
+
+- Imagine we have a search box that shows suggestions as the user types. If we call a function to fetch suggestions on every keystroke, we might end up making too many requests to the server, which can slow down the application and waste resources. Instead, we can use debouncing to wait until the user has stopped typing for a while before making the request.
+
+**Example (ReactJs)**
+
+```jsx
+import React, { useRef, useState } from "react";
+
+export default function CounterApp() {
+  const [count, setCount] = useState(0);
+  const [trigger, setTrigger] = useState(0);
+  const debounceRef = useRef(null);
+
+  function countHandler() {
+    setCount((p) => p + 1); // Increase count immediately
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current); // Clear previous timeout
+    }
+
+    debounceRef.current = setTimeout(() => {
+      setTrigger((p) => p + 1); // Update trigger after 800ms
+    }, 800);
+  }
+
+  return (
+    <div>
+      <h2>Count: {count} </h2>
+      <h2>Triggered: {trigger} </h2>
+      <button onClick={countHandler}>Button</button>
+    </div>
+  );
+}
+```
+
+1️⃣ **States (`count` & `trigger`)**:
+
+- `count`: Increases immediately when the button is clicked.
+- `trigger`: Updates **after a delay (800ms)** using debounce.
+
+2️⃣ **`useRef` (`debounceRef`)**:
+
+- Stores the timeout ID to manage and clear the delay.
+
+3️⃣ **Function `countHandler()` Execution**:
+
+- **Increases `count` immediately** when the button is clicked.
+- **Clears any existing timeout** (to prevent multiple updates).
+- **Starts a new `setTimeout()`** to update `trigger` after 800ms.
+
+4️⃣ **Debounce Effect**:
+
+- If the button is clicked again **within 800ms**, the old timeout is **cleared** and restarted.
+- `trigger` only updates **after the user stops clicking for 800ms**.
+
+**Why Use Debounce?**
+
+- **Prevents unnecessary re-renders** or state updates.
+- **Useful for optimizing API calls**, search inputs, button clicks, etc.
+- **Improves performance** by reducing frequent updates.
+
+[Go to top ↑](#index)
+
+### **13. What is Throttling in ReactJS?**
+
+- **Throttling** is a technique used to **limit how often a function runs** within a given time frame, even if it is triggered continuously.
+
+- Unlike **debouncing**, which waits for inactivity, **throttling ensures a function runs at most once in a set interval**.
+
+**Example in ReactJS**
+
+Let's say we have a button that increases a counter. If a user clicks it rapidly, we **want to limit the updates** to once every 1000ms.
+
+```jsx
+import React, { useState, useRef } from "react";
+
+export default function CounterApp() {
+  const [count, setCount] = useState(0);
+  const throttleRef = useRef(false); // To track whether throttling is active
+
+  function countHandler() {
+    if (throttleRef.current) return; // If throttling is active, do nothing
+
+    setCount((prev) => prev + 1); // Increase count immediately
+    throttleRef.current = true; // Block further clicks
+
+    setTimeout(() => {
+      throttleRef.current = false; // Allow clicks after 1s
+    }, 1000);
+  }
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={countHandler}>Increase</button>
+    </div>
+  );
+}
+```
+
+**Dry Run:**
+
+#### **1️⃣ Initial State**
+
+- `count` starts at **0**.
+- `throttleRef.current` is **false** (throttling is not active).
+- The button is **clickable**.
+
+#### **2️⃣ First Click (`countHandler` Runs)**
+
+- `if (throttleRef.current) return;`  
+  ✅ **Passes the condition** (because `throttleRef.current` is **false**).
+- `setCount((prev) => prev + 1);`  
+  ✅ **Increases count** by 1.
+- `throttleRef.current = true;`  
+  ✅ **Blocks further clicks** for 1000ms.
+
+#### **3️⃣ Before 1000ms (Rapid Clicking)**
+
+- If the user clicks again **before** 1000ms:  
+  ❌ `if (throttleRef.current) return;` stops execution.  
+  ✅ The `count` **does not update**.
+
+#### **4️⃣ After 1000ms**
+
+- `setTimeout(() => { throttleRef.current = false; }, 1000);`  
+  ✅ **Resets** `throttleRef.current` back to `false`.  
+  ✅ **Now clicks are allowed again.**
+
+#### **Use Cases of Throttling in ReactJS**
+
+- **Handling scroll events** (to avoid too many re-renders).
+- **Limiting API calls** (like search suggestions).
+- **Reducing rapid button clicks** (like in our example).
+
+[Go to top ↑](#index)
+
+---
 
 ## **Part 1 (NPM, Vite & Build Tools)**
 
@@ -2116,5 +2274,328 @@ While it’s **easier to develop and test** in the beginning, it becomes **hard 
 | **Maintenance**     | Easier to maintain due to its simplicity            | Requires more effort to manage multiple services                                 |
 | **Flexibility**     | Less flexible as all components are tightly coupled | More flexible as components can be developed, deployed, and scaled independently |
 | **Communication**   | Communication between components is faster          | Communication may be slower due to network calls                                 |
+
+[Go to top ↑](#index)
+
+### **9. What is React Router?**
+
+- React Router is a library for **handling navigation** in React applications. It allows users to switch between pages **without a full page reload**, making the app **fast and dynamic**.
+
+- **Latest Version Uses `createBrowserRouter()` Instead of `BrowserRouter`** which provides a **better API for defining routes, loaders, error handling, etc.**
+
+  **Core Components of React Router**
+
+1. **`createBrowserRouter()`** – Defines the route structure.
+2. **`RouterProvider`** – Provides routing to the app.
+3. **`Route Object`** – Defines paths, components, loaders, and error handlers.
+4. **`Link`** – Used for navigation (instead of `<a>`).
+5. **`NavLink`** – Similar to `Link`, but allows active styling.
+6. **`Error Page Handling`** – `path: "*"`, `errorElement`, or `useRouteError()` to catch invalid pages.
+7. **Dynamic Routes (`useParams()`)** - The `/profile/:username` route uses `useParams()` to get the dynamic value.
+8. **`Outlet` for Nested Routes** - The `Outlet` component **renders child routes** inside `App.jsx`. This allows components like **Home, About, and Contact** to load inside `App`.
+
+**1️⃣ Install React Router**
+
+```sh
+npm install react-router-dom
+```
+
+**2️⃣ Create the Router (`main.jsx` or seprate file)**
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />, // Parent component
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      }, // Renders at "/"
+      {
+        path: "about",
+        element: <About />,
+      }, // "/about"
+      {
+        path: "contact",
+        element: <Contact />,
+      }, // "/contact"
+      {
+        path: "profile/:username",
+        element: <Profile />,
+      }, // Dynamic Route "/profile/:username"
+    ],
+    errorElement: <NotFound />, // Handles invalid routes
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <RouterProvider router={router} />
+);
+```
+
+---
+
+**3️⃣ Defining the Component with Navigations (NavBar.jsx)**
+
+```jsx
+import { Outlet, Link, NavLink } from "react-router-dom";
+
+export default function App() {
+  return (
+    <div>
+      <h1>My React Router App</h1>
+      <nav>
+        {/* Navigation using Link */}
+        <Link to="/">Home</Link> |<NavLink to="/about" activeClassName="active">
+          About
+        </NavLink>
+        <NavLink to="/contact" activeClassName="active">
+          Contact
+        </NavLink>
+        <NavLink to="/profile/Arshit">Profile</NavLink>
+      </nav>
+
+      {/* Renders nested components */}
+      <Outlet />
+    </div>
+  );
+}
+```
+
+[Go to top ↑](#index)
+
+### **10. What is Redux Toolkit (RTK)**
+
+Redux Toolkit (RTK) is the **official, recommended way to write Redux logic**. It simplifies state management in React by providing a **faster, less boilerplate** approach.
+
+**Main Components of Redux Toolkit**
+
+- **`configureStore()`**
+
+  - Creates the Redux store and automatically sets up good defaults like built-in middleware (`redux-thunk` for async actions) and Redux DevTools support.
+
+- **`createSlice()`**
+
+  - A function that combines **state, reducers, and actions** in one place, making Redux code more concise.
+
+- **`Provider`**
+
+  - A React component that wraps the entire app, allowing all components to access the Redux store.
+
+- **`useSelector()`**
+
+  - A React Hook that **selects and retrieves** specific data from the Redux store inside a component.
+
+- **`useDispatch()`**
+
+  - A React Hook that provides the `dispatch` function, allowing components to **trigger actions** to update the store.
+
+- **`reducer`**
+
+  - A function inside `createSlice()` that modifies the **state** based on the received **action**.
+
+- **`actions`**
+
+  - Auto-generated from `createSlice()`, these are functions that return action objects, which are dispatched to update the store.
+
+- **`slice`**
+
+  - A **module** in Redux that contains a specific part of the state, along with its reducers and actions. Created using `createSlice()`.
+
+- **`createAsyncThunk()`**
+
+  - A helper function for handling **async operations** like API calls. It manages three states: **pending, fulfilled, and rejected**.
+
+- **`store`**
+
+  - The **centralized state container** in Redux, holding all reducers and making state accessible throughout the app.
+
+- **`dispatch`**
+  - A function provided by Redux that **sends actions to reducers**, triggering state updates.
+
+EXAMPLE (Counter)
+
+**1️⃣ Install Redux Toolkit & React-Redux**
+Run this command in your terminal:
+
+```sh
+npm install @reduxjs/toolkit react-redux
+```
+
+**2️⃣ Create an Empty Redux Store**
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+
+// Creating an empty Redux store (No reducers added yet)
+export const store = configureStore({
+  reducer: {}, // Empty object (will add reducers later)
+});
+```
+
+🔹 **Why?**
+
+- First, we create an **empty store** so that our application is set up.
+- We will **later add slices (reducers)** to manage state.
+
+**3️⃣ Wrap App with Redux**
+
+Modify `index.js` to **connect Redux to React**.
+
+📝 **`index.js`**
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store"; // Import store
+import App from "./App";
+
+ReactDOM.render(
+  <Provider store={store}>
+    {" "}
+    {/* Wraps the app to give access to Redux */}
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
+- `Provider` **connects Redux with React** and makes the store accessible to components.
+
+  **4️⃣ Create a Slice**
+
+Now, let's **create our first slice (counterSlice)**.
+
+```jsx
+import { createSlice } from "@reduxjs/toolkit";
+
+// Step 1: Create a slice with name, initial state, and reducers
+const counterSlice = createSlice({
+  name: "counter", // Slice name
+  initialState: { count: 0 }, // Initial state object
+  reducers: {
+    increment: (state) => {
+      state.count += 1; // Increase count by 1
+    },
+    decrement: (state) => {
+      state.count -= 1; // Decrease count by 1
+    },
+    reset: (state) => {
+      state.count = 0; // Reset count to 0
+    },
+  },
+});
+
+// Step 2: Export the actions (to be used in components)
+export const { increment, decrement, reset } = counterSlice.actions;
+
+// Step 3: Export the reducer (to be added to store)
+export default counterSlice.reducer;
+```
+
+- `createSlice()` creates a **Redux slice** with:
+  - `initialState`: Defines the **starting state** `{ count: 0 }`
+  - `reducers`: Functions that **modify the state**
+- **Auto-generated actions** (`increment`, `decrement`, `reset`) allow **state updates**.
+
+**IMPORTANT**
+
+- **`counterSlice` is the slice** → It groups everything related to the counter (state, actions, reducers).
+- **`increment`, `decrement`, `reset` from `counterSlice.actions` are actions** → They describe **what should happen** (but don’t modify the state themselves).
+- **The functions inside `reducers: { ... }` are reducers** → They **actually modify the state** based on the dispatched action.
+
+**5️⃣ Add Reducers to the Store**
+
+Now, let's **add the counter slice** to our store.
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../features/counterSlice"; // Import reducer
+
+// Creating store with reducers
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer, // Register the counter slice reducer
+  },
+});
+```
+
+- The store now **contains the `counterReducer`**, making it available in the app.
+
+**6️⃣ Create a UI Component (`components/Counter.js`)**
+
+Now, let’s **create the Counter component**.
+
+```jsx
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement, reset } from "../features/counterSlice"; // Import actions
+
+export default function Counter() {
+  // Step 1: Get state from Redux store
+  const count = useSelector((state) => state.counter.count);
+
+  // Step 2: Get the dispatch function
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+
+      {/* Dispatch actions on button click */}
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
+      <button onClick={() => dispatch(reset())}>Reset</button>
+    </div>
+  );
+}
+```
+
+🔹 **What’s Happening?**
+
+- `useSelector()`: Accesses the **count** value from Redux state.
+- `useDispatch()`: Sends **actions** (`increment`, `decrement`, `reset`) to update the store.
+
+  **7️⃣ Use `Counter` Component in `App.js`**
+
+Finally, modify `App.js` to include the `Counter` component.
+
+```jsx
+import React from "react";
+import Counter from "./components/Counter"; // Import Counter component
+
+function App() {
+  return (
+    <div>
+      <h1>Redux Toolkit Counter</h1>
+      <Counter />
+    </div>
+  );
+}
+
+export default App;
+```
+
+** Summary**
+
+1️⃣ Install Redux Toolkit.  
+2️⃣ **Create an empty store.**  
+3️⃣ **Wrap the app with `Provider`.**  
+4️⃣ **Create a slice (`counterSlice`).**  
+5️⃣ **Add reducers to the store.**  
+6️⃣ **Create a `Counter` component.**  
+7️⃣ **Use `Counter` in `App.js`.**
 
 [Go to top ↑](#index)
