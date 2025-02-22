@@ -11,12 +11,10 @@
    5. **[Why is React known as React?](#5-why-is-react-known-as-react)**
    6. **[What is the difference between React and ReactDOM?](#6-what-is-the-difference-between-react-and-reactdom)**
    7. **[What is CORS? Why does it matter?](#7-what-is-cors-why-does-it-matter)**
-   8. **[What is Optional Chaining (`?.`) in JavaScript?](#8-what-is-optional-chaining--in-javascript)**
-   9. **[JavaScript Expression vs Statement](#9-javascript-expression-vs-statement)**
-   10. **[Define SPA?](#10-define-spa)**
-   11. **[What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?]()**
-   12. **[Debounce in React (with Example)](#12-debounce-in-react-with-example)**
-   13. **[What is Throttling in ReactJS?](#13-what-is-throttling-in-reactjs)**
+   8. **[Define SPA?](#10-define-spa)**
+   9. **[What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?]()**
+   10. **[Debounce in React (with Example)](#12-debounce-in-react-with-example)**
+   11. **[What is Throttling in ReactJS?](#13-what-is-throttling-in-reactjs)**
 
 1. ### **[Part 1 (NPM, Vite & Build Tools)](#part-1-npm-vite--build-tools-1)**
 
@@ -59,6 +57,8 @@
    7. [What is a Custom Hook in React?](#7-what-is-a-custom-hook-in-react)
    8. [ What is Microservices and Monolithic Architecture?](#8-what-is-microservices-and-monolithic-architecture)
    9. [What is React Router?](#9-what-is-react-router)
+   10. [ What is Redux Toolkit (RTK)](#10-what-is-redux-toolkit-rtk)
+   11. [What are Higher Order Component (HOC) in React ](#11-what-are-higher-order-component-hoc-in-react)
 
 ---
 
@@ -247,108 +247,7 @@ A request fails due to CORS if:
 
 [Go to top ↑](#index)
 
-### **8. What is Optional Chaining (`?.`) in JavaScript?**
-
-- **Optional Chaining (`?.`)** is a feature in JavaScript that helps **safely access deeply nested properties** without causing an error if a property is `undefined` or `null`.
-
-- **Why Use Optional Chaining?**
-
-  - 🔴 **Without Optional Chaining:**  
-    If a nested property **does not exist**, accessing it **throws an error**.
-
-  ```javascript
-  const user = {};
-  console.log(user.address.city); // ❌ ERROR: Cannot read properties of undefined
-  ```
-
-  - 🟢 **With Optional Chaining (`?.`):**
-
-    It **stops** execution **if a property is missing** and returns `undefined` instead of throwing an error.
-
-  ```javascript
-  const user = {};
-  console.log(user.address?.city); // ✅ undefined (No Error)
-  ```
-
-- **Where Can You Use Optional Chaining?**
-
-  - **1. Accessing Nested Objects:**
-
-    ```javascript
-    const user = { name: "Arshit", address: { city: "Delhi" } };
-    console.log(user.address?.city); // ✅ Delhi
-    console.log(user.address?.pincode); // ✅ undefined (No Error)
-    ```
-
-  - **2. Accessing Nested Arrays:**
-
-  ```javascript
-  const users = [{ name: "Arshit" }, null];
-  console.log(users[1]?.name); // ✅ undefined (No Error)
-  ```
-
-  - **3. Calling Functions Safely:**
-
-  ```javascript
-  const obj = { greet: () => "Hello" };
-  console.log(obj.greet?.()); // ✅ Hello
-  console.log(obj.sayHi?.()); // ✅ undefined (No Error)
-  ```
-
-[Go to top ↑](#index)
-
-### **9. JavaScript Expression vs Statement**
-
-**1. Expression?**  
-An **expression** is any valid JavaScript code that **produces a value**. Expressions can be assigned to variables, passed as arguments, or used inside other expressions.
-
-#### **Examples of Expressions:**
-
-```js
-5 + 3; // ✅ Expression (Evaluates to 8)
-10 > 5; // ✅ Expression (Evaluates to true)
-"Hello" + " World"; // ✅ Expression (Evaluates to "Hello World")
-Math.max(5, 10); // ✅ Expression (Evaluates to 10)
-```
-
-**Key Rule:** Expressions always **return a value**.
-
-**2. What is a Statement?**  
-A **statement** is a complete instruction that **performs an action** but does not necessarily return a value. Statements often contain expressions inside them.
-
-#### **Examples of Statements:**
-
-```js
-let sum = 5 + 3; // ✅ Statement (Declares a variable and assigns a value)
-if (10 > 5) {
-  // ✅ Statement (Conditional statement)
-  console.log("True"); // ✅ Statement (Performs an action)
-}
-for (let i = 0; i < 3; i++) {
-  // ✅ Statement (Loop)
-  console.log(i); // ✅ Statement inside a loop
-}
-```
-
-**Key Rule:** Statements **do something**, but they **don’t always return a value**.
-
-#### **IMPORTANT⚠️: Expressions Inside Statements**
-
-Sometimes, expressions are part of a statement.
-
-```js
-console.log("Hello" + " World");
-```
-
-- `"Hello" + " World"` **(expression, returns `"Hello World"`)**
-- `console.log(...)` **(statement, performs an action but returns `undefined`)**
-
-🔹 **Expression = Produces a Value**  
-🔹 **Statement = Performs an Action**
-
-[Go to top ↑](#index)
-
-### **10. Define SPA?**
+### **8. Define SPA?**
 
 In web development, **SPA (Single Page Application)** is a type of web app that loads a single HTML page and dynamically updates content without refreshing the page. It provides a smooth, fast user experience similar to a mobile app.
 
@@ -363,7 +262,7 @@ Examples of SPAs: Gmail, Facebook, Twitter, and Google Maps.
 
 [Go to top ↑](#index)
 
-### **11. What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?**
+### **9. What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?**
 
 Routing is the process of navigating between different pages or views in a website or application.
 
@@ -421,7 +320,7 @@ Routing is the process of navigating between different pages or views in a websi
 
 [Go to top ↑](#index)
 
-### **12. Debounce in React (with Example)**
+### **10. Debounce in React (with Example)**
 
 - Debouncing is a way of delaying the execution of a function until a certain amount of time has passed since the last time it was called. This can be useful for scenarios where we want to avoid unnecessary or repeated function calls that might be expensive or time-consuming.
 
@@ -487,7 +386,7 @@ export default function CounterApp() {
 
 [Go to top ↑](#index)
 
-### **13. What is Throttling in ReactJS?**
+### **11. What is Throttling in ReactJS?**
 
 - **Throttling** is a technique used to **limit how often a function runs** within a given time frame, even if it is triggered continuously.
 
@@ -2597,5 +2496,83 @@ export default App;
 5️⃣ **Add reducers to the store.**  
 6️⃣ **Create a `Counter` component.**  
 7️⃣ **Use `Counter` in `App.js`.**
+
+[Go to top ↑](#index)
+
+### **11. What are Higher Order Component (HOC) in React**
+
+- A **Higher Order Component (HOC)** is a **function** that takes a component as input and returns a new enhanced component. It is used for **code reusability** and **adding extra functionality** without modifying the original component.
+
+**Example**
+
+**1️⃣ Create a Simple Component (Wrapped Component)**
+
+- Let's say we have a basic component that displays a message:
+
+```jsx
+import React from "react";
+
+function Message({ text }) {
+  return <h2>Hi, {text}</h2>;
+}
+
+export default Message;
+```
+
+**2️⃣ Create the Higher Order Component (HOC)**
+
+- A HOC is just a function that **takes a component as input and returns a new component** with added functionality.
+
+```jsx
+import React from "react";
+
+function withBorder(WrappedComponent) {
+  return function EnhancedComponent(props) {
+    return (
+      <div style={{ border: "2px solid red", padding: "10px" }}>
+        <WrappedComponent {...props} />
+      </div>
+    );
+  };
+}
+
+export default withBorder;
+```
+
+- `withBorder` is our HOC function.
+- It **takes a component (`WrappedComponent`) as input**.
+- It **returns a new component (`EnhancedComponent`)** that wraps `WrappedComponent` inside a `div` with a red border.
+
+**3️⃣ Use the HOC to Enhance the Component**
+
+- Now, we apply `withBorder` to the `Message` component.
+
+```jsx
+import Message from "./Message";
+import withBorder from "./withBorder";
+
+const EnhancedMessage = withBorder(Message);
+
+function App() {
+  return <EnhancedMessage text="Arshit" />;
+}
+
+export default App;
+```
+
+- `withBorder(Message)` creates a new component (`EnhancedMessage`) that adds a border to `Message`.
+- `App` renders `EnhancedMessage` with the text **"Hello, I'm an HOC!"**.
+
+- The message **"Hi, Arshit"** appears inside a box with a **red border**.
+
+** When to Use HOCs?**
+
+- **Reusing logic** (e.g., authentication, logging, styling).
+- **Adding functionality** (e.g., adding a loader, tracking user actions).
+
+**Example Use Cases:**
+
+1. `withAuth(Component)` → Only show a component if the user is logged in.
+2. `withLoading(Component)` → Show a **loading spinner** before displaying data.
 
 [Go to top ↑](#index)

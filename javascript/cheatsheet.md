@@ -30,6 +30,9 @@
 - 2.11 [What Are Classes in JavaScript?](#211-what-are-classes-in-javascript)
 - 2.12 [What Is a Prototype?](#212-what-is-a-prototype)
 - 2.13 [Factory Function vs Constructor Function](#213-factory-function-vs-constructor-function)
+- 2.14 [What is this in JavaScript ](#214-what-is-this-in-javascript)
+- 2.15 [What are call, apply, and bind in JavaScript](#215-what-are-call-apply-and-bind-in-javascript)
+- 2.16 [What is Optional Chaining (`?.`) in JavaScript?](#216-what-is-optional-chaining--in-javascript)
 
 ## **3. Scope and Hoisting**
 
@@ -75,6 +78,8 @@
 - 6.14 [Why You Can't Fully Trust `setTimeout`](#614-why-you-cant-fully-trust-settimeout)
 - 6.15 [What is Destructuring in JavaScript?](#615-what-is-destructuring-in-javascript)
 - 6.16 [Implicit vs Explicit Typing in JavaScript](#616-implicit-vs-explicit-typing-in-javascript)
+- 6.17 [Define Parameter, Argument, Expression, Statement and Method.](#617-define-parameter-argument-expression-statement-and-method)
+
 ---
 
 # **0. How JavaScript Works**
@@ -1306,7 +1311,7 @@ person1.greet(); // Output: Hello, my name is Arshit
 
 [Go to top ↑](#index)
 
-## 2.14) **What is `this` in JavaScript** 🚀
+## 2.14) **What is `this` in JavaScript**
 
 The `this` in JavaScript refers to the object to which it belongs. Its value depends on **how and where** the function is called, making it a dynamic reference
 
@@ -1551,6 +1556,56 @@ newGreet(); // Calling later
 [Go to top ↑](#index)
 
 ---
+
+## 2.16) **What is Optional Chaining (`?.`) in JavaScript?**
+
+- **Optional Chaining (`?.`)** is a feature in JavaScript that helps **safely access deeply nested properties** without causing an error if a property is `undefined` or `null`.
+
+- **Why Use Optional Chaining?**
+
+  - 🔴 **Without Optional Chaining:**  
+    If a nested property **does not exist**, accessing it **throws an error**.
+
+  ```javascript
+  const user = {};
+  console.log(user.address.city); // ❌ ERROR: Cannot read properties of undefined
+  ```
+
+  - 🟢 **With Optional Chaining (`?.`):**
+
+    It **stops** execution **if a property is missing** and returns `undefined` instead of throwing an error.
+
+  ```javascript
+  const user = {};
+  console.log(user.address?.city); // ✅ undefined (No Error)
+  ```
+
+- **Where Can You Use Optional Chaining?**
+
+  - **1. Accessing Nested Objects:**
+
+    ```javascript
+    const user = { name: "Arshit", address: { city: "Delhi" } };
+    console.log(user.address?.city); // ✅ Delhi
+    console.log(user.address?.pincode); // ✅ undefined (No Error)
+    ```
+
+  - **2. Accessing Nested Arrays:**
+
+  ```javascript
+  const users = [{ name: "Arshit" }, null];
+  console.log(users[1]?.name); // ✅ undefined (No Error)
+  ```
+
+  - **3. Calling Functions Safely:**
+
+  ```javascript
+  const obj = { greet: () => "Hello" };
+  console.log(obj.greet?.()); // ✅ Hello
+  console.log(obj.sayHi?.()); // ✅ undefined (No Error)
+  ```
+
+[Go to top ↑](#index)
 
 # **3. Scope and Hoisting**
 
@@ -2564,6 +2619,114 @@ console.log(name, age); // Arshit 22
    x = String(x); // Explicitly convert it to a string
    ```
 
-   [Go to top ↑](#index)
+[Go to top ↑](#index)
 
-   ***
+## 6.17) **Define Parameter, Argument, Expression, Statement and Method.**
+
+### **1️⃣ Parameter**
+
+A **parameter** is a variable inside the function definition that **receives values** when the function is called. It is like a placeholder.
+
+```js
+function greet(name) {
+  // "name" is a parameter
+  console.log("Hello, " + name);
+}
+```
+
+### **2️⃣ Argument**
+
+An **argument** is the actual value you pass when calling a function.(_in place of Placeholder_)
+
+```js
+greet("Arshit"); // "Arshit" is an argument
+```
+
+### **3️⃣ Attribute**
+
+An **attribute** is a property of an HTML element or an object.
+
+#### 🔹 In HTML:
+
+```html
+<img src="image.jpg" alt="Sample Image" />
+```
+
+- `src` and `alt` are **attributes** of the `<img>` tag.
+
+#### 🔹 In JavaScript Objects:
+
+```js
+const user = { name: "Arshit", age: 21 };
+console.log(user.name); // "name" is an attribute of "user"
+```
+
+### **4️⃣ Expression**
+
+An **expression** is any valid JavaScript code that **produces a value**. Expressions can be assigned to variables, passed as arguments, or used inside other expressions.
+
+#### **Examples of Expressions:**
+
+```js
+5 + 3; // ✅ Expression (Evaluates to 8)
+10 > 5; // ✅ Expression (Evaluates to true)
+"Hello" + " World"; // ✅ Expression (Evaluates to "Hello World")
+Math.max(5, 10); // ✅ Expression (Evaluates to 10)
+```
+
+**Key Rule:** Expressions always **return a value**.
+
+### **5️⃣ Statement**
+
+A **statement** is a complete instruction that **performs an action** but does not necessarily return a value. Statements often contain expressions inside them.
+
+#### **Examples of Statements:**
+
+```js
+let sum = 5 + 3; // ✅ Statement (Declares a variable and assigns a value)
+if (10 > 5) {
+  // ✅ Statement (Conditional statement)
+  console.log("True"); // ✅ Statement (Performs an action)
+}
+for (let i = 0; i < 3; i++) {
+  // ✅ Statement (Loop)
+  console.log(i); // ✅ Statement inside a loop
+}
+```
+
+**Key Rule:** Statements **do something**, but they **don’t always return a value**.
+
+#### **IMPORTANT⚠️: Expressions Inside Statements**
+
+Sometimes, expressions are part of a statement.
+
+```js
+console.log("Hello" + " World");
+```
+
+- `"Hello" + " World"` **(expression, returns `"Hello World"`)**
+- `console.log(...)` **(statement, performs an action but returns `undefined`)**
+
+🔹 **Expression = Produces a Value**  
+ 🔹 **Statement = Performs an Action**
+
+### **6️⃣ Method**
+
+A **method** is a function that is **defined inside an object** and can be called using the object.
+
+```js
+const person = {
+  name: "Arshit",
+  greet: function () {
+    console.log("Hello, " + this.name);
+  },
+};
+
+person.greet(); // Output: Hello, Arshit
+```
+
+- Here, `greet` is a **method** inside the `person` object.
+
+[Go to top ↑](#index)
+
+---
