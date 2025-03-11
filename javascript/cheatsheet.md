@@ -47,7 +47,7 @@
 - 4.3 [Working of Event Loop (with micro-task queue)](#43-working-of-event-loop-with-micro-task-queue)
 - 4.4 [What is JavaScript Runtime Environment?](#44-what-is-javascript-runtime-environment)
 - 4.5 [List & Explain the Components of JS Runtime Environment.](#45-list--explain-the-components-of-js-runtime-environment)
-- 4.6 [What is a JavaScript Engine and How it works?](#47-javascript-runtime-environment-questions)
+- 4.6 [What is a JavaScript Engine and How it works?](#46-what-is-a-javascript-engine-and-how-it-works)
 - 4.7 [JavaScript Runtime Environment QUESTIONS](#47-javascript-runtime-environment-questions)
   - i) [What is the difference between JavaScript Engine and JavaScript Runtime?](#i-what-is-the-difference-between-javascript-engine-and-javascript-runtime)
   - ii) [What is the difference between **call stack** and **memory heap**?](#ii-what-is-the-difference-between-call-stack-and-memory-heap)
