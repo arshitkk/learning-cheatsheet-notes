@@ -1,6 +1,6 @@
 # Index
 
-## 1. **[Basic Foundation](#1-basic-foundation-1)**
+## 1. **[Foundation](#1-foundation-1)**
 
 1. **[What is Node.js? Why is it usefull](#1-what-is-nodejs-why-is-it-usefull)**
 2. **[History of Node JS](#2-history-of-nodejs)**
@@ -11,8 +11,14 @@
 5. **[What is `Module.export`?](#5-what-is-moduleexport)**
 6. **[How `require()` Works in Node.js](#6-how-require-works-in-nodejs)**
 7. **[Exporting and Importing Modules in Node.js (using ES6 Modules)](#7-exporting-and-importing-modules-in-nodejs-using-es6-modules)**
-
-# 1. **Basic Foundation**
+8. **[CommonJS vs ES6 Modules (Comparison Table)](#8-commonjs-vs-es6-modules-comparison-table)**
+9. **[What is libuv?](#9-what-is-libuv)**
+10. **[What is the Code Execution Flow with libuv (Non Blocking)?](#10-what-is-the-code-execution-flow-with-libuv-non-blocking)**
+11. **[What Does "Sync" After a Module Name Mean? What Happens When We Use them?](#11-what-does-sync-after-a-module-name-mean-what-happens-when-we-use-them)**
+12. **[12. List the tasks handled by Libuv and Microtask Queue.](#12-list-the-tasks-handled-by-libuv-and-microtask-queue)**
+13. **[How libuv operate and manage the Event loop?](#13-how-libuv-operate-and-manage-the-event-loop)**
+14. **[ Thread Pool in Node.js](#14-thread-pool-in-nodejs)**
+# 1. **Foundation**
 
 ## **1. What is Node.js? Why is it usefull?**
 
@@ -707,3 +713,260 @@ Microtasks are JavaScript-level tasks that execute after synchronous code but be
 2. **`fetch()` API (Node.js 18+)** → Fetch responses are handled in the microtask queue.
 3. **`queueMicrotask()`** → Manually schedules a microtask.
 4. **`process.nextTick()`** → Runs immediately after synchronous code, before microtasks. _(It has even higher priority than microtasks!)_
+
+## **13. How libuv operate and manage the Event loop?**
+
+### **The event loop in Node.js runs in multiple phases, managed by libuv Here are the main 4 phases:**
+
+1.  **Timers Phase**: In this phase, all callbacks that were set using setTimeout or setInterval are executed. These timers are checked, and if their time has expired, their corresponding callbacks are added to the callback queue for execution.
+2.  **Poll Phase**: After timers, the event loop enters the Poll phase, which is crucial because it handles I/O callbacks. For instance, when you perform a read operation using `fs.readFile` , the callback associated with this I/O operation will be executed in this phase. The Poll phase is responsible for handling all I/Orelated tasks, making it one of the most important phases in the event loop.
+3.  **Check Phase**: Next is the Check phase, where callbacks scheduled by the `setImmediate` function are executed. This utility API allows you to execute callbacks immediately after the Poll phase, giving you more control over the order of operations.
+4.  **Close Callbacks Phase**: Finally, in the Close Callbacks phase, any callbacks associated with closing operations, such as socket closures, are handled. This phase is typically used for cleanup tasks, ensuring that resources are properly released.
+
+    It fires callbacks for events like:
+
+    - `close` on streams.
+    - `disconnect` on network sockets.
+    - `exit` events for child processes.
+
+### **Before the event loop moves to each of its main phases (Timers, I/O Callbacks, Poll, Check, and Close Callbacks)**
+
+- it first processes any pending microtasks which include tasks scheduled using `process.nextTick()` and Promise callbacks. This ensures that these tasks are handled promptly before moving on to the next phase.
+- `process.nextTick()` is a special function in Node.js that runs the callback immediately after the current operation, before the event loop continues to the next phase.
+
+### **Node.js Event Loop Cycle (Step-by-Step)**
+
+![img](https://res.cloudinary.com/dy3m6ztbp/image/upload/fl_preserve_transparency/v1741718852/diagram-export-3-12-2025-12_16_52-AM_znyc9k.jpg?_s=public-apps)
+
+1. **Start Event Loop Cycle**
+
+2. **Process `process.nextTick()` Callbacks**
+
+   - Execute **all** `process.nextTick()` callbacks (highest priority).
+
+3. **Process Promise Callbacks (Microtasks)**
+
+   - Execute **all** Promise callbacks (`.then()`, `catch()`, `finally()`).
+
+4. **Move to Timers Phase**
+
+   - Execute **timer callbacks** (`setTimeout()`, `setInterval()`).
+
+5. **Move to I/O Callbacks Phase**
+
+   - Execute **I/O callbacks** (e.g., network, fs callbacks from the thread pool).
+
+6. **Move to Poll Phase**
+
+   - Retrieve **new I/O events** and **execute callbacks** (e.g., waiting for incoming connections, reading files).
+
+7. **Move to Check Phase**
+
+   - Execute `setImmediate()` callbacks.
+
+8. **Move to Close Callbacks Phase**
+
+   - Execute `close` callbacks (e.g., socket close, `server.close()`).
+
+9. **Repeat Event Loop Cycle** 🔄
+
+10. Go back to step 1 and **continue the cycle** until there’s no more work to do!
+
+### **Using Example**:
+
+```javascript
+const fs = require("fs");
+
+setImmediate(() => console.log("setImmediate")); // A
+
+setTimeout(() => console.log("Timer expired"), 0); // B
+
+Promise.resolve().then(() => console.log("Promise")); // C
+
+fs.readFile("./file.txt", "utf8", () => {
+  // D
+  setTimeout(() => console.log("Inner timer"), 0); // E
+  process.nextTick(() => console.log("Inner nextTick")); // F
+  setImmediate(() => console.log("2nd setImmediate")); // G
+  console.log("File Reading CB"); // H
+});
+
+process.nextTick(() => console.log("next Tick")); // I
+
+console.log("line of the file."); // J
+```
+
+**Step-by-Step Execution (With Event Loop Cycle)**
+
+**1. Run the top-level code (Before Event Loop starts)**
+
+This runs immediately (_Synchronous code_):
+
+```
+J ➡ "line of the file."
+```
+
+**2. Process `process.nextTick()` callbacks**
+
+- Runs **before Promises and Event Loop Phases**.
+
+```
+I ➡ "next Tick"
+```
+
+**3. Process Promise callbacks (Microtasks)**
+
+- Runs **after process.nextTick()** (_of step 2_).
+
+```
+C ➡ "Promise"
+```
+
+**😈⚠️ Now the Event Loop Phases Begin!**
+
+**4. Timers Phase**
+
+`setTimeout()` callbacks:
+
+```
+B ➡ "Timer expired"
+```
+
+**5. I/O Callbacks Phase**
+
+`fs.readFile()` completes (asynchronous I/O), so its callback executes:
+
+```
+H ➡ "File Reading CB"
+```
+
+- Inside the callback:
+  - `process.nextTick()` → Queued immediately.
+  - `setTimeout()` → Queued for **next** Timers phase.
+  - `setImmediate()` → Queued for **Check** phase.
+
+**6. Process `process.nextTick()` again (after I/O callback)**
+
+```
+F ➡ "Inner nextTick"
+```
+
+**7. Promise callbacks again?**
+
+_None here_.
+
+**8. Check Phase**
+
+- `setImmediate()` callbacks:
+
+```
+A ➡ "setImmediate" // scheduled before the event loop
+G ➡ "2nd setImmediate"
+```
+
+**Timers Phase (again, for the inner setTimeout)**
+
+- `setTimeout()` callback inside `fs.readFile()`:
+
+```
+E ➡ "Inner timer"
+```
+
+**No More Tasks! The Event Loop Ends (for now).**
+✅ **Final Output Order**
+
+```
+line of the file.         (J)
+next Tick                 (I)
+Promise                   (C)
+Timer expired             (B)
+File Reading CB           (H)
+Inner nextTick            (F)
+setImmediate              (A)
+2nd setImmediate          (G)
+Inner timer               (E)
+```
+
+## **14. Thread Pool in Node.js**
+
+### **What is a Thread Pool?**
+
+- **Thread Pool** = A group of threads (workers) that **handle expensive tasks** in the background, so the **main thread (Event Loop)** stays free.
+- It isManaged by **libuv** in Node.js.
+
+_Whenever there's an asynchronous task, **V8** offloads it to libuv. For example, when reading a file, libuv uses one of the threads in its thread pool. The file system (fs) call is assigned to a thread in the pool, and that thread makes a request to the OS. While the file is being read, the thread in the pool is fully occupied and cannot perform any other tasks. Once the file reading is complete, the engaged thread is freed up and becomes available for other operations. For instance, if you're performing a cryptographic operation like hashing, it will be assigned to another thread. There are certain functions for which libuv uses the thread pool._
+
+### **Default Size**
+
+- In Node.js, the **default size** of the thread pool is **4** threads:
+
+  - `UV_THREADPOOL_SIZE = 4`
+
+  - Now, suppose you make 5 simultaneous file reading calls. What happens is that 4 file calls will occupy 4 threads, and the 5th one will wait until one of the threads is free.
+
+- If your production system involves heavy file handling or other tasks that benefit from additional threads, you can **adjust** the thread pool **size** accordingly to better suit your needs.
+
+  - You can set it to 8 like this:
+
+    ```bash
+    UV_THREADPOOL_SIZE = 8 node app.js
+    ```
+
+    Or in code :
+
+    ```js
+    process.env.UV_THREADPOOL_SIZE = 8;
+    ```
+
+### **What is it Used For?**
+
+Thread Pool handles **non-blocking** tasks that are **CPU-intensive or I/O intensive**, like:
+
+1. **File System operations** → `fs.readFile`, `fs.writeFile`
+2. **DNS lookups** → `dns.lookup`
+3. **Cryptography** → `crypto.pbkdf2`, `crypto.scrypt`
+4. **Compression** → `zlib` module
+
+_These tasks are **offloaded to worker threads**, not handled by the Event Loop itself._
+
+### **Example of Thread Pool**
+
+```js
+const crypto = require("crypto");
+
+console.time("Password Hashing");
+
+for (let i = 0; i < 5; i++) {
+  crypto.pbkdf2("password", "salt", 100000, 64, "sha512", () => {
+    console.timeEnd("Password Hashing");
+  });
+}
+```
+
+➡️ This runs **5 heavy crypto tasks** using the **Thread Pool**.
+
+- Scenario 1️⃣: **We run 5 tasks, but pool size = 4 (default)**
+
+  - **4 tasks** run **immediately** on **4 threads**
+  - The **5th task** **waits in line** until a thread becomes free.
+  - **Tasks take longer** to complete (queueing happens).
+
+- Scenario 2️⃣: **Increase Pool Size to 5**
+
+  ```bash
+  UV_THREADPOOL_SIZE=5 node app.js
+  ```
+
+  - All **5 tasks** run **in parallel**, no waiting.
+  - **Faster** completion.
+
+### **Summary**
+
+| **Topic**           | **Details**                          |
+| ------------------- | ------------------------------------ |
+| **Thread Pool**     | Manages background async tasks       |
+| **Default Size**    | 4 threads                            |
+| **Max Size**        | 1024                                 |
+| **How to Change**   | `process.env.UV_THREADPOOL_SIZE = 8` |
+| **Used For**        | fs, dns, crypto, zlib                |
+| **If Exceed Limit** | Extra tasks wait in queue            |
