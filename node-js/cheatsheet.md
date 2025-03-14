@@ -18,6 +18,17 @@
 12. **[12. List the tasks handled by Libuv and Microtask Queue.](#12-list-the-tasks-handled-by-libuv-and-microtask-queue)**
 13. **[How libuv operate and manage the Event loop?](#13-how-libuv-operate-and-manage-the-event-loop)**
 14. **[ Thread Pool in Node.js](#14-thread-pool-in-nodejs)**
+
+## 2. **[Server Creation (_Theory_)](#2-server-creation-theory-1)**
+
+1. **[Understanding Servers](#1-understanding-servers)**
+2. **[Understanding Client-Server Architecture](#2-understanding-client-server-architecture)**
+3. **[How Is Data Sent When You Make a Server Request?](#3-how-is-data-sent-when-you-make-a-server-request)**
+4. **[Can We Create Multiple Servers?](#4-can-we-create-multiple-servers)**
+5. **[Understanding Distributed Server Architecture Explained](#5-understanding-distributed-server-architecture-explained)**
+6. **[Sockets vs Web Socets](#6-sockets-vs-web-socets)**
+7. **[How to create a Node.js Server](#7-how-to-create-a-nodejs-server)**
+
 # 1. **Foundation**
 
 ## **1. What is Node.js? Why is it usefull?**
@@ -86,8 +97,6 @@ With **Node.js**, JavaScript is no longer restricted to the browser! It can run 
 
 [Go to top ↑](#index)
 
----
-
 ## **2. History of Node.js**
 
 ### **2009**:
@@ -140,8 +149,6 @@ With **Node.js**, JavaScript is no longer restricted to the browser! It can run 
 - **Community-driven development**: A large group of contributors works on it.
 
 [Go to top ↑](#index)
-
----
 
 ## **3. JS on a Server**
 
@@ -228,8 +235,6 @@ The execution phase in a JavaScript engine refers to the process of actually run
 - **Purpose**: This phase runs your program and produces the desired results (e.g., displaying data, performing calculations, etc.).
 
 [Go to top ↑](#index)
-
----
 
 ## **4. Exporting and Importing Modules in Node.js (using CommonJS)**
 
@@ -341,6 +346,8 @@ Here, `require('./math.js')` loads the `math.js` file, and we can use the export
   const express = require("express");
   ```
 
+[Go to top ↑](#index)
+
 ## **5. What is `Module.export`?**
 
 Before passing the code to the **V8 engine**, **Node.js** wraps each module inside an **Immediately Invoked Function Expression (IIFE)**. This is done automatically by Node.js to **encapsulate** the module and provide important features.
@@ -373,7 +380,7 @@ Internally, **Node.js wraps** this module as:
 });
 ```
 
----
+[Go to top ↑](#index)
 
 ### **Why Does Node.js Wrap Modules in an IIFE?**
 
@@ -405,6 +412,8 @@ Since each module is wrapped inside a function, **its variables and functions ar
 
 - Node.js **automatically provides** the `module` object as part of the **IIFE wrapping**.
 - `module.exports` starts as an **empty object (`{}`)** and we can **assign values to it**.
+
+[Go to top ↑](#index)
 
 ## **6. How `require()` Works in Node.js**
 
@@ -438,6 +447,8 @@ When you call `require('./math')`, Node.js follows these steps:
 
 - If the same module is **required again**, Node.js **does not reload** it.
 - Instead, it **returns the cached version** from `require.cache`, improving performance.
+
+[Go to top ↑](#index)
 
 ## **7. Exporting and Importing Modules in Node.js (Using ES6 Modules)**
 
@@ -502,6 +513,8 @@ console.log(subtract(10, 4)); // 6
 console.log(PI); // 3.1416
 ```
 
+[Go to top ↑](#index)
+
 ## **8. CommonJS vs ES6 Modules (Comparison Table)**
 
 | Feature                  | **CommonJS (CJS)**                                       | **ES6 Modules (ESM)**                                                    |
@@ -518,6 +531,8 @@ console.log(PI); // 3.1416
 | **Flexibility**          | More flexible, works in older projects                   | More structured, better for large-scale projects                         |
 | **Strict**               | CommonJS code runs in non-strict mode                    | ES modules execute in strict mode                                        |
 | **Best Use Case**        | **Backend (Node.js)** projects                           | **Frontend (Browser)** and **modern Node.js** projects                   |
+
+[Go to top ↑](#index)
 
 ## **9. What is libuv?**
 
@@ -548,6 +563,8 @@ libuv is a multi-platform support library that provides asynchronous I/O and eve
 8. **Thread Pool** → Background threads for CPU-intensive tasks like (`crypto`, `fs`).
 9. **Signals Handling** → Captures OS signals.
 10. **Event Loop** → Manages task execution order.
+
+[Go to top ↑](#index)
 
 ## **10. What is the Code Execution Flow with libuv (Non Blocking)?**
 
@@ -641,6 +658,8 @@ console.log("Multiplication result is : ", c);
    - then `fetch` because in my case its a dummy response so it has low size but it should take time so thats why it was second
    - in the last `setTimeout` because it took the maximum time of 5s
 
+[Go to top ↑](#index)
+
 ## **11. What Does "Sync" After a Module Name Mean? What Happens When We Use them?**
 
 - When you see **Sync** at the end of a function name (like `crypto.pbkdf2Sync()`, `fs.readFileSync()`), it means that the function is synchronous and block the main thread while it’s running. This is something you should cautious about, especially in performance-sensitive applications.
@@ -690,6 +709,8 @@ Timeout callback executed
 4. Once `pbkdf2Sync` completes, `"End"` prints.
 5. Only **after all synchronous code is done, the event loop processes `setTimeout`**, printing `"Timeout callback executed"`.
 
+[Go to top ↑](#index)
+
 ## **12. List the tasks handled by Libuv and Microtask Queue.**
 
 ### **Tasks Handled by libuv**
@@ -713,6 +734,8 @@ Microtasks are JavaScript-level tasks that execute after synchronous code but be
 2. **`fetch()` API (Node.js 18+)** → Fetch responses are handled in the microtask queue.
 3. **`queueMicrotask()`** → Manually schedules a microtask.
 4. **`process.nextTick()`** → Runs immediately after synchronous code, before microtasks. _(It has even higher priority than microtasks!)_
+
+[Go to top ↑](#index)
 
 ## **13. How libuv operate and manage the Event loop?**
 
@@ -887,6 +910,8 @@ setImmediate              (A)
 Inner timer               (E)
 ```
 
+[Go to top ↑](#index)
+
 ## **14. Thread Pool in Node.js**
 
 ### **What is a Thread Pool?**
@@ -970,3 +995,384 @@ for (let i = 0; i < 5; i++) {
 | **How to Change**   | `process.env.UV_THREADPOOL_SIZE = 8` |
 | **Used For**        | fs, dns, crypto, zlib                |
 | **If Exceed Limit** | Extra tasks wait in queue            |
+
+[Go to top ↑](#index)
+
+---
+
+# 2. **Server Creation (_Theory_)**
+
+## **1. Understanding Servers**
+
+### **What is a Server?**
+
+The term **server** can refer to both **hardware** and **software**, depending on the context:
+
+1. **Hardware (Physical Server):**
+
+   - A **computer (machine)** that provides **resources** (like files, databases) and **services** (like hosting a website) to other computers (called **clients**) over a **network**.
+   - Example: A big computer sitting in a data center.
+
+2. **Software (Server Application):**
+   - A **program** or **application** that handles **requests** from clients and sends them **responses** (data or services).
+   - Example: A **web server** like **Apache** or a **Node.js app** serving APIs.
+
+### **Deploying an Application on a Server**
+
+When people say "**Deploy your app on a server**", it generally means:
+
+1. **Hardware Part**
+
+   - You need a **physical machine (server)** to run your app.
+   - It has **CPU**, **RAM**, **storage**, and **network** connectivity.
+
+2. **Operating System (OS)**
+
+   - The server hardware runs an **OS** like **Linux** or **Windows Server**.
+   - Your application runs **on top of this OS**.
+
+3. **Server Software**
+   - Software that handles incoming **requests** and sends **responses**.
+   - Examples:
+     - **Apache**, **Nginx** (web servers)
+     - **Node.js application server**
+
+### **AWS and Cloud Computing**
+
+**AWS (Amazon Web Services)** provides **cloud-based servers and resources**.
+
+- **EC2 Instance**
+
+  - An **EC2 instance** is like renting a **virtual server** from AWS.
+  - AWS manages the **physical hardware**, and you use the **virtual machine** to deploy your app.
+
+**Benefits of AWS Servers**
+
+- **Scalability**
+
+  - You can easily **scale** (increase) resources like **RAM**, **CPU**, or **storage** with a few clicks.
+  - Much easier than upgrading a physical machine (like your laptop).
+
+- **Reliability**
+  - AWS servers have:
+    - Constant **power backup**
+    - **Internet backup**
+    - **Redundant systems** (multiple backups)
+  - Ensures your app is **always available** (high availability), unlike a personal computer that might shut down.
+
+### **Can You Use Your Own Laptop as a Server?**
+
+**Yes, you can!**  
+But... there are **limitations** you should know.
+
+**Limitations of Using Your Laptop as a Server**
+
+1. **Hardware Constraints**
+
+   - Your laptop has **limited resources** like **RAM**, **CPU**, and **storage**.
+   - Not suitable for handling **large numbers of requests** from many users at once.
+   - It may **slow down** or **crash** under heavy load.
+
+2. **Internet Connectivity**
+
+   - Home internet is usually **less reliable**.
+   - Often uses a **dynamic IP address**, which **changes frequently**.  
+     🔹 This makes it **hard to keep your server accessible** on the internet.
+   - Professional servers use **static IP addresses** that stay the same.
+
+3. **Power and Maintenance**
+   - You need to make sure your **laptop is always on**,  
+     ✅ Connected to the **internet**  
+     ✅ Has **backup power** (like UPS)
+   - Managing this can be **difficult and unreliable** at home.
+   - **AWS** and other **cloud services** handle these issues automatically.
+
+[Go to top ↑](#index)
+
+## **2. Understanding Client-Server Architecture**
+
+### **Client vs Server**
+
+- **Client**
+
+  - A **client** is the **user** or **device** (like a web browser) that requests data or services from a **server**.
+  - Each client has its own **IP address**.
+
+- **Server**
+
+  - A **server** is a **machine or application** that listens for client requests.
+  - It **retrieves** the requested **data/files** and **sends** them back to the client.
+  - The server also has its own **IP address**.
+
+### **How It Works**
+
+1. The **client** opens a **socket connection** to the **server** (not the same as WebSocket).
+2. The **server** application **listens** for incoming requests.
+3. The server **processes** the request (like fetching a file).
+4. It **responds** by sending the **data back** to the client.
+
+### **Multiple Clients and Socket Connections**
+
+- **Multiple clients** can connect to the server **at the same time**.
+- Each client **opens a socket connection** to request data.
+- After receiving data, the **connection is closed**.
+- For a new request, a **new socket connection** is created.
+
+- **Sockets** use the **TCP/IP protocol** for reliable communication.
+
+### **What is a Protocol?**
+
+- A **protocol** is a set of **rules** that define **how computers communicate** with each other.
+- Protocols determine the **format** in which data is sent between devices.
+
+**Common Protocols**
+
+- **FTP (File Transfer Protocol)**: Transfers files between computers.
+- **SMTP (Simple Mail Transfer Protocol)**: Sends emails.
+- **HTTP (HyperText Transfer Protocol)**: Used by web servers to communicate with clients.
+
+**Web Servers and HTTP**
+
+- A **web server** usually means an **HTTP server**.
+- **HTTP** defines how the **client and server exchange data**.
+- When we build a server, it's often an **HTTP server** handling these **data exchanges**.
+
+## **3. How Is Data Sent When You Make a Server Request?**
+
+### **Data Is Sent in Chunks (Packets)**
+
+- When data is transmitted over the internet, it is **broken into small units** called **packets**.
+- These packets are **sent individually** and **reassembled** at the destination (your computer).
+- **Remember:**
+  - The **TCP/IP protocol** handles
+  - Sending these packets
+  - Ensuring data arrives correctly and in order.
+
+### **Streams and Buffers in Node.js**
+
+- In **Node.js**, data **is handled in chunks**, which are processed as **streams**.
+- **Buffers** temporarily **store these chunks** until they can be processed.
+- Example:  
+  ➡️ **Streaming a video** → data comes in small chunks → buffers hold it → video plays.
+
+### **We Use Domain Names, Not IP Addresses**
+
+- Humans don’t remember **IP addresses** (e.g., `142.250.195.206`), so we use **domain names** (like `youtube.com`).
+
+- it's like Saving phone numbers in your contacts with **names** instead of remembering the numbers.
+
+### **What Happens When You Request a Website?**
+
+1. You enter a **URL** like `youtube.com` in your browser.
+2. The browser contacts a **DNS server**.
+3. **DNS (Domain Name System)** translates the domain name to an **IP address**.
+4. The browser sends a **request to the server** at that IP address.
+5. The **HTTP server** processes your request and sends **data back**.
+
+### **Data Transfer Behind the Scenes**
+
+- The **response data** (like a video) is sent as **chunks**, also known as **streams**.
+- These streams are processed and temporarily held in **buffers**.
+- That's why sometimes you see a video **buffering**—it’s collecting enough data in the buffer to continue playback smoothly.
+
+### **Important Terms**
+
+| **Concept**                  | **Simple Definition**                                                                  |
+| ---------------------------- | -------------------------------------------------------------------------------------- |
+| **Packets**                  | Small pieces of data that travel across the internet to reach their destination.       |
+| **TCP/IP Protocol**          | A set of rules that ensures data packets are sent, received, and arranged correctly.   |
+| **Streams in Node.js**       | A way or method to handle large amounts of data in small parts instead of all at once. |
+| **Buffers in Node.js**       | A temporary storage space for data(_streams_) before it is processed or sent.          |
+| **DNS (Domain Name System)** | A system that converts website names (like youtube.com) into IP addresses.             |
+| **HTTP Server**              | A program that receives user requests, processes them, and sends back responses.       |
+
+[Go to top ↑](#index)
+
+## **4. Can We Create Multiple Servers?**
+
+**Yes, you can create multiple HTTP servers!**
+
+### **How Multiple Servers Work**
+
+When you create an **HTTP server** in Node.js, you're basically starting an app that listens for requests on a **specific port number**.
+
+- A **port** is like a door to your application.
+- Each port has its own number (e.g., `3000`, `3001`).
+- A **single computer (server hardware)** can run **multiple applications**.
+- You **differentiate servers** using their **port numbers**.
+
+**Example**
+
+- IP Address: `102.209.1.3`
+- Port 3000 → React App
+- Port 3001 → Node.js App
+
+When someone requests:
+
+- `102.209.1.3:3000` → It goes to the React app.
+- `102.209.1.3:3001` → It goes to the Node.js app.
+
+### **Domain Names & Routing**
+
+- When you type a **domain name** like `youtube.com`, a **DNS server** converts it into an **IP address** (e.g., `102.209.1.3`).
+- If you specify a **port number**, it tells which application to reach.
+
+**Example**:
+
+- `namastedev.com` → React app on **port 3000**
+- `namastedev.com/node` → Node.js app on **port 3001**
+
+By **adding paths (like `/node`)** to your URL, you can **route** requests to different servers or applications.
+
+### **Why This is Useful**
+
+- You can run **multiple services** (React frontend, Node.js backend, etc.) on **different ports** of **one server**.
+- Makes your system **scalable** and **organized**.
+- In large companies, the architecture is often distributed across **multiple** servers rather than relying on a single server. This approach helps manage different aspects of the application efficiently and ensures **scalability**, **reliability**, and **performance**
+
+[Go to top ↑](#index)
+
+## **5. Understanding Distributed Server Architecture Explained**
+
+Imagine your app (like **youtube.com**) is **big** and **serves millions of users**. You can’t rely on **one server** to do everything! So, companies use a **distributed server architecture**, where different servers handle different tasks.
+
+### **1. Separation of Concerns**
+
+**Frontend Server**
+
+- **What it does**: Handles the **user interface (UI)**—HTML, CSS, JavaScript.
+- **Example**: When someone opens **youtube.com**, they get the website’s layout and design from this server.
+- **Bonus**: It can also make **API calls** to fetch dynamic data.
+
+**Backend Server**
+
+- **What it does**: Processes **business logic**, **handles requests**, talks to the **database**, and sends **data** to the frontend.
+- **Example**: Login forms, search queries, or orders go to the backend server.
+
+In **small apps**, both frontend and backend may run on the **same server**.  
+In **big apps**, they are often **separated** for **better performance**, **security**, and **scalability**.
+
+### **2. Dedicated Database Server**
+
+**What it does**: Stores all your **data**—users, orders, comments, etc.
+
+- This server is **optimized for data storage and fast access**.
+- The **backend server** talks to the **database server** to fetch or save data.
+
+Example: When you log in to **youtube.com**, your login info is checked in the **database server**.
+
+### **3. Media and File Servers**
+
+**What they do**: Store **large files** like **videos**, **images**, and **documents**.
+
+- These servers are **optimized** to send **big files quickly** to users.
+- Often connected to a **CDN (Content Delivery Network)**, which copies files to servers around the world for **faster delivery**.
+
+Example: When you watch a video on **youtube.com**, it streams from a **media server**.  
+Images load from a **CDN** close to you (for speed).
+
+### **4. Inter-Server Communication**
+
+**How servers talk to each other**:
+
+- The **frontend** or **backend** may need to **communicate** with other servers (API calls) to get the **right data** or files.
+- Example: You click a video on **youtube.com**, the backend **calls** the media server, gets the video link, and sends it back to your browser.
+
+### **Example: youtube.com Architecture**
+
+| **Part** | **Where It’s Hosted / What It Does**                           |
+| -------- | -------------------------------------------------------------- |
+| Frontend | AWS server → Serves the **website UI** (HTML, CSS, JS)         |
+| Backend  | AWS server → Handles **logic**, **API requests**, and **data** |
+| Database | Dedicated DB server → Stores **users**, **comments**, etc.     |
+| Videos   | Media server → Streams **large videos**                        |
+| Images   | CDN → Sends **images** quickly from servers near the user      |
+
+---
+
+### **Why Use Distributed Servers?**
+
+- **Better Performance** (each server does a specific job)
+- **Scalability** (easy to add more servers if needed)
+- **Security** (sensitive data stays safe in its own server)
+- **Reliability** (if one server fails, others can keep working)
+
+[Go to top ↑](#index)
+
+## **6. Sockets vs Web Socets**
+
+### **What is a Socket?**
+
+- A **socket** is a **communication link** between **two systems** (client & server).
+- It's how your **browser talks to a server** when you visit a website.
+
+**How It Works (Traditional Socket / HTTP Request)**
+
+1. You open a website (client sends a **request**)
+2. The server processes it and **sends a response**
+3. The **connection (socket)** is **closed**
+4. If you want new data, you have to make **another request**
+
+**One request → One response** → Connection **closes** each time  
+**Example**: Visiting **youtube.com**, clicking a link sends a request to the server.
+
+### **What is WebSocket?**
+
+- A **WebSocket** is an **advanced socket connection** that **stays open**!
+- Once it’s connected, it **doesn’t close** after sending/receiving data.
+
+**How It Works (WebSocket)**
+
+1. Client and server **open a connection**
+2. The connection **stays open** (persistent connection)
+3. **Both** client **and** server can send **messages anytime**, **continuously**, without reconnecting
+
+**Real-time communication**  
+ **Example**: **Chat apps**, **online games**, **stock tickers**, **live notifications**
+
+### **When to Use What?**
+
+| **Use Traditional Socket (HTTP)** | **Use WebSocket**                         |
+| --------------------------------- | ----------------------------------------- |
+| Normal websites (static content)  | **Chat apps**, online games               |
+| Blog articles, portfolio sites    | **Live stock prices**, notifications      |
+| E-commerce product browsing       | **Collaborative apps** (like Google Docs) |
+
+[Go to top ↑](#index)
+
+## **7. How to create a Node.js Server**
+
+```javascript
+const http = require("http");
+
+const server = http.createServer(function (req, res) {
+  if (req.url === "/getSecretData") {
+    res.end("there is no secret data");
+    return; // Stop here so it doesn't continue to the next line
+  }
+
+  res.end("Hello world");
+});
+
+server.listen(3000, () => {
+  console.log("Server is running on http://localhost:3000");
+});
+```
+
+### **How it works:**
+
+- If you open `http://localhost:3000/getSecretData` → You get `there is no secret data`.
+- Any other route (like `/`, `/about`) → You get `Hello world`.
+
+### **Terms**:
+
+| **Part**              | **What it does**                        |
+| --------------------- | --------------------------------------- |
+| `http.createServer()` | Creates the basic Node.js server        |
+| `req.url`             | Reads the URL path the user requested   |
+| `res.end()`           | Sends the response and ends the request |
+| `server.listen(3000)` | Starts the server on port 3000          |
+
+[Go to top ↑](#index)
+
+---
