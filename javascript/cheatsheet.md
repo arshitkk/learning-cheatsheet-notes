@@ -2378,7 +2378,6 @@ console.log(isNaN("hello")); // true
 console.log(isNaN(123)); // false
 ```
 
-[Go to top ↑](#index)
 
 ## 6.3) **What would be the result of `3 + 2 + "7"`?**
 
