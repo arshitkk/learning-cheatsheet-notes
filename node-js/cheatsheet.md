@@ -1793,6 +1793,8 @@ app.options("/users", (req, res) => {
 
 You can use **Postman** or **cURL** to send different requests and check responses.
 
+[Go to top ↑](#index)
+
 ## **5. Routing in Express.js?**
 
 **Routing** is how your app responds to different **client requests(_HTTP requests_)** (like GET, POST, etc.) made to a **specific URL path**.
@@ -1935,7 +1937,7 @@ app.get("/product/:category/:id?", (req, res) => {
 - `/product/electronics/101` → `Category: electronics, ID: 101`
 - `/product/electronics` → `Category: electronics, ID: None`
 
----
+[Go to top ↑](#index)
 
 ### **Route paths based on regular expressions**
 
@@ -2033,4 +2035,4 @@ app.get("/users/:userId", (req, res) => {
 - `userId` is `10`
 - `sort` is `asc`
 
-Let me know if you want me to show **Postman** examples or **real app cases**! 😊
+[Go to top ↑](#index)
