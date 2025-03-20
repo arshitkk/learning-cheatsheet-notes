@@ -38,6 +38,9 @@
 1. **[What is Express.js and why is it used?](#1-what-is-expressjs-why-is-it-used)**
 2. **[How to Install Express.js in a Node.js Project?](#2-how-to-install-expressjs-in-a-nodejs-project)**
 3. **[How to Set Up a Basic Express Server?](#3-how-to-set-up-a-basic-express-server)**
+4. **[Define HTTP and Types of HTTP Requests in Express.js](#4-define-http-and-types-of-http-requests-in-expressjs)**
+5. **[Routing in Express.js?](#5-routing-in-expressjs)**
+6. **[How to read dynamic routes and query parameters?](#6-how-to-read-dynamic-routes-and-query-parameters)**
 
 # 1. **Foundation**
 
@@ -1647,3 +1650,387 @@ app.listen(3000, () => {
     It can send strings, objects, arrays, or buffers. It automatically sets the Content-Type based on the data type sent.
 
 [Go to top ↑](#index)
+
+## **4. Define HTTP and Types of HTTP Requests in Express.js**
+
+**HTTP** stands for **HyperText Transfer Protocol**.
+
+It’s the communication protocol used for data exchange between clients (like browsers, Postman, frontend apps) and servers (like your Node.js/Express backend).
+
+- **Client**: Makes a request (e.g., "Give me the data").
+- **Server**: Sends a response (e.g., "Here’s the data you asked for").
+
+**HTTP requests** (also called **methods**) are the message sent by the client to request the data from the server or to perform some actions.
+
+**Different HTTP requests are:**
+
+### **1️⃣ GET Request (Read Data)**
+
+- Used to **fetch/read data** from the server.
+- Example: Getting a list of users, fetching a product's details.
+
+**Example:**
+
+```javascript
+const express = require("express");
+const app = express();
+
+app.get("/users", (req, res) => {
+  res.send("Fetching all users...");
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
+```
+
+- **URL:** `http://localhost:3000/users`
+- **Response:** `"Fetching all users..."`
+
+### **2️⃣ POST Request (Create Data)**
+
+- Used to **send data** to the server to create a new resource.
+- Example: Adding a new user to a database.
+
+**Example:**
+
+```js
+app.use(express.json()); // Middleware to parse JSON body
+
+app.post("/users", (req, res) => {
+  const newUser = req.body; // Getting data from the request body
+  res.send(`User ${newUser.name} added successfully!`);
+});
+```
+
+🔹 **Sending Data:**
+
+```json
+{
+  "name": "Arshit Kumar",
+  "email": "arshitkumar222@gmail.com"
+}
+```
+
+- **Response:** `"User Arshit Kumar added successfully!"`
+
+### **3️⃣ PUT Request (Update Data)**
+
+- Used to **update/modify an existing resource** on the server.
+- Example: Updating user details.
+
+**Example:**
+
+```js
+app.put("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  res.send(`User with ID ${userId} has been updated.`);
+});
+```
+
+- **URL:** `PUT http://localhost:3000/users/123`
+- **Response:** `"User with ID 123 has been updated."`
+
+### **4️⃣ PATCH Request (Partial Update)**
+
+- Used to **update only specific fields** of a resource.
+- Example: Updating only the email of a user.
+
+**Example:**
+
+```js
+app.patch("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  res.send(`User with ID ${userId} has been partially updated.`);
+});
+```
+
+- **URL:** `PATCH http://localhost:3000/users/123`
+- **Response:** `"User with ID 123 has been partially updated."`
+
+### **5️⃣ DELETE Request (Remove Data)**
+
+- Used to **delete a resource** from the server.
+- Example: Deleting a user account.
+
+#### **Example: Handling a DELETE request**
+
+```js
+app.delete("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  res.send(`User with ID ${userId} has been deleted.`);
+});
+```
+
+- **URL:** `DELETE http://localhost:3000/users/123`
+- **Response:** `"User with ID 123 has been deleted."`
+
+### **6️⃣ OPTIONS Request (Check Allowed Methods)**
+
+- Used by browsers or clients to **ask the server what HTTP methods are allowed** on a specific route.
+
+#### **Example: Handling an OPTIONS request**
+
+```js
+app.options("/users", (req, res) => {
+  res.set("Allow", "GET, POST, PUT, PATCH, DELETE");
+  res.send("Allowed methods: GET, POST, PUT, PATCH, DELETE");
+});
+```
+
+- **Response:** `"Allowed methods: GET, POST, PUT, PATCH, DELETE"`
+
+### **Summary Table**
+
+| **Method**  | **Purpose**                 | **Example Use Case**                  |
+| ----------- | --------------------------- | ------------------------------------- |
+| **GET**     | Retrieve data               | Get user details (`GET /users/1`)     |
+| **POST**    | Create a new resource       | Add a new user (`POST /users`)        |
+| **PUT**     | Update an entire resource   | Update user info (`PUT /users/1`)     |
+| **PATCH**   | Partially update a resource | Change user email (`PATCH /users/1`)  |
+| **DELETE**  | Remove a resource           | Delete a user (`DELETE /users/1`)     |
+| **OPTIONS** | Check allowed methods       | Ask server what methods are supported |
+
+You can use **Postman** or **cURL** to send different requests and check responses.
+
+## **5. Routing in Express.js?**
+
+**Routing** is how your app responds to different **client requests(_HTTP requests_)** (like GET, POST, etc.) made to a **specific URL path**.
+
+Think of it like:
+
+- _"When someone visits `/home`, show them the home page."_
+- _"When someone submits a form to `/submit`, save their info."_
+
+### In **Express.js**, we handle routes like this:
+
+```js
+app.METHOD(PATH, HANDLER);
+```
+
+- `app`: Your Express app.
+- `METHOD`: HTTP method (GET, POST, PUT, etc.).
+- `PATH`: Route path (URL endpoint).
+- `HANDLER`: Callback function (runs when route is hit).
+
+**Example**:
+
+```js
+app.get("/home", (req, res) => {
+  res.send("Welcome to Home Page!");
+});
+```
+
+### **Symbols/Characters in Express Route Paths**
+
+These are **special characters** you can use to **define patterns** in your routes.  
+They help you create **dynamic** and **flexible** routes.
+
+| Symbol | Meaning                                                              |
+| ------ | -------------------------------------------------------------------- |
+| `:`    | Named route parameter (dynamic).                                     |
+| `?`    | Optional character/segment.                                          |
+| `+`    | One or more of the previous token.                                   |
+| `*`    | Wildcard (anything can match).                                       |
+| `()`   | Grouping for optional or complex matching.                           |
+| `&`    | Query parameter separator (not part of route path, but part of URL). |
+
+**1. `:` (Colon) → Route Parameters**
+
+- Defines a **placeholder** in the URL path for **dynamic values**.
+- Used for **dynamic routing**, e.g., accessing a user's profile by ID
+- You can capture values from the URL using `req.params.id`
+
+```js
+app.get("/user/:id", (req, res) => {
+  res.send(`User ID is ${req.params.id}`);
+});
+```
+
+Visiting `/user/101` will respond with `User ID is 101`.
+
+**2. `?` → Optional Character**
+
+- Marks a **character or group as optional**.
+- Makes the **previous character** or **group** optional
+- Useful for routes where a segment **may or may not** be present.
+
+```js
+app.get("/ab?cd", (req, res) => {
+  res.send("Matched abcd or acd");
+});
+```
+
+- here it will make the `b` in `abcd` optional
+- accept both `/abcd` and `/acd`.
+
+**3. `+` → One or More**
+
+- Matches **one or more** occurences of the previous character.
+
+```js
+app.get("/ab+cd", (req, res) => {
+  res.send("Matched abcd, abbcd, abbbbbbcd...");
+});
+```
+
+`/ab+cd` Matches `/abcd`, `/abbcd`, `/abbbbbbcd` etc.
+
+**4. `*`(_Asterisk_) → Wildcard (Anything Matches)**
+ff
+
+- Matches **anything in the place of `*`**.
+
+```js
+app.get("/ab*cd", (req, res) => {
+  res.send("Matched abANYTHINGcd");
+});
+```
+
+`/ab*cd` Matches `/abcd`, `/abXcd`, `/abXYfaaewfeqwfZcd`, , `/ab124561cd` etc.
+
+**5. `()` → Grouping for Optional Segments**
+
+- Groups part of the **route** together.
+- It often works with `?`, `+`, or `*` to make the whole group optional or repeatable
+
+```js
+app.get("/ab(cd)?e", (req, res) => {
+  res.send("Matched abe or abcde");
+});
+```
+
+`/ab(cd)?e` Matches `/abe` and `/abcde`.
+
+**6. `&` (_Ampersand_) → Query Parameters**
+
+- Not part of the **route**, but used in the **URL** to pass extra data.
+
+```url
+http://localhost:3000/search?name=arshit&age=23
+```
+
+In Express, you get it like:
+
+```js
+app.get("/search", (req, res) => {
+  const name = req.query.name;
+  const age = req.query.age;
+  res.send(`Name: ${name}, Age: ${age}`);
+});
+```
+
+`&` separates multiple **query parameters**.
+
+### **Quick Example: Complex Route**
+
+```js
+app.get("/product/:category/:id?", (req, res) => {
+  const category = req.params.category;
+  const id = req.params.id;
+  res.send(`Category: ${category}, ID: ${id || "None"}`);
+});
+```
+
+- `/product/electronics/101` → `Category: electronics, ID: 101`
+- `/product/electronics` → `Category: electronics, ID: None`
+
+---
+
+### **Route paths based on regular expressions**
+
+**Example 1**:
+
+```javascript
+app.get(/a/, (req, res) => {
+  res.send("/a/");
+});
+```
+
+**This route path will match any URL that contains an "a".**
+
+- It can be **anywhere** in the URL, like `/apple`, `/banana`, `/car`.
+- As long as the URL includes the letter **a**, this route will match.
+
+**Example 2**:
+
+```javascript
+app.get(/.*fly$/, (req, res) => {
+  res.send("/.*fly$/");
+});
+```
+
+**This route path will match any URL that ends with "fly".**
+
+- It matches **/butterfly**, **/dragonfly**.
+- It **does not** match **/butterflyman** or **/dragonflyman** because they **don’t end exactly with "fly"**.
+- The `.*` means **anything can come before "fly"**, but `$` means it **must end** right there.
+
+## **6. How to read dynamic routes and query parameters?**
+
+### **Dynamic Routes**
+
+- Dynamic routes use **parameters** in the URL path.
+- Syntax: `:`(_Colon_) followed by a **parameter name**.
+
+**Example**:
+
+```javascript
+app.get("/users/:userId", (req, res) => {
+  res.send(req.params.userId);
+});
+```
+
+- `:userId` is a **dynamic parameter**.
+- If someone visits `/users/5`, then `req.params.userId` will be `5`.
+- You can access **dynamic values** from `req.params`, it will return an object.
+
+---
+
+### **Multiple Dynamic Params**
+
+```javascript
+app.get("/users/:userId/books/:bookId", (req, res) => {
+  res.send(req.params);
+});
+```
+
+- This route matches `/users/5/books/20`.
+- `req.params.userId` is `5`.
+- `req.params.bookId` is `20`.
+
+### **Query Parameters**
+
+- Query params are **key-value pairs** added after a `?` in the URL.
+
+**Example:**
+
+```javascript
+app.get("/search", (req, res) => {
+  res.send(req.query);
+});
+```
+
+- If someone visits `/search?name=John&age=25`
+- `req.query.name` is `John`
+- `req.query.age` is `25`
+- Query parameters come after `?` and are separated by `&`.
+- You can access **query parameters** from `req.query`, it will return an object.
+
+### **Combining Both**
+
+```javascript
+app.get("/users/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const sort = req.query.sort;
+  res.send(`User ID: ${userId}, Sort: ${sort}`);
+});
+```
+
+**Example Request**:  
+`/users/10?sort=asc`
+
+- `userId` is `10`
+- `sort` is `asc`
+
+Let me know if you want me to show **Postman** examples or **real app cases**! 😊
