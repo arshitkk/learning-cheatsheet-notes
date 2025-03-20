@@ -1987,7 +1987,6 @@ app.get("/users/:userId", (req, res) => {
 - If someone visits `/users/5`, then `req.params.userId` will be `5`.
 - You can access **dynamic values** from `req.params`, it will return an object.
 
----
 
 ### **Multiple Dynamic Params**
 
@@ -2036,3 +2035,4 @@ app.get("/users/:userId", (req, res) => {
 - `sort` is `asc`
 
 [Go to top ↑](#index)
+
