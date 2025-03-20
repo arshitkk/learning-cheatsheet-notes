@@ -29,6 +29,16 @@
 6. **[Sockets vs Web Socets](#6-sockets-vs-web-socets)**
 7. **[How to create a Node.js Server](#7-how-to-create-a-nodejs-server)**
 
+## 3.**[Node JS built-in modules]()**
+
+1. **[File System (fs) Module in Node.js](#1-file-system-fs-module-in-nodejs)**
+
+## 4. **[Node JS library - Express](#4-node-js-library---express-1)**
+
+1. **[What is Express.js and why is it used?](#1-what-is-expressjs-why-is-it-used)**
+2. **[How to Install Express.js in a Node.js Project?](#2-how-to-install-expressjs-in-a-nodejs-project)**
+3. **[How to Set Up a Basic Express Server?](#3-how-to-set-up-a-basic-express-server)**
+
 # 1. **Foundation**
 
 ## **1. What is Node.js? Why is it usefull?**
@@ -94,6 +104,17 @@ With **Node.js**, JavaScript is no longer restricted to the browser! It can run 
 ✅ **Handle Real-Time Applications** – Build live chat apps, gaming servers, and streaming services.
 
 [🌻 **NODEJS is a c++ application with v8 embedded into it**]
+
+### **How is Node.js Different from PHP or Java (Traditional Languages)**?
+
+| Feature            | Node.js                         | PHP / Java                             |
+| ------------------ | ------------------------------- | -------------------------------------- |
+| **Execution**      | Single-threaded, non-blocking   | Multi-threaded, blocking               |
+| **Speed**          | Fast (V8 engine, non-blocking)  | Slower (handles one request at a time) |
+| **Language**       | JavaScript (frontend & backend) | PHP (backend), Java (strict)           |
+| **Real-time Apps** | Excellent for real-time apps    | Not ideal for real-time                |
+| **Scalability**    | High                            | Moderate                               |
+| **Learning Curve** | Easier (if you know JavaScript) | Can be more complex                    |
 
 [Go to top ↑](#index)
 
@@ -1376,3 +1397,253 @@ server.listen(3000, () => {
 [Go to top ↑](#index)
 
 ---
+
+# 3. **Node JS built-in modules**
+
+## **1. File System (fs) Module in Node.js**
+
+Node.js provides a built-in **File System (fs)** module that allows you to interact with the file system on your computer. With this module, you can perform operations like reading, writing, updating, deleting files, and creating directories.
+
+The `fs` module has both **synchronous** and **asynchronous** methods for handling these operations, but the asynchronous ones are commonly used in Node.js to prevent blocking the event loop.
+
+#### how to include `fs`":
+
+- If you're using ES Modules (type: "module")
+
+  ```js
+  import fs from "fs";
+  ```
+
+- If your project uses CommonJS (type: "commonjs")
+  ```js
+  let fs = require('fs')'
+  ```
+
+### **Commonly Used `fs` Methods**
+
+- **`fs.writeFile()`**: Creates or overwrites a file.
+- **`fs.appendFile()`**: Appends data to a file.
+- **`fs.rename()`**: Renames a file.
+- **`fs.copyFile()`**: Copies a file.
+- **`fs.unlink()`**: Deletes a file.
+- **`fs.mkdir()`**: Creates a new directory.
+- **`fs.rmdir()`**: Deletes a directory.
+- **`fs.readFile()`**: Reads the content of a file.
+
+#### 1. **Create a File**
+
+To create a new file, you can use `fs.writeFile()`. If the file already exists, it will overwrite the content.
+
+```javascript
+fs.writeFile("name.txt", "Name: Arshit JS", (err) => {
+  if (err) console.error(err);
+  else console.log("File created successfully!");
+});
+```
+
+#### 2. **Overwrite (Update) a File**
+
+If you want to overwrite an existing file with new content, you can use the same `fs.writeFile()` method.
+
+```javascript
+fs.writeFile("name.txt", "Name: Arshit Html", (err) => {
+  if (err) console.error(err);
+  else console.log("File overwritten successfully!");
+});
+```
+
+#### 3. **Append Data to a File**
+
+To append content to an existing file without deleting its current content, use `fs.appendFile()`.
+
+```javascript
+fs.appendFile("name.txt", "\nName: Sankruti Html", (err) => {
+  if (err) console.error(err);
+  else console.log("Content appended successfully!");
+});
+```
+
+#### 4. **Rename a File**
+
+To rename a file, you can use `fs.rename()`.
+
+```javascript
+fs.rename("name.txt", "naam.txt", (err) => {
+  if (err) console.error(err);
+  else console.log("File renamed successfully!");
+});
+```
+
+#### 5. **Copy a File**
+
+To copy a file to another location, you can use `fs.copyFile()`.
+
+```javascript
+fs.copyFile("name.txt", "./copy/naam2.txt", (err) => {
+  if (err) console.error(err);
+  else console.log("File copied successfully!");
+});
+```
+
+#### 6. **Delete a File**
+
+To delete a file, you can use `fs.unlink()`.
+
+```javascript
+fs.unlink("name.txt", (err) => {
+  if (err) console.error(err);
+  else console.log("File deleted successfully!");
+});
+```
+
+#### 7. **Create a Directory (Folder)**
+
+To create a new folder (directory), use `fs.mkdir()`.
+
+```javascript
+fs.mkdir("./copy", (err) => {
+  if (err) console.error(err);
+  else console.log("Directory created successfully!");
+});
+```
+
+#### 8. **Delete a Directory**
+
+To delete a directory (folder), use `fs.rmdir()`. Note that if the directory is not empty, it will throw an error.
+
+```javascript
+fs.rmdir("./copy/", (err) => {
+  if (err) console.error(err);
+  else console.log("Directory deleted successfully!");
+});
+```
+
+##### **Deleting a Directory with Files:**
+
+To delete a directory **even if it contains files**, you can use the `{ recursive: true }` option.
+
+```javascript
+fs.rmdir("./copy/", { recursive: true }, (err) => {
+  if (err) console.error(err);
+  else console.log("Directory and its contents deleted successfully!");
+});
+```
+
+#### 9. **Read a File**
+
+To read the content of a file, use `fs.readFile()`.
+
+```javascript
+fs.readFile("name.txt", (err, data) => {
+  if (err) console.error(err);
+  else console.log("File content: ", data.toString());
+});
+```
+
+[Go to top ↑](#index)
+
+# 4. **Node JS library - Express**
+
+## **1. What is Express.js? Why is it used?**
+
+**Express.js** is a **fast, minimal, and flexible** web framework for **Node.js** that makes it easier to build web applications and APIs. It is **built on top of Node.js's HTTP module** and provides powerful tools to handle routes, middleware, requests, and responses efficiently.
+
+### **Why is Express.js Used?**
+
+1. **Simplifies Server Creation** 🏗️
+
+   - Without Express, creating a server in Node.js requires writing a lot of boilerplate code using the **`http` module**.
+   - Express makes it much easier with just a few lines of code.
+
+2. **Routing Made Easy** 🚦
+
+   - Express allows defining multiple **routes** (URLs) for different parts of your application.
+   - Example: Handling `/`, `/about`, `/contact` routes in a simple way.
+
+3. **Middleware Support** 🔄
+
+   - Middleware functions help handle requests, modify responses, authenticate users, and log data.
+   - Example: **Logging**, **authentication**, **error handling**, etc.
+
+4. **Supports REST APIs** 🔌
+
+   - It’s widely used for building **RESTful APIs** that allow communication between frontend and backend.
+
+5. **Works with Databases** 💾
+
+   - Easily integrates with databases like **MongoDB (Mongoose), MySQL, PostgreSQL, Firebase**, **Supabase** etc.
+
+6. **Large Community & Libraries** 🌍
+   - Thousands of **third-party middleware** are available to extend Express functionality.
+
+[Go to top ↑](#index)
+
+## **2. How to Install Express.js in a Node.js Project?**
+
+### **Install Express.js**
+
+Run this command to install Express:
+
+```bash
+npm install express
+```
+
+This creates a `node_modules` folder and adds `express` as a dependency in your `package.json` file.
+
+### **Step 5: Verify Installation**
+
+You can check your `package.json` file under **dependencies**:
+
+```json
+"dependencies": {
+  "express": "^4.18.2"
+}
+```
+
+[Go to top ↑](#index)
+
+## **3. How to Set Up a Basic Express Server?**
+
+### **Syntax:**
+
+```javascript
+app.method_Name(route, callback);
+```
+
+### **Explanation:**
+
+- **`app`** – it is your express server.
+- **`method_name`** – this is placeholder for request methods eg .get .post etc
+- **`route`** – The URL or route where the request is handled (e.g., `/`).
+- **`callback`** – A function that gets executed when the route is accessed.
+  - It takes two parameters:
+    - **`req`** – The request object (contains info about the request).
+    - **`res`** – The response object (used to send data back to the client).
+
+```javascript
+const express = require("express"); // Importing Express
+const app = express(); // Creating an Express app
+
+// Define a simple route
+app.get("/", (req, res) => {
+  res.send("Hello, Express!");
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log("Server is running on http://localhost:3000");
+});
+```
+
+- **When someone visits** `http://localhost:3000/`,
+
+  - The server sends back **"Hello Express"** as a response.
+
+- **Explanation**:
+  - `express()` creates an Express app.
+  - `app.get()` handles GET requests at the root (`/`).
+  - `app.listen()` starts the server on port 3000.
+  - `res.send()` is used to send a response to the client.
+    It can send strings, objects, arrays, or buffers. It automatically sets the Content-Type based on the data type sent.
+
+[Go to top ↑](#index)
