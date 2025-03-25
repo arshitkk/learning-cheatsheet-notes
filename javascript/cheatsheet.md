@@ -79,6 +79,7 @@
 - 6.15 [What is Destructuring in JavaScript?](#615-what-is-destructuring-in-javascript)
 - 6.16 [Implicit vs Explicit Typing in JavaScript](#616-implicit-vs-explicit-typing-in-javascript)
 - 6.17 [Define Parameter, Argument, Expression, Statement and Method.](#617-define-parameter-argument-expression-statement-and-method)
+- 6.18 [JSON vs JavaScript Object](#618-json-vs-javascript-object)
 
 ---
 
@@ -2378,7 +2379,6 @@ console.log(isNaN("hello")); // true
 console.log(isNaN(123)); // false
 ```
 
-
 ## 6.3) **What would be the result of `3 + 2 + "7"`?**
 
 - **3** and **2** are treated as numbers, so `3 + 2 = 5`.
@@ -2725,6 +2725,79 @@ person.greet(); // Output: Hello, Arshit
 ```
 
 - Here, `greet` is a **method** inside the `person` object.
+
+[Go to top ↑](#index)
+
+## 6.18) **JSON vs JavaScript Object**
+
+### **Definition**
+
+| **JSON (JavaScript Object Notation)**                               | **JavaScript Object**                                             |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| A lightweight **data format** used for storing and exchanging data. | A **data structure** used in JavaScript to store key-value pairs. |
+
+### **Syntax Difference**
+
+**JSON (String Format)**
+
+- Data is stored as a **string**.
+- **Keys and values** must be in **double quotes (`""`)** (except numbers & booleans).
+- No functions or undefined values.
+
+```json
+{
+  "name": "Arshit",
+  "age": 23,
+  "isStudent": true
+}
+```
+
+**JavaScript Object (Key-Value Pair)**
+
+- Data is stored in **object literal** format.
+- **Keys don’t need quotes** unless required.
+- Supports **functions, `undefined`, and symbols**.
+
+```javascript
+const user = {
+  name: "Arshit",
+  age: 23,
+  isStudent: true,
+  greet: function () {
+    console.log("Hello!");
+  },
+};
+```
+
+### **Key Differences**
+
+| Feature               | JSON                                           | JavaScript Object                            |
+| --------------------- | ---------------------------------------------- | -------------------------------------------- |
+| **Data Type**         | String format                                  | Object format                                |
+| **Keys Syntax**       | Must be in **double quotes**                   | Can be without quotes                        |
+| **Values**            | Strings, numbers, booleans, arrays, objects    | Can have functions, `undefined`, and symbols |
+| **Usage**             | Data transfer (APIs, config files)             | Programming within JavaScript                |
+| **Parsing Required?** | Needs `JSON.parse()` to convert into an object | Directly usable                              |
+
+### **Converting Between JSON & JavaScript Object**
+
+**Convert JSON to JavaScript Object (`JSON.parse`)**
+
+```javascript
+const jsonString = '{"name": "Arshit", "age": 23}';
+const jsObject = JSON.parse(jsonString);
+console.log(jsObject.name); // Output: Arshit
+```
+
+**Convert JavaScript Object to JSON (`JSON.stringify`)**
+
+```javascript
+const user = { name: "Arshit", age: 23 };
+const jsonString = JSON.stringify(user);
+console.log(jsonString); // Output: '{"name":"Arshit","age":23}'
+```
+
+_JSON is a **string** format for storing and transferring data, while a JavaScript object is a **data structure** used in code. JSON requires parsing before use in JavaScript._
 
 [Go to top ↑](#index)
 
