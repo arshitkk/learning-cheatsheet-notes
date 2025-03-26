@@ -22,6 +22,10 @@
 5. **[Creating Sign-up api and creating documents](#5-creating-sign-up-api-and-creating-documents)**
 6. **[Reading/Fetching users uisng few methods](#6-readingfetching-users-uisng-few-methods)**
 7. **[Update/Patch, and Delete a document](#7-updatepatch-and-delete-a-document)**
+8. **[Mongoose Schema Types & Options. How to give Custom error.](#8-mongoose-schema-types--options-how-to-give-custom-error)**
+9. **[Mongoose Schema Validations](#9-mongoose-schema-validations)**
+10. **[API-Level Validation in Express.js](#10-api-level-validation-in-expressjs)**
+11. **[Validator.js Library (NPM)](#11-validatorjs-library-npm)**
 
 # **1. What is MongoDB?**
 
@@ -749,3 +753,419 @@ app.delete("/delete", async (req, res) => {
 - **Use `findByIdAndUpdate()`** when updating a document by `_id`.
 
 [Go to top ↑](#index)
+
+## **8. Mongoose Schema Types & Options. How to give Custom error.**
+
+### **1. Basic Data Types**
+
+These types store simple, primitive values. They are used for text, numbers, booleans, and dates.
+
+- **String:** Stores text data (e.g., names, emails).
+- **Number:** Stores numeric values (e.g., age, quantity).
+- **Boolean:** Stores true/false values.
+- **Date:** Stores date and time values.
+
+**Example:**
+
+```javascript
+const userSchema = new mongoose.Schema({
+  // Stores text (e.g., "Arshit Kumar")
+  name: { type: String },
+
+  // Stores numbers (e.g., 25)
+  age: { type: Number },
+
+  // Stores boolean values (e.g., true)
+  isActive: { type: Boolean },
+
+  // Stores date and time (e.g., new Date())
+  createdAt: { type: Date },
+});
+```
+
+### **2. Complex Data Types**
+
+They Used for storing more flexible or compound data. They handle arrays, mixed data structures, or restrict values with enums.
+
+- **Array:** Holds multiple values of a specified type.
+- **Mixed:** Allows any data type (useful when structure isn’t fixed).
+- **Enum:** Restricts the field to one value from a predefined list.
+
+**Example:**
+
+```javascript
+const userSchema = new mongoose.Schema({
+  // Stores an array of strings (e.g., ["coding", "music", "reading"])
+  hobbies: { type: [String] },
+
+  // Allows storage of any type of data (flexible structure)
+  metadata: { type: mongoose.Schema.Types.Mixed },
+
+  // Restricts role to only "admin", "user", or "guest"
+  role: { type: String, enum: ["admin", "user", "guest"] },
+});
+```
+
+---
+
+### **3. Relational Types**
+
+They Used for creating relationships between documents in different collections. They store MongoDB ObjectIds that reference other documents.
+
+- **ObjectId:** Represents a unique identifier for a MongoDB document.
+- **ref:** Associates the ObjectId with a specific collection/model.
+
+**Example:**
+
+```javascript
+const postSchema = new mongoose.Schema({
+  // Links to a document in the "User" collection by storing its ObjectId
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+});
+```
+
+### **4. Schema Options**
+
+Options that modify the behavior of a field within a schema. They help transform data automatically or set default values, and even automatically manage common fields like timestamps.
+
+- **default:** Automatically sets a value if none is provided.
+- **trim:** Removes leading and trailing whitespace from a string.
+- **lowercase:** Converts a string to lowercase before saving.
+- **uppercase:** Converts a string to uppercase before saving.
+- **timestamps:** Automatically adds and updates the `createdAt` and `updatedAt` fields.
+
+**Example:**
+
+```javascript
+const userSchema = new mongoose.Schema(
+  {
+    // Automatically converts the email to lowercase and trims extra spaces
+    email: {
+      type: String,
+      lowercase: true, // Converts "USER@Example.COM" to "user@example.com"
+      trim: true, // Removes extra whitespace
+    },
+
+    // Sets the default status to "pending" if no value is provided
+    status: {
+      type: String,
+      default: "pending",
+    },
+
+    // Converts the username to uppercase automatically
+    username: {
+      type: String,
+      uppercase: true, // Converts "arshit" to "ARSHIT"
+    },
+  },
+  {
+    // Automatically manages createdAt and updatedAt fields
+    timestamps: true,
+  }
+);
+```
+
+- **timestamps Option:**
+  - **createdAt:** Automatically set when the document is created.
+  - **updatedAt:** Automatically updated every time the document is modified.
+
+**Additional Note:**
+
+- You can manually define and set `createdAt` and `updatedAt` fields in your schema if needed. However, this is not recommended because the built-in `timestamps` option handles these fields automatically and reliably. Manual management may lead to inconsistencies or additional boilerplate code.
+
+### **Summary of Categories:**
+
+- **Basic Data Types:**
+  - Store primitive values like strings, numbers, booleans, and dates.
+- **Complex Data Types:**
+
+  - Handle arrays, flexible data structures (Mixed), and enforce value restrictions (Enum).
+
+- **Relational Types:**
+
+  - Create relationships by storing references (ObjectId) to documents in other collections.
+
+- **Schema Options:**
+  - Modify field behavior with default values, automatic case conversion, and trimming of strings or adding timestamps etc.
+
+### **Custom error message**
+
+If you want to add a **custom error message**, just add `, message: "Your custom error message"` inside the validation object.
+
+- **For `required` validation:**
+
+```javascript
+name: { type: String, required: [true, "Name cannot be empty!"] }
+```
+
+- **For `minlength` validation:**
+
+```javascript
+username: { type: String, minlength: [3, "Username must have at least 3 characters!"] }
+```
+
+- **For `max` validation:**
+
+```javascript
+age: { type: Number, max: [60, "Age cannot exceed 60!"] }
+```
+
+- **For `enum` validation:**
+
+```javascript
+role: { type: String, enum: { values: ["admin", "user"], message: "Invalid role! Choose 'admin' or 'user'." } }
+```
+
+- **For `match` validation (Regex):**
+
+```javascript
+email: { type: String, match: [/^\S+@\S+\.\S+$/, "Invalid email format!"] }
+```
+
+- **For custom function validation:**
+
+```javascript
+age: {
+    type: Number,
+    validate: {
+      validator: (n) => {
+        return n >= 18; // only allow above 18
+      },
+      message: (n) => "Abey chhotu chal nikal " + n.value + " saal ka hai tu",
+    },
+  },
+```
+
+## **9. Mongoose Schema Validations**
+
+Mongoose provides various validation options to ensure data integrity. These validation rules apply at the **schema level** and prevent invalid data from being stored in MongoDB.
+
+### **1. Required Validation** (Ensures a field is mandatory)
+
+Ensures that a field **must have a value**; otherwise, an error is thrown.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true }, // Name is mandatory
+});
+```
+
+### **2. Default Value** (Sets a default value if none is provided)
+
+If no value is provided for a field, Mongoose automatically assigns a **default value**.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  status: { type: String, default: "pending" },
+});
+```
+
+- **If no value is provided:** `{ status: "pending" }` (automatically assigned)
+
+### **3. Enum Validation** (Restricts values to a predefined set)
+
+Restricts a field to **only specific values**. If an invalid value is provided, an error is thrown.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  role: { type: String, enum: ["admin", "user", "guest"] },
+});
+```
+
+✔ **Valid Inputs:** `{ role: "admin" }`, `{ role: "user" }`  
+❌ **Invalid Input:** `{ role: "manager" }` → `"Error: role must be 'admin', 'user', or 'guest'"`
+
+### **4. Unique Validation** (Ensures no duplicate values)
+
+Ensures that no **duplicate** values exist for a field in the database.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  email: { type: String, unique: true },
+});
+```
+
+### **5. Min & Max Validation (For Numbers)** (Limits numeric values)
+
+Restricts **numeric** values to a certain range.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  age: { type: Number, min: 18, max: 60 }, // Age must be between 18 and 60
+});
+```
+
+✔ **Valid Inputs:** `{ age: 25 }`, `{ age: 50 }`  
+❌ **Invalid Input:** `{ age: 17 }`, `{ age: 65 }` → `"Error: Age must be between 18 and 60"`
+
+### **6. MinLength & MaxLength Validation (For Strings)** (Limits string length)
+
+Limits the **number of characters** a string can have.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  username: { type: String, minlength: 3, maxlength: 15 }, // 3 to 15 characters
+});
+```
+
+✔ **Valid Inputs:** `"John"`, `"Arshit123"`  
+❌ **Invalid Input:** `"Al"` → `"Error: Minimum length is 3"`  
+❌ **Invalid Input:** `"SuperLongUsername123"` → `"Error: Maximum length is 15"`
+
+### **7. Match (Regex) Validation** (Ensures a specific format)
+
+Ensures a string follows a **specific pattern**, such as an email or phone number format.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  phone: { type: String, match: /^[0-9]{10}$/ }, // Only allows 10-digit numbers
+});
+```
+
+✔ **Valid Input:** `{ phone: "9876543210" }`  
+❌ **Invalid Input:** `{ phone: "98765abcd" }` → `"Error: Invalid phone number format"`
+
+### **8. Custom Validation (Using a Function)**
+
+Allows you to **define your own validation logic** using a function.
+
+```javascript
+const userSchema = new mongoose.Schema({
+  age: {
+    type: Number,
+    validate: {
+      validator: (n) => {
+        return n >= 18; // only allow above 18
+      },
+      message: (n) => "Abey chhotu chal nikal " + n.value + " saal ka hai tu",
+    },
+  },
+});
+```
+
+✔ **Valid Inputs:** `{ age: 24 }`, `{ age: 30 }`  
+❌ **Invalid Input:** `{ age: 12 }` → `"Error: Abey chhotu chal nikal 12 saal ka hai tu"`
+
+### **Summary of Mongoose Validations**
+
+1. **`required: true`** → Ensures a field is **mandatory**.
+2. **`default: "value"`** → Sets a **default value** if none is provided.
+3. **`enum: ["a", "b"]`** → Restricts values to a **specific list**.
+4. **`unique: true`** → Prevents **duplicate values** in the database.
+5. **`min` & `max`** → Limits **numbers** to a specific range.
+6. **`minlength` & `maxlength`** → Limits the **length of strings**.
+7. **`match: /regex/`** → Ensures a string **matches a pattern**.
+8. **Custom validation** → Uses a function for **custom rules**.
+
+## **10. API-Level Validation in Express.js**
+
+**Definition:**  
+API-level validation is performed within your route handlers or middleware to enforce business rules and data integrity before the data reaches the database. This is especially useful for rules that might not be enforced at the schema level.
+
+### **Example**
+
+Here’s a simple API that prevents updating sensitive fields like `email`, `password`, and `age`:
+
+```javascript
+app.patch("/update", async (req, res) => {
+  const detail = req.body.id;
+  const NOT_ALLOWEDED_VALUES = ["email", "password", "age"];
+
+  // Check if any restricted field is in the request body
+  const isNotAllowed = Object.keys(req.body).some((key) =>
+    NOT_ALLOWEDED_VALUES.includes(key)
+  );
+
+  try {
+    if (!isNotAllowed) {
+      // Update user if no restricted fields are being modified
+      const user = await User.findByIdAndUpdate(detail, req.body, {
+        returnDocument: "after",
+      });
+      console.log(user);
+      res.send("Patch applied");
+    } else {
+      res.status(400).send("Error: Nahi karunga update");
+    }
+  } catch (error) {
+    res.status(400).send("abey ? : " + error.message);
+  }
+});
+```
+
+### **Explanation in Bullet Points**
+
+- **Step-by-step working:**
+  1. **Extract `id` from `req.body`** → This identifies the user to update.
+  2. **Define `NOT_ALLOWEDED_VALUES` array** → Contains fields that shouldn't be updated.
+  3. **Check if the request contains any restricted fields** using `.some()` method.
+  4. **If no restricted fields are found**, update the user with `findByIdAndUpdate`.
+  5. **If restricted fields are present**, return an error response (`400 Bad Request`).
+  6. **If an error occurs in the try block**, catch it and send a `400` response with the error message.
+
+This ensures that even if a user tries to update sensitive fields, the API will block it and return an error.
+
+## **11. Validator.js Library (NPM)**
+
+[Validator.js](https://www.npmjs.com/package/validator) is a popular **NPM library** used for validating and sanitizing strings in **Node.js** applications. It provides built-in functions to check for valid email addresses, URLs, numbers, and more.
+
+**Why Use Validator.js?**
+
+- **Easy to use** – Provides simple functions for validation.
+- **Prevents invalid input** – Ensures data consistency and correctness.
+- **Security** – Helps prevent injection attacks (e.g., XSS, SQL Injection).
+- **Lightweight** – No extra dependencies required.
+
+To install Validator.js, use the following command:
+
+```sh
+npm install validator
+```
+
+### **Example**
+
+```javascript
+const validator = require("validator");
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true,
+    validate: {
+      validator: (value) => validator.isEmail(value), // Validates email format
+      message: "Invalid email format!",
+    },
+  },
+  website: {
+    type: String,
+    validate: {
+      validator: (value) => validator.isURL(value), // Checks if it's a valid URL
+      message: "Invalid website URL!",
+    },
+  },
+  age: {
+    type: Number,
+    validate: {
+      validator: (value) => value >= 18, // Ensures age is 18 or above
+      message: "Age must be 18 or older!",
+    },
+  },
+});
+
+const User = mongoose.model("User", userSchema);
+```
+
+### **Commonly Used Validator.js Functions**
+
+| **Function**                 | **Description**                                  | **Example**                                              |
+| ---------------------------- | ------------------------------------------------ | -------------------------------------------------------- |
+| `isEmail(str)`               | Checks if the string is a valid email.           | `validator.isEmail("test@example.com") // true`          |
+| `isURL(str)`                 | Checks if the string is a valid URL.             | `validator.isURL("https://google.com") // true`          |
+| `isNumeric(str)`             | Checks if the string contains only numbers.      | `validator.isNumeric("123") // true`                     |
+| `isAlpha(str)`               | Checks if the string contains only letters.      | `validator.isAlpha("hello") // true`                     |
+| `isAlphanumeric(str)`        | Checks if the string contains letters & numbers. | `validator.isAlphanumeric("hello123") // true`           |
+| `isMobilePhone(str, locale)` | Validates phone numbers for a specific country.  | `validator.isMobilePhone("9876543210", "en-IN") // true` |
+| `isStrongPassword(str)`      | Checks if the password is strong.                | `validator.isStrongPassword("Pass@123") // true`         |
