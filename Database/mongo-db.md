@@ -26,6 +26,7 @@
 9. **[Mongoose Schema Validations](#9-mongoose-schema-validations)**
 10. **[API-Level Validation in Express.js](#10-api-level-validation-in-expressjs)**
 11. **[Validator.js Library (NPM)](#11-validatorjs-library-npm)**
+12. **[What is `bcrypt` npm Library and why do we need?](#12-what-is-bcrypt-npm-library-and-why-do-we-need)**
 
 # **1. What is MongoDB?**
 
@@ -745,8 +746,6 @@ app.delete("/delete", async (req, res) => {
 | **Effect on Missing Fields** | Deletes missing fields                                                                                      | Leaves missing fields unchanged      |
 | **Use Case**                 | When you want to replace an entire document                                                                 | When you want to update a few fields |
 
----
-
 ### **Difference Between `findOneAndUpdate()` and `findByIdAndUpdate()`**
 
 - **Use `findOneAndUpdate()`** when searching by fields like `email` or `name`.
@@ -936,6 +935,8 @@ age: {
   },
 ```
 
+[Go to top ↑](#index)
+
 ## **9. Mongoose Schema Validations**
 
 Mongoose provides various validation options to ensure data integrity. These validation rules apply at the **schema level** and prevent invalid data from being stored in MongoDB.
@@ -1057,6 +1058,8 @@ const userSchema = new mongoose.Schema({
 7. **`match: /regex/`** → Ensures a string **matches a pattern**.
 8. **Custom validation** → Uses a function for **custom rules**.
 
+[Go to top ↑](#index)
+
 ## **10. API-Level Validation in Express.js**
 
 **Definition:**  
@@ -1104,6 +1107,10 @@ app.patch("/update", async (req, res) => {
   6. **If an error occurs in the try block**, catch it and send a `400` response with the error message.
 
 This ensures that even if a user tries to update sensitive fields, the API will block it and return an error.
+
+### **Instead of writing validation logic directly in the route, you can also create a reusable helper validaton functions in a utils/ folder**
+
+[Go to top ↑](#index)
 
 ## **11. Validator.js Library (NPM)**
 
@@ -1169,3 +1176,113 @@ const User = mongoose.model("User", userSchema);
 | `isAlphanumeric(str)`        | Checks if the string contains letters & numbers. | `validator.isAlphanumeric("hello123") // true`           |
 | `isMobilePhone(str, locale)` | Validates phone numbers for a specific country.  | `validator.isMobilePhone("9876543210", "en-IN") // true` |
 | `isStrongPassword(str)`      | Checks if the password is strong.                | `validator.isStrongPassword("Pass@123") // true`         |
+
+[Go to top ↑](#index)
+
+## **12. What is `bcrypt` npm Library and why do we need?**
+
+`bcrypt` is a widely used Node.js library for **hashing passwords** securely. It helps protect user credentials by converting plain text passwords into an irreversible, encrypted format before storing them in the database.
+
+### **Why Do We Need `bcrypt`?**
+
+- **Security:** Storing passwords in plain text is highly insecure. If your database is compromised, all user passwords would be exposed.
+- **One-Way Hashing:** bcrypt converts a password into a hashed value that **cannot be reversed** into its original form.
+- **Automatic Salting:** It adds a **random "salt"** (extra characters) to each password before hashing, making it resistant to attacks like **rainbow table attacks**.
+- **Great protection again attacks:** This makes brute-force attacks (guessing passwords by trying millions of combinations) much harder.
+
+### **How bcrypt Works (with Example)**
+
+A simple example of how bcrypt is used in a **user sign-up API** to hash passwords before storing them in the database.
+
+```javascript
+const bcrypt = require("bcrypt");
+const express = require("express");
+const app = express();
+app.use(express.json());
+
+app.post("/sign-up", async (req, res) => {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+
+    // Hash the password with a salt factor of 10
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // Save user with hashed password
+    const user = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword, // Store the hashed password
+    });
+
+    await user.save();
+    res.send("User added");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+```
+
+**What happened here ?:**
+
+1. **Extract user data from `req.body`** – The user provides their `firstName`, `lastName`, `email`, and `password`.
+2. **Hash the password using bcrypt** – `bcrypt.hash(password, 10)` generates a secure hash with a **salt factor of 10**.
+   - **Salt Factor:** The number `10` means bcrypt will run **2^10 (1024) hashing rounds**, making it more secure (_more the value, more the time will be taken_).
+3. **Save user details in the database** – Instead of storing the plain text password, we store the hashed password.
+   - `e.g - $2b$10$kpwaqdx7yQcK1DvVxbs6DuNRe2glonSkyQ20.//.fC/MgPF4YPq9y`
+4. **Send success response** – If everything works fine, `"User added"` is sent.
+5. **Handle errors properly** – If anything goes wrong, the server responds with `500` and an error message.
+
+### **How to Verify Passwords with bcrypt?**
+
+Since bcrypt **hashes passwords irreversibly**, we can’t "decrypt" them to compare with user input. Instead, we use `bcrypt.compare()` to check if a given password matches the stored hashed password.
+
+**Example (Login API)**
+
+```javascript
+const bcrypt = require("bcrypt");
+const express = require("express");
+const app = express();
+app.use(express.json());
+
+app.get("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      throw new Error("Invalid Credentials");
+    }
+
+    // Compare the entered password with the stored hash
+    const isPassValid = await bcrypt.compare(password, user.password);
+
+    if (isPassValid) {
+      res.send("Login Successful");
+    } else {
+      throw new Error("Invalid Credentials");
+    }
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+});
+```
+
+**How Does bcrypt Verify Passwords?**
+
+1. **User enters email and password** → Sent in `req.body`.
+2. **Find user in the database by email** → `User.findOne({ email })`.
+3. **If user doesn’t exist** → Throw `"Invalid Credentials"` error.
+4. **Compare entered password with stored hash** → `bcrypt.compare(password, user.password)`.
+   - bcrypt internally **rehashes the entered password** with the same salt and checks if the hashes match.
+5. **If passwords match**, login is successful.
+6. **If passwords don’t match**, throw `"Invalid Credentials"` error.
+
+### **Note:**
+
+- Hashing is a **one-way process**—you cannot decrypt a bcrypt hash back to the original password.
+- Always use **async/await** with `bcrypt.compare()` and `bcrypt.hash()` to prevent blocking operations.
+- **Never log or expose hashed passwords**, even for debugging.
+
+[Go to top ↑](#index)
