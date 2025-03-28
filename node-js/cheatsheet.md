@@ -33,7 +33,7 @@
 
 1. **[File System (fs) Module in Node.js](#1-file-system-fs-module-in-nodejs)**
 
-## 4. **[Node JS library - Express](#4-node-js-library---express-1)**
+## 4. **[Express JS - Node JS library](#4-express-js---node-js-library-1)**
 
 1. **[What is Express.js and why is it used?](#1-what-is-expressjs-why-is-it-used)**
 2. **[How to Install Express.js in a Node.js Project?](#2-how-to-install-expressjs-in-a-nodejs-project)**
@@ -47,6 +47,18 @@
 10. **[10. Can We Use Multiple Route Handlers in One Route?](#10-can-we-use-multiple-route-handlers-in-one-route)**
 11. **[What are Middlewares in Express.js?](#11-what-are-middlewares-in-expressjs)**
 12. **[What is Error Handling in Express?](#12-what-is-error-handling-in-express)**
+
+## 5. **[Database and Database Management System(DBMS)](#5-database-and-database-management-systemdbms-1)**
+
+1. **[Introduction](#1-introduction)**
+2. **[Databases](#2-databases)**
+
+## 6. **[Authentications and Authorization](#6-authentications-and-authorization-1)**
+
+1. **[What is Authentication? Why Do We Need It? Explain the working also.](#1-what-is-authentication-why-do-we-need-it-explain-the-working-also)**
+2. **[ What is Authorization and Difference between Authentication and Authorization](#2-what-is-authorization-and-difference-between-authentication-and-authorization)**
+3. **[Implementing Authentication in Express.js Using Cookies(_Hardcode tokens_)](#3-implementing-authentication-in-expressjs-using-cookieshardcode-tokens)**
+4. **[Implementing Authentication in Express.js Using JWT and Cookies](#4-implementing-authentication-in-expressjs-using-jwt-and-cookies)**
 
 # 1. **Foundation**
 
@@ -1551,7 +1563,7 @@ fs.readFile("name.txt", (err, data) => {
 
 [Go to top ↑](#index)
 
-# 4. **Node JS library - Express**
+# 4. **Express JS - Node JS library**
 
 ## **1. What is Express.js? Why is it used?**
 
@@ -2515,5 +2527,382 @@ app.get("/error-test", (req, res, next) => {
 - Handles **unforeseen errors** you forgot to catch in routes.
 - Makes the code **DRY** (Don’t Repeat Yourself).
 - Centralized error logging and response formatting.
+
+[Go to top ↑](#index)
+
+---
+
+# 5. **Database and Database Management System(DBMS)**
+
+## **1. Introduction**
+
+- ### For intro to Databases go to [This Page](../Database/Intro_to_databases.md)
+
+## **2. Databases**
+
+- ### For MongoDB go to [This Page](../Database/mongo-db.md)
+
+---
+
+# 6. **Authentications and Authorization**
+
+## **1. What is Authentication? Why Do We Need It? Explain the working also.**
+
+### **What is Authentication?**
+
+**Authentication** is the process of verifying the identity of a user, system, or application before granting access to resources. It ensures that the entity trying to access a system is who they claim to be.
+
+### **Why Do We Need Authentication?**
+
+1. **Security** 🔒 – Prevents unauthorized access to sensitive data.
+2. **User Privacy** 🛡 – Ensures personal information stays confidential.
+3. **Access Control** 🚪 – Allows different users to access only permitted resources.
+4. **Prevents Identity Theft** 🛑 – Stops malicious actors from impersonating users.
+5. **Protects APIs & Services** ⚡ – Ensures only legitimate requests are processed.
+
+### **Types of Authentication Methods**
+
+🔹 **Password-based Authentication** – Users provide a username & password.  
+🔹 **Token-based Authentication (JWT, OAuth)** – Secure tokens grant access.  
+🔹 **Biometric Authentication** – Fingerprint, facial recognition, etc.  
+🔹 **Multi-Factor Authentication (MFA)** – Combines multiple methods for extra security.
+
+### **How Does Authentication Work?**
+
+1. **User Logs In** 🔑
+
+   - The user provides a valid email and password.
+   - The server verifies the credentials against the database.
+   - If correct, the server generates a **token** (JWT or session token).
+   - The token is sent to the user and stored in a **cookie** or **localStorage**.
+
+2. **User Makes Requests** 🌍
+
+   - The client (browser or mobile app) sends API requests.
+   - The **token is attached** to each request (usually in headers or cookies).
+   - Example: `Authorization: Bearer <token>` in headers.
+
+3. **Server Validates the Token** ✅
+
+   - The server checks if the token is valid.
+   - If valid, the request is processed.
+   - If **invalid or expired**, the request is rejected.
+
+4. **User Remains Logged In** 🔄
+
+   - Until the token expires, the user can continue making requests.
+   - If the token expires, the user must **log in again** to get a new token.
+
+5. **When user Logs Out** 🚪
+   - The token is deleted from storage (cookies/localStorage).
+   - The user must re-authenticate to access protected routes again.
+
+### **Authentication Flow Diagram**
+
+```
+User ➡ Login Request ➡ Server Verifies ➡ Generates Token ➡ Returns Token to User
+User ➡ Makes Request (with Token) ➡ Server Validates Token ➡ Grants Access (or Denies)
+```
+
+[Go to top ↑](#index)
+
+## **2. What is Authorization and Difference between Authentication and Authorization**
+
+**Authorization** is the process of granting or restricting access to resources or actions based on a user's **permissions**. It determines **what a user is allowed to do** after authentication.
+
+**Example:**
+
+- A user logs in (authentication), but only an **admin** can delete users (authorization).
+- In an API, `admin` can access `/delete-user`, but `guest` cannot.
+
+- **Common Methods:** Role-based access control (RBAC), OAuth, JWT tokens, API keys.
+
+### **Authentication vs. Authorization**
+
+| Feature               | Authentication 🆔                           | Authorization 🔑                                      |
+| --------------------- | ------------------------------------------- | ----------------------------------------------------- |
+| **Definition**        | Verifies **who** the user is.               | Determines **what** the user can do.                  |
+| **Process**           | Checks credentials (email, password, etc.). | Checks permissions for accessing resources.           |
+| **Example**           | Logging into an account.                    | Accessing admin-only pages.                           |
+| **How it Works**      | Uses passwords, OTPs, or biometric data.    | Uses roles, policies, or access control lists (ACLs). |
+| **When?**             | First step in security.                     | Happens after authentication.                         |
+| **Implemented Using** | JWT, OAuth, Sessions.                       | Role-based access control (RBAC), API keys.           |
+
+🔹 **Authentication** = "Are you a valid user?"  
+🔹 **Authorization** = "What are you allowed to do?"
+
+[Go to top ↑](#index)
+
+## **3. Implementing Authentication in Express.js Using Cookies(_Hardcode tokens_)**
+
+### **What is a Cookie?**
+
+A **cookie** is a small piece of data stored in the user's browser. It helps in maintaining user sessions by saving authentication tokens or other information.
+
+- **Purpose of Cookies**:
+  - Maintain user sessions
+  - Store authentication tokens
+  - Track user preferences
+
+### **Implementing Authentication in Express.js Using Cookies**
+
+**Example Code:**
+
+```javascript
+const express = require("express");
+const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+
+const app = express();
+app.use(express.json()); // Middleware to parse JSON request body
+app.use(cookieParser()); // Middleware to parse cookies
+
+// LOGIN Route
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      throw new Error("Invalid Credentials");
+    }
+
+    const isPassValid = await bcrypt.compare(password, user.password);
+
+    if (isPassValid) {
+      res.cookie("token", "b34h38hfdu3dn39dj"); // Hardcoded token for practice
+      res.send("Login Successful");
+    } else {
+      throw new Error("Invalid Credentials");
+    }
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+});
+
+// PROFILE Route (Protected Route)
+app.get("/profile", (req, res) => {
+  console.log(req.cookies); // Debugging: Check if cookies are being received
+
+  const { token } = req.cookies;
+
+  if (token) {
+    res.send("Profile fetched successfully");
+  } else {
+    res.status(400).send("Access denied. Please log in.");
+  }
+});
+
+// Start Server
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
+});
+```
+
+### **How Authentication Works in This Code**
+
+1. **User Login (`/login` route)**
+
+   - The user provides an `email` and `password`.
+   - The server checks if the `email` exists in the database.
+   - The `password` is verified using `bcrypt.compare()`.
+   - If correct, a **token** is set in a cookie (`res.cookie("token", "b34h38hfdu3dn39dj")`).
+     - _i'm using a hardcoded token for practice_
+   - The user receives a "Login Successful" response and the `token` which is attached to cookies in the browser.
+
+2. **Accessing Profile (`/profile` route)**
+   - The client sends a request to `/profile`, including the cookies(_which has the token_))
+   - The server checks for the request and the `token` inside `req.cookies`.
+   - If the token exists and valid then the server will send the response.
+   - If the token is missing it will denied the request.
+
+### **Why Does `req.cookies` Print `Undefined`? How to Fix It?**
+
+When accessing or try to print the `req.cookies` in an Express.js application, it might return **undefined** because Express does not parse cookies by default. This happens when the **`cookie-parser`** middleware is missing.
+
+**What is `cookie-parser`?**
+
+- **`cookie-parser`** is an Express.js middleware that parses cookies from incoming HTTP requests and makes them accessible and readable via `req.cookies`.
+
+- A **parser** is a tool that reads, interprets, and converts data into a usable format. Here, `cookie-parser` reads the raw `Cookie` header from HTTP requests and transforms it into a JavaScript object, making it easy to access individual cookies.
+
+**How to use `cookie-parser`**
+
+- **Install `cookie-parser` (if not installed):**
+
+  ```sh
+  npm install cookie-parser
+  ```
+
+- **Import and Use `cookie-parser` in Express App:**
+
+```js
+const express = require("express");
+const cookieParser = require("cookie-parser");
+
+const app = express();
+app.use(cookieParser()); // ✅ Enables cookie parsing
+
+app.get("/profile", (req, res) => {
+  console.log(req.cookies); // Now this will work
+  res.send("Profile Page");
+});
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+```
+
+**Note:**
+
+- Ensure `app.use(cookieParser());` is added **before** using `req.cookies`.
+
+[Go to top ↑](#index)
+
+## **4. Implementing Authentication in Express.js Using JWT and Cookies**
+
+### **What is JWT (JSON Web Token)?**
+
+JWT is a compact, self-contained token (_means that the token carries all the necessary information within itself and does not require external dependencies (like a database lookup) to verify its validity._) that securely transmits information between parties as a **JSON object**. It is often used for authentication and authorization.
+
+A **JWT (JSON Web Token)** consists of three parts, separated by a dot (`.`):
+
+1. **Header** (_Defines token metadata like alogorithm used, etc_)
+
+   - Specifies the **algorithm** (e.g., `HS256`) and **token type** (`JWT`).
+   - 📌 **Example**:
+     ```json
+     {
+       "alg": "HS256",
+       "typ": "JWT"
+     }
+     ```
+
+2. **Payload** (_Holds user data and claims_)
+
+   - Contains **user info** (e.g., `id`, `email`, `role`).
+   - **Example**:
+     ```json
+     {
+       "id": "64d8f9b2e",
+       "email": "user@example.com",
+       "role": "admin"
+     }
+     ```
+
+3. **Signature** 🔑 (_Ensures token integrity_)
+
+   - The **signature** in a JWT is created to ensure that the token has not been altered. It works by hashing the **header** + **payload** using a secret key and a cryptographic algorithm (like `HS256`).
+   - **Example JWT**:
+
+   ```bash
+   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+   eyJpZCI6IjY0ZDhmOWIyZSIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiJ9.
+   HhJv9Np3Z5F-kh7E5XJ...
+   ```
+
+- Each part is **Base64-encoded** and separated by a **dot (`.`)**.
+
+  - **Example:**
+
+    ```
+    xxxxx.yyyyy.zzzzz
+    ```
+
+### **Steps to Implement JWT Authentication with Cookies**
+
+**1. Install Required Packages**
+
+```sh
+npm install express jsonwebtoken cookie-parser
+```
+
+**2. Setup Express & Middleware**
+
+```javascript
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+const User = require("./models/User"); // Assuming you have a User model
+
+const app = express();
+app.use(express.json()); // Parse JSON bodies
+app.use(cookieParser()); // Parse cookies
+```
+
+**3. Implementing Login Route**
+
+```javascript
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate User
+    const user = await User.findOne({ email });
+    if (!user || user.password !== password) {
+      throw new Error("Invalid Credentials");
+    }
+
+    // Generate JWT Token
+    const token = jwt.sign({ id: user._id }, "arshit@123", { expiresIn: "1h" });
+
+    // Store Token in Cookies
+    res.cookie("token", token, { httpOnly: true, secure: true });
+
+    res.send("Login Successful");
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+});
+```
+
+**Syntax:**
+
+```javascript
+jwt.sign(payload, secretKey, options);
+```
+
+- It creates a **JWT** by encoding a payload and signing it with a **secret key** to prevent tampering.
+  - `payload`: Data to encode (e.g., `{ id: user._id }`)
+  - `secretKey`: Used to sign and verify the token (e.g., `"arshit@123"`)
+  - `options`: Additional configurations like `{ expiresIn: "1h" }`
+
+**4. Implementing Profile Route (Token Verification)**
+
+```javascript
+app.get("/profile", async (req, res) => {
+  try {
+    const { token } = req.cookies;
+
+    if (!token) throw new Error("Invalid Token");
+
+    // Verify Token
+    const decoded = jwt.verify(token, "arshit@123");
+
+    // Find User by ID from Token Payload
+    const user = await User.findOne({ _id: decoded.id });
+
+    res.json(user);
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+});
+```
+
+**Syntax:**
+
+```javascript
+jwt.verify(token, secretKey);
+```
+
+- Decodes and **validates** a JWT using the secret key to check authenticity and expiration.
+
+  - `token`: The JWT token received from cookies
+  - `secretKey`: The same key used for signing the token
+
+**In short**
+
+- **JWT** is used for secure authentication by embedding user data.
+- **Cookies** store the JWT token to maintain session authentication.
+- **`jwt.sign()`** creates the token, and **`jwt.verify()`** validates it.
 
 [Go to top ↑](#index)
