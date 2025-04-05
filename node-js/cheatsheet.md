@@ -47,6 +47,7 @@
 10. **[10. Can We Use Multiple Route Handlers in One Route?](#10-can-we-use-multiple-route-handlers-in-one-route)**
 11. **[What are Middlewares in Express.js?](#11-what-are-middlewares-in-expressjs)**
 12. **[What is Error Handling in Express?](#12-what-is-error-handling-in-express)**
+13. **[ What is `express.Router()`?](#13-what-is-expressrouter)**
 
 ## 5. **[Database and Database Management System(DBMS)](#5-database-and-database-management-systemdbms-1)**
 
@@ -2527,6 +2528,77 @@ app.get("/error-test", (req, res, next) => {
 - Handles **unforeseen errors** you forgot to catch in routes.
 - Makes the code **DRY** (Don’t Repeat Yourself).
 - Centralized error logging and response formatting.
+
+[Go to top ↑](#index)
+
+---
+
+## **13. What is `express.Router()`?**
+
+`express.Router()` is a method in Express.js that allows you to create **modular**, **mountable** route handlers. It helps organize routes into separate files instead of keeping all routes in the main `app.js` file.
+
+### **Why Use `express.Router()`?**
+
+If you write all **routes** inside app.js, the file becomes too long and hard to manage, especially in large applications.
+
+Benifits of using `express.Router()`
+
+- **Modularity** → Keeps different routes in separate files (`authRouter`, `profileRouter`, etc.).
+- **Reusability** → You can reuse the router in different parts of the app.
+- **Readability** → Makes the main `app.js` file cleaner.
+
+### **Example:**
+
+Here’s how we structure an Express app using `express.Router()`:
+
+**Create a Router (`authRoutes.js`)**
+
+```js
+const express = require("express");
+const authRouter = express.Router();
+
+// Sign-up
+authRouter.post("/sign-up", async (req, res) => {
+  res.send("User added");
+});
+
+// Login
+authRouter.post("/login", async (req, res) => {
+  res.send("Login Successful");
+});
+
+// Logout
+authRouter.post("/logout", (req, res) => {
+  res.send("Logout Successfully");
+});
+
+module.exports = authRouter;
+```
+
+**Use the Router in `app.js`**
+
+```js
+const express = require("express");
+const app = express();
+const authRoutes = require("./routes/authRoutes"); // Import the router
+
+app.use("/", authRoutes); // Use the router
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the App");
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
+```
+
+1. **`authRoutes.js`** defines all authentication routes (`sign-up`, `login`, `logout`).
+2. **`app.js`** imports and mounts the router using `app.use("/", authRoutes)`.
+3. Now, you can access:
+   - `POST /sign-up`
+   - `POST /login`
+   - `POST /logout`
 
 [Go to top ↑](#index)
 

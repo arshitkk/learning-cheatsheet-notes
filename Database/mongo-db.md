@@ -10,7 +10,8 @@
 
 ## **3. [MongoDB Core Concepts & Operations](#3-mongodb-core-concepts--operations-1)**
 
-1. **[ Introduction to CRUD Operations in MongoDB](#1-introduction-to-crud-operations-in-mongodb)**
+1. **[Introduction to CRUD Operations in MongoDB](#1-introduction-to-crud-operations-in-mongodb)**
+2. **[What are Logical Database Queries? List Comparison Operators](#2-what-are-logical-database-queries-list-comparison-operators)**
 
 ## **4. [Mongoose - Library](#4-mongoose---library)**
 
@@ -27,6 +28,9 @@
 10. **[API-Level Validation in Express.js](#10-api-level-validation-in-expressjs)**
 11. **[Validator.js Library (NPM)](#11-validatorjs-library-npm)**
 12. **[What is `bcrypt` npm Library and why do we need?](#12-what-is-bcrypt-npm-library-and-why-do-we-need)**
+13. **[What are mongoose middleware hooks (`.pre()`, `.post()`)?](#13-what-are-mongoose-middleware-hooks-pre-post)**
+14. **[ What is Indexing in MongoDB / Mongoose? Need? Tyeps?](#14-what-is-indexing-in-mongodb--mongoose-need-tyeps)**
+15. **[ What is `ref` and `populate()`?](#15-what-is-ref-and-populate)**
 
 # **1. What is MongoDB?**
 
@@ -173,7 +177,7 @@ main()
 
 # **3. MongoDB Core Concepts & Operations**
 
-## **1 Introduction to CRUD Operations in MongoDB**
+## **1. Introduction to CRUD Operations in MongoDB**
 
 **CRUD** refers to the four basic operations you can perform on data in a database:
 
@@ -261,6 +265,83 @@ console.log("Deleted data =>", deleteData);
 | Read      | Retrieves documents from a collection       | Displaying user details       |
 | Update    | Modifies existing documents in a collection | Updating account info         |
 | Delete    | Removes documents from a collection         | Deleting old or inactive data |
+
+[Go to top ↑](#index)
+
+---
+
+## **2. What are Logical Database Queries? List Comparison Operators**
+
+Logical database queries are **queries** that **filter, compare, and retrieve data** based on **conditions** using **logical operators** like:
+
+- `AND` → Both conditions must be true.
+- `OR` → At least one condition must be true.
+- `NOT` → Inverts a specific condition.
+- `NOR ( NOT OR)` → Excludes documents that match any of the specified conditions.
+
+### **1. `$and` Operator**
+
+Matches documents that satisfy **all** of the given conditions.
+
+- **Example:**
+  ```javascript
+  // Find users with age greater than 18 AND role "admin"
+  db.users.find({ $and: [{ age: { $gt: 18 } }, { role: "admin" }] });
+  ```
+- Ensures that **multiple conditions** must be true for a document to be returned.
+
+### **2. `$or` Operator**
+
+Matches documents that satisfy **at least one** of the given conditions.
+
+- **Example:**
+  ```javascript
+  // Find users with role "admin" OR role "moderator"
+  db.users.find({ $or: [{ role: "admin" }, { role: "moderator" }] });
+  ```
+- Useful when you want to **retrieve documents** that match **any one** of several conditions.
+
+### **3. `$nor` Operator**
+
+Matches documents that **do not satisfy any** of the given conditions.
+
+- **Example:**
+  ```javascript
+  // Find users who are NOT admin NOR moderator
+  db.users.find({ $nor: [{ role: "admin" }, { role: "moderator" }] });
+  ```
+- Helps you **exclude documents** that match certain conditions.
+
+### **4. `$not` Operator**
+
+Inverts the effect of a query expression, returning documents that **do not match** the given condition.
+
+- **Example:**
+  ```javascript
+  // Find users whose age is NOT greater than 18
+  db.users.find({ age: { $not: { $gt: 18 } } });
+  ```
+- Allows for **fine-grained control** over which documents to exclude from the results.
+
+### **IN SHORT**
+
+- **`$and`** requires all conditions to be met.
+- **`$or`** requires at least one condition to be met.
+- **`$nor`** excludes documents that match any of the specified conditions.
+- **`$not`** inverts a specific condition.
+
+### **List of Comparison Operators in MongoDB**
+
+| Operator | Meaning                              | Example Usage                                                                            |
+| -------- | ------------------------------------ | ---------------------------------------------------------------------------------------- |
+| `$eq`    | Equal to                             | `{ age: { $eq: 25 } }` (age is 25)                                                       |
+| `$ne`    | Not equal to                         | `{ city: { $ne: "Delhi" } }` (not Delhi)                                                 |
+| `$gt`    | Greater than                         | `{ age: { $gt: 18 } }` (age > 18)                                                        |
+| `$gte`   | Greater than or equal to             | `{ salary: { $gte: 50000 } }` (salary >= 50000)                                          |
+| `$lt`    | Less than                            | `{ age: { $lt: 18 } }` (age < 18)                                                        |
+| `$lte`   | Less than or equal to                | `{ marks: { $lte: 40 } }` (marks ≤ 40)                                                   |
+| `$in`    | Matches any value in an array        | `{ city: { $in: ["Delhi", "Mumbai"] } }` (Delhi OR Mumbai)                               |
+| `$nin`   | Does NOT match any value in an array | `{ category: { $nin: ["Electronics", "Furniture"] } }` (NOT in Electronics or Furniture) |
 
 [Go to top ↑](#index)
 
@@ -1284,5 +1365,288 @@ app.get("/login", async (req, res) => {
 - Hashing is a **one-way process**—you cannot decrypt a bcrypt hash back to the original password.
 - Always use **async/await** with `bcrypt.compare()` and `bcrypt.hash()` to prevent blocking operations.
 - **Never log or expose hashed passwords**, even for debugging.
+
+[Go to top ↑](#index)
+
+## **13. What are mongoose middleware hooks (`.pre()`, `.post()`)?**
+
+In **Mongoose**, middleware hooks are functions that are executed at specific points during the lifecycle of a document. These hooks are useful for performing operations such as **validation**, **encryption**, or **sending notifications** before or after certain **actions** are performed on the data.
+
+- **Syntax:**
+  - `YOUR_SCHEMA.pre("ACTION", callbackFunction())`
+  - Example:
+    - `userSchema.pre("save", function(){...})`
+
+### **Types of Middleware in Mongoose:**
+
+- **`pre` Middleware:** Runs before the specified action (e.g., `save`, `update`, etc.).
+- **`post` Middleware:** Runs after the specified action (e.g., `save`, `update`, etc.).
+
+### **Common Actions in Mongoose Middleware:**
+
+- **`save`** – Before or after a document is saved to the database.
+- **`validate`** – Before validation of a document.
+- **`remove`** – Before or after a document is removed from the database.
+- **`update`** – Before or after updating a document.
+- **`find`** – Before or after a `find` query is executed.
+- **`findOne`** – Before or after a `findOne` query is executed.
+
+### **Example: Using `.pre()` and `.post()` Middleware**
+
+**`pre` Middleware (Before Action)**
+
+`pre` middleware is executed **before** performing an action like saving or updating a document.
+
+In the example below, i use `pre` middleware on the `save` action to prevent sending a connection request to yourself.
+
+```js
+const mongoose = require("mongoose");
+
+const connectionRequestSchema = new mongoose.Schema({
+  fromUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  toUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+});
+
+connectionRequestSchema.pre("save", function (next) {
+  if (this.fromUser.equals(this.toUser)) {
+    throw new Error("Cannot send request to yourself");
+  }
+  next(); // Proceed to save the document
+});
+
+const ConnectionRequest = mongoose.model(
+  "ConnectionRequest",
+  connectionRequestSchema
+);
+```
+
+**Explanation:**
+
+- **`.pre("save")`:** This hook is executed **before** saving the document. It checks if the `fromUser` is the same as the `toUser` and throws an error if they are the same.
+- **`next()`**: This tells Mongoose to continue with the operation (in this case, saving the document) after the middleware logic completes.
+
+[Go to top ↑](#index)
+
+## **14. What is Indexing in MongoDB / Mongoose? Need? Tyeps?**
+
+**Indexing** in MongoDB is a way to speed up **queries** by organizing data in a more efficient way. Think of it like an index in a book instead of searching **page by page**, you can **directly jump** to the correct page.
+
+### **Why Do We Need Indexing?**
+
+**Example Scenario:**
+
+- Imagine a **library with 10,000 books**. If books are stored randomly (without an index), searching for a book by its title means checking each book **one by one**—this is slow.
+- However, if the books are arranged **alphabetically (indexed by title)**, we can quickly jump to the right section, making the search much faster.
+
+### **How Indexing Works**
+
+MongoDB uses **B-Tree (Balanced Tree) indexing**. A B-Tree is a self-balancing tree that keeps data sorted and allows fast search, insert, and delete operations.
+
+🛠 **Example of B-Tree in MongoDB:**
+Let's say we have a **users** collection:
+
+```json
+[
+  { "_id": 1, "name": "Alice", "age": 25 },
+  { "_id": 2, "name": "Bob", "age": 30 },
+  { "_id": 3, "name": "Charlie", "age": 35 },
+  { "_id": 4, "name": "David", "age": 20 },
+  { "_id": 5, "name": "Eve", "age": 40 },
+  { "_id": 6, "name": "Frank", "age": 15 },
+  { "_id": 7, "name": "Grace", "age": 50 }
+]
+```
+
+If we create an index on `age`, MongoDB builds a B-Tree like this:
+
+```
+        30
+       /  \
+     20    40
+    /  \   /  \
+  15   25 35  50
+
+```
+
+How The B-Tree Creation happens? :
+
+- The middle value becomes the root.
+
+  - age -> `[15, 20, 25, 30, 35, 40, 50]`
+  - middle value will be `30`
+
+- Values less than root go to the left subtree.
+
+- Values greater than root go to the right subtree.
+
+- This balancing ensures searching happens in O(log n) time, making queries much faster.
+
+Now, if we search for **age = 35**, MongoDB goes **directly to 35**, instead of scanning all documents.
+
+### **Types of Indexes in MongoDB**
+
+MongoDB provides different types of indexes based on query needs.
+
+**1. Regular Index**
+
+This is a basic index on a single field.
+
+```js
+db.users.createIndex({ name: 1 }); // 1 for ascending order
+```
+
+**2. Unique Index**
+
+Ensures that **no duplicate values** exist for a field.
+
+```js
+db.users.createIndex({ email: 1 }, { unique: true });
+```
+
+**3. Sparse Index**
+
+Only indexes documents **that contain the indexed field**.
+
+```js
+db.users.createIndex({ phone: 1 }, { sparse: true });
+```
+
+- If some users **don’t have a phone number**, this index will only store the ones that do, saving space.
+
+- **Difference from Regular Index:**
+
+  - **Regular index** includes all documents (even if the field is missing, it stores `null`).
+  - **Sparse index** ignores documents where the field is missing.
+
+**4. Unique Sparse Index**
+
+Combines `unique` and `sparse`, meaning:
+
+- It prevents duplicates.
+- It only indexes documents where the field exists.
+
+```js
+db.users.createIndex({ phone: 1 }, { unique: true, sparse: true });
+```
+
+- Users may **or may not** provide phone numbers, but if they do, it must be unique.
+
+**5. Compound Index**
+
+Indexes multiple fields together.
+
+```js
+db.users.createIndex({ name: 1, age: -1 }); // name ASC, age DESC
+```
+
+- If we **frequently query users by both name and age**, this index speeds up searches like:
+
+  ```js
+  db.users.find({ name: "Alice", age: 25 });
+  ```
+
+- **Difference from Multiple Single-Field Indexes:**
+
+  - A compound index **works efficiently when querying both fields together**.
+  - Separate indexes on `name` and `age` wouldn’t be as optimized.
+
+### **Index Type Values in MongoDB**
+
+In MongoDB indexing, when defining an index, we use values like `1`, `-1`, and other special options.
+
+| **Value**  | **Meaning**                 | **Example**                | **Use Case**                                         |
+| ---------- | --------------------------- | -------------------------- | ---------------------------------------------------- |
+| `1`        | **Ascending Index**         | `{ age: 1 }`               | Sorts values in **ascending order** (small → large)  |
+| `-1`       | **Descending Index**        | `{ age: -1 }`              | Sorts values in **descending order** (large → small) |
+| `text`     | **Text Index**              | `{ name: "text" }`         | Enables **full-text search** on string fields        |
+| `2dsphere` | **Geospatial Index**        | `{ location: "2dsphere" }` | For searching latitude & longitude points            |
+| `2d`       | **Legacy Geospatial Index** | `{ location: "2d" }`       | Used for older coordinate-based searches             |
+| `hashed`   | **Hashed Index**            | `{ email: "hashed" }`      | Used for **sharding** or fast lookups                |
+
+### **BUT!!! Having too many indexes can be bad for a few simple reasons:**
+
+1. **Slower Writes:** Every time you insert, update, or delete data, MongoDB has to **update all the indexes**. The more indexes, the slower these operations become.
+
+2. **More Storage:** Each index takes up **additional storage space**. Too many indexes can waste disk space, especially on large collections.
+
+3. **Memory Usage:** MongoDB uses **RAM to store indexes** in memory. Too many indexes can **increase memory consumption**, which might slow down your system.
+
+[Go to top ↑](#index)
+
+## **15. What is `ref` and `populate()`?**
+
+### `ref`:
+
+- In Mongoose, **`ref`** stands for **reference**. It’s used to define a relationship between documents in different collections (_just like foreign key in SQL_).
+- When you set a field’s type to `mongoose.Schema.Types.ObjectId` and add a `ref` option (_along with the document name_), you're telling Mongoose that this field contains an ID that points to a document in another collection.
+
+- **Example:**  
+  Imagine you have a **User** model and a **Post** model. In the Post model, you want to store a reference to the User who wrote the post. You can do that by adding `ref: "User"` to the field that stores the user's ID.
+
+  ```js
+  // user.js
+  const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+  });
+
+  module.exports = mongoose.model("User", userSchema);
+  ```
+
+  ```js
+  // post.js
+
+  const postSchema = new mongoose.Schema({
+    title: String,
+    content: String,
+    // 'author' holds the ObjectId from the User collection
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  });
+  ```
+
+- Here, the **`author`** field in the **Post** schema references the **User** model. This tells Mongoose, "Hey, this field holds an ID that corresponds to a document in the **User** collection."
+
+### `populate()`:
+
+- **`populate()`** is a method in Mongoose that replaces the referenced document’s ID with the actual document data. This way, you can work with complete user details directly when you fetch a post.
+
+- **Why Do We Need `populate()`?**
+
+  - **Simplifies Data Retrieval:**  
+    Instead of manually querying for the user data (_using the objectId_) after fetching a post, you can use `populate()` to get all the user details in one query. This will save you extra **get requests**
+
+  - **Clean Code & Performance:**  
+    It reduces the number of database queries and keeps your code neat by automatically joining related data.
+
+- **Example**
+
+  ```js
+  const Post = require("./post"); // Our Post model
+
+  // Find a post and replace the 'author' ObjectId with the actual User document
+  const post = Post.findOne({ title: "Introduction to Mongoose" }).populate(
+    "author"
+  ); // This tells Mongoose to fetch the User data for 'author'
+  ```
+
+  - syntax -> `populate()`
+    - either u can write the keys in **Space-Separated String** like: `"user name email"`
+    - or in an array like: `"user", ["name", "email"]`
+
+- Output will be something like:
+
+  ```json
+  {
+    "title": "Introduction to Mongoose",
+    "content": "Mongoose is a MongoDB ODM...",
+    "author": {
+      "_id": "60d5ec49e1d4f72d5c8b4567",
+      "name": "Alice",
+      "email": "alice@example.com"
+    }
+  }
+  ```
+
+- With `populate()`, the **`author`** field, which originally contained just an ID, now includes the entire user document with all its properties.
 
 [Go to top ↑](#index)
