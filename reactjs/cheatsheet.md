@@ -2193,6 +2193,8 @@ While it’s **easier to develop and test** in the beginning, it becomes **hard 
 7. **Dynamic Routes (`useParams()`)** - The `/profile/:username` route uses `useParams()` to get the dynamic value.
 8. **`Outlet` for Nested Routes** - The `Outlet` component **renders child routes** inside `App.jsx`. This allows components like **Home, About, and Contact** to load inside `App`.
 
+   - **`Outlet`** is like a **placeholder** in a parent component where the **child route components** will be rendered in nested routing.
+
 **1️⃣ Install React Router**
 
 ```sh
@@ -2205,6 +2207,7 @@ npm install react-router-dom
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// Pages
 import App from "./App";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -2242,8 +2245,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
 );
 ```
-
----
 
 **3️⃣ Defining the Component with Navigations (NavBar.jsx)**
 
