@@ -11,10 +11,11 @@
    5. **[Why is React known as React?](#5-why-is-react-known-as-react)**
    6. **[What is the difference between React and ReactDOM?](#6-what-is-the-difference-between-react-and-reactdom)**
    7. **[What is CORS? Why does it matter?](#7-what-is-cors-why-does-it-matter)**
-   8. **[Define SPA?](#10-define-spa)**
-   9. **[What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?]()**
-   10. **[Debounce in React (with Example)](#12-debounce-in-react-with-example)**
-   11. **[What is Throttling in ReactJS?](#13-what-is-throttling-in-reactjs)**
+   8. **[Define SPA?](#8-define-spa)**
+   9. **[What is Client-Side Routing (CSR) & Server-Side Routing (SSR)?](#9-what-is-client-side-routing-csr--server-side-routing-ssr)**
+   10. **[Debounce in React (with Example)](#10-debounce-in-react-with-example)**
+   11. **[What is Throttling in ReactJS?](#11-what-is-throttling-in-reactjs)**
+   12. **[Difference between `fetch` and `axios`?](#12-difference-between-fetch-and-axios)**
 
 1. ### **[Part 1 (NPM, Vite & Build Tools)](#part-1-npm-vite--build-tools-1)**
 
@@ -33,32 +34,20 @@
 
 2. ### **[Part 2 (React js - Core Concepts)](#part-2-react-js---core-concepts-1)**
 
-   1. [What is JSX? How it works](#1-what-is-jsx-how-it-works)
-   2. [What is `React.createElement()`?](#2-what-is-reactcreateelement)
-   3. [Define Babel?](#3-define-babel)
-   4. [What are React Components? Functional vs Class Components](#4-what-are-react-components-functional-vs-class-components)
-   5. [What is the Virtual DOM?](#5-what-is-the-virtual-dom)
-   6. [What is the Diffing Algorithm in React?](#6-what-is-the-diffing-algorithm-in-react)
-   7. [What is Reconciliation in React?](#7-what-is-reconciliation-in-react)
-   8. [What are Keys in React?](#8-what-are-keys-in-react)
-   9. [What is React Fiber?](#9-what-is-react-fiber)
-   10. [What are Props in React?](#10-what-are-props-in-react)
-   11. [What is State in React? Difference between state & props](#11-what-is-state-in-react-difference-between-state--props)
-   12. [What is a Composite Component in React?](#12-what-is-a-composite-component-in-react)
-   13. [Named Export vs Default Export vs \* as Export](#13-named-export-vs-default-export-vs--as-export)
+   1. **[What is JSX? How it works](#1-what-is-jsx-how-it-works)**
+   2. **[What is `React.createElement()`?](#2-what-is-reactcreateelement)** 3.** [Define Babel?](#3-define-babel)**
+   3. **[What are React Components? Functional vs Class Components](#4-what-are-react-components-functional-vs-class-components)**
+   4. **[What is the Virtual DOM?](#5-what-is-the-virtual-dom)**
+   5. **[What is the Diffing Algorithm in React?](#6-what-is-the-diffing-algorithm-in-react)**
+   6. **[What is Reconciliation in React?](#7-what-is-reconciliation-in-react)**
+   7. **[What are Keys in React?](#8-what-are-keys-in-react)** 9.**[What is React Fiber?](#9-what-is-react-fiber)**
+   8. **[What are Props in React?](#10-what-are-props-in-react)**
+   9. **[What is State in React? Difference between state & props](#11-what-is-state-in-react-difference-between-state--props)**
+   10. **[What is a Composite Component in React?](#12-what-is-a-composite-component-in-react)**
+   11. **[Named Export vs Default Export vs \* as Export](#13-named-export-vs-default-export-vs--as-export)**
 
 3. ### **[Part 3 (React js - Advanced React Concepts)](#part-3-react-js---advanced-react-concepts-1)**
-   1. [What is Lifting State Up in React](#1-what-is-lifting-state-up-in-react)
-   2. [Controlled vs Uncontrolled Components in Reac](#2-controlled-vs-uncontrolled-components-in-react)
-   3. [What is React.StrictMode & Why Use It?](#3-what-is-reactstrictmode--why-use-it)
-   4. [What is Lazy Loading in React & `React.Suspense`](#4-what-is-lazy-loading-in-react--reactsuspense)
-   5. [What is React.Fragment?](#5-what-is-reactfragment)
-   6. [React Hooks & Their Types (with Examples)](#6-react-hooks--their-types-with-examples)
-   7. [What is a Custom Hook in React?](#7-what-is-a-custom-hook-in-react)
-   8. [ What is Microservices and Monolithic Architecture?](#8-what-is-microservices-and-monolithic-architecture)
-   9. [What is React Router?](#9-what-is-react-router)
-   10. [ What is Redux Toolkit (RTK)](#10-what-is-redux-toolkit-rtk)
-   11. [What are Higher Order Component (HOC) in React ](#11-what-are-higher-order-component-hoc-in-react)
+   1.**[What is Lifting State Up in React](#1-what-is-lifting-state-up-in-react)** 2. **[Controlled vs Uncontrolled Components in Reac](#2-controlled-vs-uncontrolled-components-in-react)** 3. **[What is React.StrictMode & Why Use It?](#3-what-is-reactstrictmode--why-use-it)** 4.**[What is Lazy Loading in React & `React.Suspense`](#4-what-is-lazy-loading-in-react--reactsuspense)** 5. **[What is React.Fragment?](#5-what-is-reactfragment)** 6. **[React Hooks & Their Types (with Examples)](#6-react-hooks--their-types-with-examples)** 7. **[What is a Custom Hook in React?](#7-what-is-a-custom-hook-in-react)** 8. **[What is Microservices and Monolithic Architecture?](#8-what-is-microservices-and-monolithic-architecture)** 9. **[What is React Router?](#9-what-is-react-router)** 10. **[What is Redux Toolkit (RTK)](#10-what-is-redux-toolkit-rtk)** 11. **[What are Higher Order Component (HOC) in React ](#11-what-are-higher-order-component-hoc-in-react)**
 
 ---
 
@@ -457,6 +446,62 @@ export default function CounterApp() {
 - **Handling scroll events** (to avoid too many re-renders).
 - **Limiting API calls** (like search suggestions).
 - **Reducing rapid button clicks** (like in our example).
+
+[Go to top ↑](#index)
+
+### **12. Difference between `fetch` and `axios`?**
+
+#### **Axios**:
+
+**Axios** is a **promise-based HTTP client** for JavaScript. It's a **library** that helps you send requests (like GET, POST) to APIs easily. It works in the browser and Node.js and handles many things like JSON parsing, timeouts, and errors automatically.
+
+You need to install it:
+
+```bash
+npm install axios
+```
+
+#### **Fetch**:
+
+**Fetch** is a **built-in JavaScript function** (no need to install) that is used to make network requests like GET, POST, etc. It's part of modern browsers and returns **promises**, but you need to handle things like JSON parsing and errors **manually**.
+
+#### **Difference Between Axios and Fetch**
+
+| Feature             | **Axios**                         | **Fetch**                               |
+| ------------------- | --------------------------------- | --------------------------------------- |
+| Install Needed?     | Yes (`npm install axios`)         | No (built into JavaScript)              |
+| JSON Handling       | Auto parses response to JSON      | You must use `response.json()` manually |
+| Error Handling      | Catches HTTP errors automatically | You need to manually check `res.ok`     |
+| Timeout Support     | Built-in timeout option           | Needs manual timeout setup              |
+| Request Cancelation | Easy with `CancelToken`           | Needs `AbortController`                 |
+| Base URL & Headers  | Easy to set defaults globally     | You set them every time manually        |
+| Simplicity          | Cleaner and shorter code          | More boilerplate (extra code)           |
+
+#### **Example - Axios:**
+
+```js
+import axios from "axios";
+
+axios
+  .get("https://api.example.com/users")
+  .then((res) => console.log(res.data))
+  .catch((err) => console.log(err));
+```
+
+#### **Example - Fetch:**
+
+```js
+fetch("https://api.example.com/users")
+  .then((res) => {
+    if (!res.ok) throw new Error("Something went wrong");
+    return res.json();
+  })
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
+```
+
+- Use **Axios** when you want **cleaner code, easy error handling, timeouts, and more features**.
+- Use **Fetch** if you want **zero dependencies** and are okay writing more code for handling things.
 
 [Go to top ↑](#index)
 
