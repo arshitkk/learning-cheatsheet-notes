@@ -12,6 +12,7 @@
 
 1. **[Introduction to CRUD Operations in MongoDB](#1-introduction-to-crud-operations-in-mongodb)**
 2. **[What are Logical Database Queries? List Comparison Operators](#2-what-are-logical-database-queries-list-comparison-operators)**
+3. **[What is Pagination?](#3-what-is-pagination)**
 
 ## **4. [Mongoose - Library](#4-mongoose---library)**
 
@@ -342,6 +343,65 @@ Inverts the effect of a query expression, returning documents that **do not matc
 | `$lte`   | Less than or equal to                | `{ marks: { $lte: 40 } }` (marks ≤ 40)                                                   |
 | `$in`    | Matches any value in an array        | `{ city: { $in: ["Delhi", "Mumbai"] } }` (Delhi OR Mumbai)                               |
 | `$nin`   | Does NOT match any value in an array | `{ category: { $nin: ["Electronics", "Furniture"] } }` (NOT in Electronics or Furniture) |
+
+[Go to top ↑](#index)
+
+## **3. What is Pagination?**
+
+**Pagination** means dividing a large set of data into smaller chunks (pages), so you only fetch and show a few results at a time — like 10 or 20 per page. (_just like a google search result_)
+
+### **Why Do We Need Pagination in MongoDB?**
+
+- **Improves Performance:**  
+  Only a limited number of documents are fetched — this avoids slowing down the backend and database.
+
+- **Faster Frontend Rendering:**  
+  Frontend only processes a few items at a time → leads to faster page loading.
+
+- **Reduces Load on Server:**  
+  Instead of sending thousands of records at once, it sends small chunks. This reduces RAM and CPU usage on your server.
+
+- **Better User Experience (UX):**  
+  Users can navigate data in parts (pages), instead of waiting for everything to load at once. Makes UI cleaner.
+
+- **Scalability:**  
+  Works well even when your collection has millions of documents. Without pagination, system can become unresponsive.
+
+- **Easy Navigation (Next, Prev, Page buttons):**  
+  Helps in making apps like blogs, e-commerce, admin dashboards look clean and professional.
+
+### **Pagination in MongoDB / Mongoose**
+
+We use **`.skip()`** and **`.limit()`** methods to fetch specific sets of data (pages) from large collections.
+
+- **`.skip(n)`** → skips the first `n` documents.  
+  (Used to jump over results from previous pages.)
+
+- **`.limit(n)`** → limits the number of documents returned to `n`.  
+  (Used to restrict results per page.)
+
+**Example: Show 5 Users Per Page**
+
+Suppose you have a `User` model and want to fetch **page 2**, showing 5 users per page:
+
+```js
+const page = 2; // Can also come from req.query.page
+const limit = 5; // Can also come from req.query.limit
+const skip = (page - 1) * limit;
+
+const user = User.find({...}).skip(skip).limit(limit);
+res.send(user);
+```
+
+- `page = 2` → you want to go to page 2
+- `skip = 5` → skip first 5 users
+- `limit = 5` → show only 5 users (from 6th to 10th)
+
+### **Formula:**
+
+```js
+skip = (page - 1) * limit;
+```
 
 [Go to top ↑](#index)
 
