@@ -61,6 +61,10 @@
 3. **[Implementing Authentication in Express.js Using Cookies(_Hardcode tokens_)](#3-implementing-authentication-in-expressjs-using-cookieshardcode-tokens)**
 4. **[Implementing Authentication in Express.js Using JWT and Cookies](#4-implementing-authentication-in-expressjs-using-jwt-and-cookies)**
 
+## 7. **[Miscellaneous](#7-miscellaneous)**
+
+1. **[When using `Axios` or `Fetch`, how do I ensure that cookies or tokens (like `JWT`) are sent and received between frontend and backend?](#1-when-using-axios-or-fetch-how-do-i-ensure-that-cookies-or-tokens-like-jwt-are-sent-and-received-between-frontend-and-backend)**
+
 # 1. **Foundation**
 
 ## **1. What is Node.js? Why is it usefull?**
@@ -2976,5 +2980,78 @@ jwt.verify(token, secretKey);
 - **JWT** is used for secure authentication by embedding user data.
 - **Cookies** store the JWT token to maintain session authentication.
 - **`jwt.sign()`** creates the token, and **`jwt.verify()`** validates it.
+
+[Go to top ↑](#index)
+
+---
+
+# 7 **Miscellaneous**
+
+## **1. When using `Axios` or `Fetch`, how do I ensure that cookies or tokens (like `JWT`) are sent and received between frontend and backend?**
+
+To send and receive **cookies or tokens (like JWT)** with Axios, you must:
+
+### **1. Enable credentials in Axios request:**
+
+```js
+axios.get("http://localhost:5000/user", {
+  withCredentials: true,
+});
+```
+
+- `withCredentials: true` makes sure **cookies, tokens, or sessions** are sent with the request.
+- Without this, your browser will **not include cookies** for cross-origin requests.
+
+### **2. On Backend: Use CORS(_npm package_) with `credentials: true`**
+
+If you're using the `cors` middleware in Node.js/Express:
+
+```js
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // your frontend URL
+    credentials: true,
+  })
+);
+```
+
+- `origin`: the frontend's domain
+- `credentials: true`: allows browser to accept and send cookies
+
+### **3. Important Notes**:
+
+- Your **cookie must have `SameSite: "None"` and `Secure: true`** if you're working with different domains or HTTPS.
+- Make sure you **set cookies properly on the server side** using something like:
+
+```js
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true, // for HTTPS
+  sameSite: "None", // for cross-origin
+});
+```
+
+- Yes, during local development (when you're using `http://localhost` and not HTTPS), you can skip `secure: true`.
+
+### **What if you're using `Fetch` instead of `Axios`?**
+
+```js
+fetch("http://localhost:5000/user", {
+  method: "GET",
+  credentials: "include", // same as withCredentials
+});
+```
+
+- Just like Axios, Fetch also needs `credentials: "include"` to send cookies.
+
+### Summary:
+
+| Tool        | How to Send Cookies/Tokens            |
+| ----------- | ------------------------------------- |
+| **Axios**   | `withCredentials: true`               |
+| **Fetch**   | `credentials: "include"`              |
+| **Backend** | `cors({ origin, credentials: true })` |
 
 [Go to top ↑](#index)

@@ -35,19 +35,32 @@
 2. ### **[Part 2 (React js - Core Concepts)](#part-2-react-js---core-concepts-1)**
 
    1. **[What is JSX? How it works](#1-what-is-jsx-how-it-works)**
-   2. **[What is `React.createElement()`?](#2-what-is-reactcreateelement)** 3.** [Define Babel?](#3-define-babel)**
-   3. **[What are React Components? Functional vs Class Components](#4-what-are-react-components-functional-vs-class-components)**
-   4. **[What is the Virtual DOM?](#5-what-is-the-virtual-dom)**
-   5. **[What is the Diffing Algorithm in React?](#6-what-is-the-diffing-algorithm-in-react)**
-   6. **[What is Reconciliation in React?](#7-what-is-reconciliation-in-react)**
-   7. **[What are Keys in React?](#8-what-are-keys-in-react)** 9.**[What is React Fiber?](#9-what-is-react-fiber)**
-   8. **[What are Props in React?](#10-what-are-props-in-react)**
-   9. **[What is State in React? Difference between state & props](#11-what-is-state-in-react-difference-between-state--props)**
-   10. **[What is a Composite Component in React?](#12-what-is-a-composite-component-in-react)**
-   11. **[Named Export vs Default Export vs \* as Export](#13-named-export-vs-default-export-vs--as-export)**
+   2. **[What is `React.createElement()`?](#2-what-is-reactcreateelement)**
+   3. **[Define Babel?](#3-define-babel)**
+   4. **[What are React Components? Functional vs Class Components](#4-what-are-react-components-functional-vs-class-components)**
+   5. **[What is the Virtual DOM?](#5-what-is-the-virtual-dom)**
+   6. **[What is the Diffing Algorithm in React?](#6-what-is-the-diffing-algorithm-in-react)**
+   7. **[What is Reconciliation in React?](#7-what-is-reconciliation-in-react)**
+   8. **[What are Keys in React?](#8-what-are-keys-in-react)**
+   9. **[What is React Fiber?](#9-what-is-react-fiber)**
+   10. **[What are Props in React?](#10-what-are-props-in-react)**
+   11. **[What is State in React? Difference between state & props](#11-what-is-state-in-react-difference-between-state--props)**
+   12. **[What is a Composite Component in React?](#12-what-is-a-composite-component-in-react)**
+   13. **[Named Export vs Default Export vs \* as Export](#13-named-export-vs-default-export-vs--as-export)**
 
 3. ### **[Part 3 (React js - Advanced React Concepts)](#part-3-react-js---advanced-react-concepts-1)**
-   1.**[What is Lifting State Up in React](#1-what-is-lifting-state-up-in-react)** 2. **[Controlled vs Uncontrolled Components in Reac](#2-controlled-vs-uncontrolled-components-in-react)** 3. **[What is React.StrictMode & Why Use It?](#3-what-is-reactstrictmode--why-use-it)** 4.**[What is Lazy Loading in React & `React.Suspense`](#4-what-is-lazy-loading-in-react--reactsuspense)** 5. **[What is React.Fragment?](#5-what-is-reactfragment)** 6. **[React Hooks & Their Types (with Examples)](#6-react-hooks--their-types-with-examples)** 7. **[What is a Custom Hook in React?](#7-what-is-a-custom-hook-in-react)** 8. **[What is Microservices and Monolithic Architecture?](#8-what-is-microservices-and-monolithic-architecture)** 9. **[What is React Router?](#9-what-is-react-router)** 10. **[What is Redux Toolkit (RTK)](#10-what-is-redux-toolkit-rtk)** 11. **[What are Higher Order Component (HOC) in React ](#11-what-are-higher-order-component-hoc-in-react)**
+
+   1. **[What is Lifting State Up in React](#1-what-is-lifting-state-up-in-react)**
+   2. **[Controlled vs Uncontrolled Components in Reac](#2-controlled-vs-uncontrolled-components-in-react)**
+   3. **[What is React.StrictMode & Why Use It?](#3-what-is-reactstrictmode--why-use-it)**
+   4. **[What is Lazy Loading in React & `React.Suspense`](#4-what-is-lazy-loading-in-react--reactsuspense)**
+   5. **[What is React.Fragment?](#5-what-is-reactfragment)**
+   6. **[React Hooks & Their Types (with Examples)](#6-react-hooks--their-types-with-examples)**
+   7. **[What is a Custom Hook in React?](#7-what-is-a-custom-hook-in-react)**
+   8. **[What is Microservices and Monolithic Architecture?](#8-what-is-microservices-and-monolithic-architecture)**
+   9. **[What is React Router?](#9-what-is-react-router)**
+   10. **[What is Redux Toolkit (RTK)](#10-what-is-redux-toolkit-rtk)**
+   11. **[What are Higher Order Component (HOC) in React ](#11-what-are-higher-order-component-hoc-in-react)**
 
 ---
 
